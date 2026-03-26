@@ -1478,6 +1478,11 @@ h1 {
     gap: 2vh;
 }
 
+.contact-form button[type="submit"] {
+    width: 100%;
+    justify-content: center;
+}
+
 .form-group input,
 .form-group textarea {
     width: 100%;
