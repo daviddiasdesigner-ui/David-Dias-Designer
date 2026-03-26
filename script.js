@@ -1,9 +1,9 @@
 /**
  * Lógica do portfólio David Dias Designer
- * GSAP + Lenis Smooth Scroll
+ * GSAP + Lenis Smooth Scroll + Animações Avançadas
  */
 
-gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
+gsap.registerPlugin(ScrollTrigger);
 
 // --- Inicialização do Lenis (Smooth Scroll GSAP) ---
 const lenis = new Lenis({
@@ -30,7 +30,268 @@ gsap.ticker.add((time) => {
 
 gsap.ticker.lagSmoothing(0);
 
-// Smooth scroll para links internos
+// --- Animação de Reveal (Entrada das seções) ---
+function initRevealAnimations() {
+    const reveals = document.querySelectorAll('.reveal');
+    
+    reveals.forEach(element => {
+        ScrollTrigger.create({
+            trigger: element,
+            start: "top 85%",
+            onEnter: () => element.classList.add('active'),
+            once: true // Prevents stuttering by only revealing once
+        });
+    });
+}
+
+// --- Scroll Sincronizado para Services ---
+function initServicesAnimations() {
+    const cards = document.querySelectorAll('.service-card');
+    
+    cards.forEach((card, index) => {
+        gsap.fromTo(card, 
+            { 
+                opacity: 0, 
+                y: 80,
+                rotateX: -15
+            },
+            {
+                scrollTrigger: {
+                    trigger: card,
+                    start: "top 90%",
+                    end: "top 50%",
+                    scrub: 1
+                },
+                opacity: 1,
+                y: 0,
+                rotateX: 0,
+                duration: 0.8,
+                ease: "power3.out"
+            }
+        );
+    });
+    
+    // Parallax nos ícones de serviço
+    const icons = document.querySelectorAll('.service-icon');
+    icons.forEach((icon, index) => {
+        gsap.to(icon, {
+            scrollTrigger: {
+                trigger: '.services',
+                start: "top bottom",
+                end: "bottom top",
+                scrub: 1
+            },
+            y: -30,
+            rotation: index % 2 === 0 ? 5 : -5,
+            ease: "none"
+        });
+    });
+}
+
+// --- Scroll Horizontal para Testimonials ---
+function initTestimonialsScroll() {
+    const track = document.querySelector('.testimonials-track');
+    if (!track) return;
+    
+    // Evita duplicar múltiplas vezes se a função for chamada novamente
+    if (track.classList.contains('duplicated')) return;
+    track.classList.add('duplicated');
+    
+    // Duplicar os cards 1 vez para loop perfeito de -50% (total 2 sets)
+    const cards = track.innerHTML;
+    track.innerHTML = cards + cards;
+    
+    // Animação de scroll horizontal sincronizada ao scroll
+    gsap.to(track, {
+        scrollTrigger: {
+            trigger: '.testimonials',
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 1
+        },
+        xPercent: -50,
+        ease: "none"
+    });
+}
+
+// --- Animação Parallax no About ---
+function initAboutAnimations() {
+    const aboutSection = document.querySelector('.about');
+    const aboutImage = document.querySelector('.about-image');
+    const aboutContent = document.querySelector('.about-content');
+    
+    if (aboutImage) {
+        gsap.to(aboutImage, {
+            scrollTrigger: {
+                trigger: '.about',
+                start: "top bottom",
+                end: "bottom top",
+                scrub: 1
+            },
+            y: -50,
+            scale: 1.05,
+            ease: "none"
+        });
+    }
+    
+    if (aboutContent) {
+        gsap.to(aboutContent, {
+            scrollTrigger: {
+                trigger: '.about',
+                start: "top 80%",
+                end: "top 30%",
+                scrub: 1
+            },
+            y: -30,
+            opacity: 1,
+            ease: "none"
+        });
+    }
+}
+
+// --- Animação nos Cards do Why Me ---
+function initWhyMeAnimations() {
+    const cards = document.querySelectorAll('.why-me-card');
+    
+    cards.forEach((card, index) => {
+        gsap.fromTo(card,
+            { 
+                opacity: 0, 
+                y: 60,
+                scale: 0.9
+            },
+            {
+                scrollTrigger: {
+                    trigger: card,
+                    start: "top 90%",
+                    toggleActions: "play none none reverse"
+                },
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                duration: 0.8,
+                ease: "back.out(1.2)",
+                delay: index * 0.15
+            }
+        );
+        
+        // Hover effect melhorado
+        card.addEventListener('mouseenter', () => {
+            gsap.to(card, {
+                y: -15,
+                scale: 1.03,
+                boxShadow: "0 25px 50px rgba(111, 145, 255, 0.15)",
+                borderColor: "rgba(111, 145, 255, 0.3)",
+                duration: 0.4,
+                ease: "power2.out"
+            });
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            gsap.to(card, {
+                y: 0,
+                scale: 1,
+                boxShadow: "none",
+                borderColor: "rgba(255, 255, 255, 0.06)",
+                duration: 0.3,
+                ease: "power2.out"
+            });
+        });
+    });
+}
+
+// --- Animação de números no Why Me ---
+function initNumberCount() {
+    const numbers = document.querySelectorAll('.why-me-number');
+    
+    numbers.forEach(num => {
+        const text = num.textContent;
+        const hasPlus = text.includes('+');
+        const value = parseInt(text);
+        
+        ScrollTrigger.create({
+            trigger: num,
+            start: "top 85%",
+            onEnter: () => {
+                gsap.fromTo(num,
+                    { textContent: 0 },
+                    {
+                        textContent: value,
+                        duration: 2,
+                        ease: "power2.out",
+                        snap: { textContent: 1 },
+                        onUpdate: function() {
+                            num.textContent = Math.round(this.targets()[0].textContent) + (hasPlus ? '+' : '');
+                        }
+                    }
+                );
+            }
+        });
+    });
+}
+
+// --- Service Cards 3D Flip Melhorado ---
+function initServiceCardFlip() {
+    const cards = document.querySelectorAll('.service-card');
+    
+    cards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            gsap.to(card.querySelector('.card-inner'), {
+                rotateY: 180,
+                duration: 0.8,
+                ease: "power2.inOut"
+            });
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            gsap.to(card.querySelector('.card-inner'), {
+                rotateY: 0,
+                duration: 0.8,
+                ease: "power2.inOut"
+            });
+        });
+    });
+}
+
+// --- Animações de fundo dinamico ---
+function initBackgroundAnimations() {
+    // Projetos - gradiente dinâmico
+    const projetos = document.querySelector('.projetos');
+    if (projetos) {
+        ScrollTrigger.create({
+            trigger: projetos,
+            start: "top center",
+            onEnter: () => {
+                gsap.to(projetos, {
+                    background: "linear-gradient(180deg, #0a0a1a 0%, #0d1b2a 50%, #1b3a5f 100%)",
+                    duration: 1.5
+                });
+            },
+            onLeaveBack: () => {
+                gsap.to(projetos, {
+                    background: "#000",
+                    duration: 1.5
+                });
+            }
+        });
+    }
+    
+    // Services - transição de cor
+    const services = document.querySelector('.services');
+    if (services) {
+        gsap.to(services, {
+            scrollTrigger: {
+                trigger: services,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: 1
+            },
+            backgroundColor: "#0a0a12"
+        });
+    }
+}
+
+// --- Smooth scroll para links internos ---
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
         e.preventDefault();
@@ -45,7 +306,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// --- Efeito "Sucking" (Word Roration) ---
+// --- Efeito "Sucking" (Word Rotation) ---
 const words = [
     "se destacar",
     "autenticidade",
@@ -90,7 +351,6 @@ function rotateWord() {
 
 if (wordElement) {
     setInterval(rotateWord, 4000);
-    // Continuous subtle pulsing
     gsap.to(wordElement, {
         scale: 1.1,
         duration: 2,
@@ -156,18 +416,30 @@ if (menuToggle && menuOverlay) {
 document.addEventListener("DOMContentLoaded", () => {
     const content = document.querySelector('.faixa-content');
     if (content) {
+        // Prevent duplicate initializations
+        if (content.classList.contains('ticker-animate')) return;
+        
         content.innerHTML += content.innerHTML;
         content.classList.add('ticker-animate');
         content.style.animationDuration = '40s';
 
-        gsap.to(content, {
+        // Isolate GSAP transform from CSS animation transform by wrapping it
+        const gsapWrapper = document.createElement('div');
+        gsapWrapper.style.display = 'flex';
+        gsapWrapper.style.width = 'fit-content';
+        
+        content.parentNode.insertBefore(gsapWrapper, content);
+        gsapWrapper.appendChild(content);
+
+        // Apply GSAP parallax to the wrapper, while CSS handles constant loop on .faixa-content
+        gsap.to(gsapWrapper, {
             scrollTrigger: {
                 trigger: ".faixas-container",
                 start: "top bottom",
                 end: "bottom top",
                 scrub: 1.2
             },
-            xPercent: 15,
+            x: 200, // Usa pixel invés de percent para isolar
             ease: "none"
         });
     }
@@ -222,7 +494,6 @@ if (categoryBtns.length > 0) {
                 );
             }
             
-            // Subtle click punch animation
             gsap.to(btn, {
                 scale: 0.95,
                 duration: 0.1,
@@ -234,106 +505,7 @@ if (categoryBtns.length > 0) {
     });
 }
 
-// --- Hover Effects & Interactions ---
-const whyMeCards = document.querySelectorAll('.why-me-card');
-const pricingCards = document.querySelectorAll('.pricing-card');
-const testimonialCards = document.querySelectorAll('.testimonial-card');
-const aboutImage = document.querySelector('.about-image img');
-const buttons = document.querySelectorAll('.btn-animated');
-const menuLinks = document.querySelectorAll('.menu-link, .footer-links a');
-
-// Why Me Cards
-whyMeCards.forEach(card => {
-    card.addEventListener('mouseenter', () => {
-        gsap.to(card, { y: -15, scale: 1.02, duration: 0.4, ease: "power2.out" });
-    });
-    card.addEventListener('mouseleave', () => {
-        gsap.to(card, { y: 0, scale: 1, duration: 0.3, ease: "power2.out" });
-    });
-});
-
-// Pricing Cards
-pricingCards.forEach(card => {
-    card.addEventListener('mouseenter', () => {
-        gsap.to(card, {
-            y: -15,
-            scale: card.classList.contains('featured') ? 1.07 : 1.03,
-            boxShadow: "0 25px 50px rgba(0, 0, 0, 0.3)",
-            duration: 0.4,
-            ease: "power2.out"
-        });
-    });
-    card.addEventListener('mouseleave', () => {
-        gsap.to(card, {
-            y: 0,
-            scale: card.classList.contains('featured') ? 1.05 : 1,
-            boxShadow: "none",
-            duration: 0.3,
-            ease: "power2.out"
-        });
-    });
-});
-
-// Testimonial Cards
-testimonialCards.forEach(card => {
-    card.addEventListener('mouseenter', () => {
-        gsap.to(card, {
-            y: -10,
-            scale: 1.02,
-            borderColor: "rgba(111, 145, 255, 0.3)",
-            duration: 0.3,
-            ease: "power2.out"
-        });
-        const quote = card.querySelector('.testimonial-quote');
-        if (quote) {
-            gsap.to(quote, { scale: 1.2, opacity: 1, duration: 0.3, ease: "power2.out" });
-        }
-    });
-    card.addEventListener('mouseleave', () => {
-        gsap.to(card, {
-            y: 0,
-            scale: 1,
-            borderColor: "rgba(255, 255, 255, 0.06)",
-            duration: 0.3,
-            ease: "power2.out"
-        });
-        const quote = card.querySelector('.testimonial-quote');
-        if (quote) {
-            gsap.to(quote, { scale: 1, opacity: 0.5, duration: 0.3, ease: "power2.out" });
-        }
-    });
-});
-
-// Botões & Links
-buttons.forEach(btn => {
-    btn.addEventListener('mouseenter', () => {
-        gsap.to(btn, { scale: 1.05, boxShadow: "0 10px 30px rgba(111, 145, 255, 0.3)", duration: 0.3, ease: "power2.out" });
-    });
-    btn.addEventListener('mouseleave', () => {
-        gsap.to(btn, { scale: 1, boxShadow: "none", duration: 0.3, ease: "power2.out" });
-    });
-});
-
-menuLinks.forEach(link => {
-    link.addEventListener('mouseenter', () => {
-        gsap.to(link, { color: "#6f91ff", x: 5, duration: 0.3, ease: "power2.out" });
-    });
-    link.addEventListener('mouseleave', () => {
-        gsap.to(link, { color: "", x: 0, duration: 0.3, ease: "power2.out" });
-    });
-});
-
-// About Image
-if (aboutImage) {
-    aboutImage.parentElement.addEventListener('mouseenter', () => {
-        gsap.to(aboutImage, { scale: 1.05, duration: 0.5, ease: "power2.out" });
-    });
-    aboutImage.parentElement.addEventListener('mouseleave', () => {
-        gsap.to(aboutImage, { scale: 1, duration: 0.5, ease: "power2.out" });
-    });
-}
-
-// --- Scroll Animations ---
+// --- Scroll Indicator Animation ---
 const scrollIndicator = document.querySelector('.scroll-indicator');
 if (scrollIndicator) {
     gsap.to(scrollIndicator, {
@@ -345,68 +517,93 @@ if (scrollIndicator) {
     });
 }
 
-// Section Title Reveal
-const titleElements = document.querySelectorAll('.section-title');
-titleElements.forEach(title => {
-    gsap.from(title, {
-        scrollTrigger: {
-            trigger: title,
-            start: "top 85%",
-            toggleActions: "play none none none"
-        },
-        opacity: 0,
-        y: 30,
-        duration: 0.8,
-        ease: "power3.out"
-    });
+// --- Inicializar todas as animações ---
+document.addEventListener('DOMContentLoaded', () => {
+    initRevealAnimations();
+    initServicesAnimations();
+    initTestimonialsScroll();
+    initAboutAnimations();
+    initWhyMeAnimations();
+    initNumberCount();
+    initServiceCardFlip();
+    initBackgroundAnimations();
+    initProcessAnimations();
+    initFaqAccordion();
+    
+    console.log('Animações premium configuradas com sucesso.');
 });
 
-// About Image Parallax
-const aboutSection = document.querySelector('.about');
-if (aboutSection && aboutImage) {
-    gsap.to(aboutImage, {
-        scrollTrigger: {
-            trigger: '.about',
-            start: "top bottom",
-            end: "bottom top",
-            scrub: 1
-        },
-        y: -30,
-        ease: "none"
-    });
-}
-
-// Background Transitions
-const projetosSection = document.querySelector('.projetos');
-if (projetosSection) {
-    ScrollTrigger.create({
-        trigger: projetosSection,
-        start: "top center",
-        onEnter: () => {
-            gsap.to(projetosSection, { background: "linear-gradient(180deg, #0a0a1a 0%, #0d1b2a 50%, #1b3a5f 100%)", duration: 1 });
-        },
-        onLeaveBack: () => {
-            gsap.to(projetosSection, { background: "#000", duration: 1 });
-        }
-    });
-}
-
-// Service Icons Draw Animation
-const serviceIcons = document.querySelectorAll('.service-icon svg');
-serviceIcons.forEach((icon, index) => {
-    const paths = icon.querySelectorAll('path, rect, circle, line, polyline, polygon');
-    paths.forEach(path => {
-        const length = path.getTotalLength();
-        gsap.set(path, { strokeDasharray: length, strokeDashoffset: length });
+// --- Animação do Process Timeline ---
+function initProcessAnimations() {
+    const steps = document.querySelectorAll('.process-step');
+    
+    steps.forEach((step, index) => {
+        gsap.fromTo(step,
+            { 
+                opacity: 0, 
+                y: 60,
+                scale: 0.95
+            },
+            {
+                scrollTrigger: {
+                    trigger: step,
+                    start: "top 90%",
+                    toggleActions: "play none none reverse"
+                },
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                duration: 0.8,
+                ease: "power3.out",
+                delay: index * 0.1
+            }
+        );
         
-        gsap.to(path, {
-            scrollTrigger: { trigger: '.services', start: "top 80%" },
-            strokeDashoffset: 0,
-            duration: 1.5,
-            ease: "power1.inOut",
-            delay: index * 0.2
+        step.addEventListener('mouseenter', () => {
+            gsap.to(step.querySelector('.step-number'), {
+                scale: 1.2,
+                opacity: 0.4,
+                duration: 0.3
+            });
+        });
+        
+        step.addEventListener('mouseleave', () => {
+            gsap.to(step.querySelector('.step-number'), {
+                scale: 1,
+                opacity: 0.15,
+                duration: 0.3
+            });
         });
     });
-});
+}
 
-console.log('Animações premium configuradas com sucesso.');
+// --- FAQ Accordion ---
+function initFaqAccordion() {
+    const faqItems = document.querySelectorAll('.faq-item');
+    
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        
+        question.addEventListener('click', () => {
+            const isActive = item.classList.contains('active');
+            
+            faqItems.forEach(i => {
+                i.classList.remove('active');
+            });
+            
+            if (!isActive) {
+                item.classList.add('active');
+            }
+            
+            gsap.fromTo(item.querySelector('.faq-answer p'),
+                { opacity: 0, y: -10 },
+                { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }
+            );
+        });
+    });
+}
+
+// Atualizar animações quando o scroll muda
+window.addEventListener('load', () => {
+    ScrollTrigger.refresh();
+});
