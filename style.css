@@ -1481,6 +1481,8 @@ h1 {
 .contact-form button[type="submit"] {
     width: 100%;
     justify-content: center;
+    background: transparent;
+    border: none;
 }
 
 .form-group input,
