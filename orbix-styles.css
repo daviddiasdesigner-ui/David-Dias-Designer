@@ -1,0 +1,406 @@
+/* ============================================
+   ORBIX STUDIO INSPIRED DESIGN SYSTEM
+   ============================================ */
+
+/* Tipografia Serif e Tags */
+.font-serif {
+    font-family: var(--font-serif), serif;
+    font-weight: 300;
+}
+
+.italic {
+    font-style: italic;
+}
+
+/* --- Ajuste Geral Faixas --- */
+.faixas-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 15vh;
+}
+
+.faixa {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    padding: 2vh 0;
+    -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+}
+
+.faixa-left { border-bottom: 1px solid rgba(255,255,255,0.05); }
+
+.faixa-content {
+    display: flex;
+    gap: 4vw;
+    width: fit-content;
+    will-change: transform;
+    align-items: center;
+}
+
+.ticker-left {
+    animation: orbixScrollLeft 30s linear infinite;
+}
+
+.ticker-right {
+    animation: orbixScrollRight 30s linear infinite;
+}
+
+@keyframes orbixScrollLeft {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
+@keyframes orbixScrollRight {
+    from { transform: translateX(-50%); }
+    to { transform: translateX(0); }
+}
+
+.logo-img-item {
+    height: 4vh;
+    opacity: 0.3;
+    transition: opacity 0.3s;
+    filter: grayscale(100%) contrast(500%);
+}
+
+.logo-box:hover .logo-img-item {
+    opacity: 0.8;
+}
+
+/* --- Projetos Clean Orbix Style --- */
+.projetos-grid {
+    padding: 0 5vw;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2vw;
+    justify-content: center;
+}
+
+.projeto-card.projeto-75 { flex: 1 1 calc(75% - 2vw); min-height: auto; aspect-ratio: unset; }
+.projeto-card.projeto-60 { flex: 1 1 calc(60% - 2vw); min-height: auto; aspect-ratio: unset; }
+.projeto-card.projeto-50 { flex: 1 1 calc(50% - 2vw); min-height: auto; aspect-ratio: unset; }
+.projeto-card.projeto-40 { flex: 1 1 calc(40% - 2vw); min-height: auto; aspect-ratio: unset; }
+.projeto-card.projeto-25 { flex: 1 1 calc(25% - 2vw); min-height: auto; aspect-ratio: unset; }
+.projeto-card.projeto-20 { flex: 1 1 calc(20% - 2vw); min-height: auto; aspect-ratio: unset; }
+
+.projeto-card {
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    overflow: visible;
+}
+
+.projeto-card:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+.projeto-imagem {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/11;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 24px;
+    border: 1px solid rgba(255,255,255,0.08);
+}
+
+.projeto-imagem img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.projeto-card:hover .projeto-imagem img {
+    transform: scale(1.05);
+}
+
+.projeto-conteudo {
+    position: relative;
+    background: none;
+    padding: 0;
+    opacity: 1;
+    visibility: visible;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.projeto-card:hover .projeto-conteudo {
+    opacity: 1;
+}
+
+.projeto-titulo {
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: #e2e2e2;
+    margin-bottom: 0;
+}
+
+.projeto-conteudo .tag {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.2);
+    font-size: 0.8rem;
+    color: #a1a1a1;
+}
+
+/* --- Por Que Me Escolher - Bento Orbix --- */
+.orbix-bento-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 5vw;
+}
+
+.orbix-bento-card {
+    background: #0f0f0f;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 24px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 350px;
+    transition: background 0.4s ease;
+}
+
+.orbix-bento-card:hover {
+    background: #141414;
+    border-color: rgba(255,255,255,0.15);
+}
+
+.orbix-bento-full {
+    grid-column: span 2;
+    flex-direction: row;
+    align-items: center;
+}
+
+.orbix-pill {
+    align-self: flex-start;
+    padding: 8px 16px;
+    border-radius: 100px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #000;
+    margin-bottom: 40px;
+}
+
+.pill-purple { background: #bbaaff; }
+.pill-green { background: #ccffaa; }
+.pill-cyan { background: #aaffea; }
+
+.orbix-bento-content .why-me-number {
+    font-size: 4rem;
+    color: #fff;
+    -webkit-text-fill-color: #fff;
+    background: none;
+    margin-bottom: 16px;
+    display: block;
+}
+
+.orbix-bento-content .why-me-title {
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: 8px;
+}
+
+.orbix-bento-content .why-me-desc {
+    color: #a1a1a1;
+    font-size: 1rem;
+}
+
+/* --- Serviços Accordion Full --- */
+.orbix-accordion-list {
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    margin-top: 60px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.orbix-accordion {
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    background: #000;
+}
+
+.orbix-accordion:hover {
+    background: #0a0a0a;
+}
+
+.orbix-accordion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4vw 5vw;
+}
+
+.orbix-accordion-header h3 {
+    font-size: 4vw;
+    color: #fff;
+    transition: color 0.3s;
+}
+
+.accordion-icon {
+    font-size: 3vw;
+    font-weight: 300;
+    color: rgba(255,255,255,0.4);
+    transition: transform 0.5s ease;
+}
+
+.orbix-accordion:hover .accordion-icon {
+    transform: rotate(45deg);
+    color: #fff;
+}
+
+.orbix-accordion-body {
+    max-height: 0;
+    opacity: 0;
+    padding: 0 5vw;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.orbix-accordion:hover .orbix-accordion-body {
+    max-height: 500px;
+    opacity: 1;
+    padding-bottom: 4vw;
+}
+
+.orbix-accordion-body p {
+    color: #a1a1a1;
+    max-width: 600px;
+    font-size: 1.1rem;
+    margin-bottom: 24px;
+}
+
+.orbix-accordion-body ul {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    list-style: none;
+    max-width: 800px;
+}
+
+.orbix-accordion-body li {
+    color: #e2e2e2;
+    font-size: 0.95rem;
+}
+
+.orbix-accordion-body li::before {
+    content: "✦";
+    color: var(--cyan);
+    margin-right: 12px;
+}
+
+/* --- Timeline Processo Orbix --- */
+.orbix-timeline {
+    display: flex;
+    flex-direction: column;
+    max-width: 1000px;
+    margin: 80px auto 0 auto;
+    padding: 0 5vw;
+}
+
+.orbix-timeline-item {
+    display: flex;
+    position: relative;
+}
+
+.orbix-timeline-left {
+    flex: 0 0 120px;
+    text-align: right;
+    padding-right: 40px;
+}
+
+.step-num {
+    font-size: 3rem;
+    color: #fff;
+}
+
+.orbix-timeline-center {
+    position: relative;
+    width: 2px;
+    background: rgba(255,255,255,0.1);
+    display: flex;
+    justify-content: center;
+}
+
+.orbix-dot {
+    position: absolute;
+    top: 24px;
+    width: 12px;
+    height: 12px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 14px rgba(255,255,255,0.5);
+}
+
+.orbix-timeline-item:last-child .orbix-timeline-center {
+    background: transparent;
+}
+
+.orbix-timeline-right {
+    flex: 1;
+    padding-left: 60px;
+    padding-bottom: 80px;
+}
+
+.orbix-timeline-right h3 {
+    font-size: 1.8rem;
+    font-weight: 400;
+    margin-bottom: 16px;
+}
+
+.orbix-timeline-right p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #a1a1a1;
+}
+
+/* --- Depoimentos Orbix --- */
+.orbix-testimonial-card {
+    flex-shrink: 0;
+    width: 500px;
+    background: #0a0a0a;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 40px;
+    border-radius: 12px;
+}
+
+/* Resetando GSAP wrapper overflow hidden nos depoimentos */
+.testimonials-track {
+    overflow: visible;
+}
+
+/* --- Mobile Fixes para Orbix Styles --- */
+@media (max-width: 768px) {
+    .projeto-card.projeto-75, .projeto-card.projeto-60, .projeto-card.projeto-50, .projeto-card.projeto-40, .projeto-card.projeto-25, .projeto-card.projeto-20 {
+        flex: 1 1 100%;
+        aspect-ratio: auto;
+    }
+    
+    .projeto-imagem { aspect-ratio: 1/1; }
+    
+    .projeto-conteudo { flex-direction: column; align-items: flex-start; gap: 12px; }
+
+    .orbix-bento-grid { grid-template-columns: 1fr; }
+    .orbix-bento-full { grid-column: span 1; flex-direction: column; align-items: flex-start; }
+
+    .orbix-accordion-header h3 { font-size: 6vw; }
+    .orbix-accordion-body ul { grid-template-columns: 1fr; }
+
+    .orbix-timeline-left { flex: 0 0 70px; padding-right: 20px; }
+    .step-num { font-size: 2rem; }
+    .orbix-timeline-right { padding-left: 30px; padding-bottom: 60px; }
+    
+    .orbix-testimonial-card { width: 85vw; }
+}

@@ -409,16 +409,17 @@ if (menuToggle && menuOverlay) {
 
 // --- Faixas (Infinite Scroll) ---
 document.addEventListener("DOMContentLoaded", () => {
-    const content = document.querySelector('.faixa-content');
-    if (content) {
-        // Prevent duplicate initializations
-        if (content.classList.contains('ticker-animate')) return;
+// --- Faixas (Infinite Scroll & Parallax) ---
+document.addEventListener("DOMContentLoaded", () => {
+    const contents = document.querySelectorAll('.faixa-content');
+    contents.forEach((content, index) => {
+        if (content.classList.contains('orbix-initialized')) return;
+        content.classList.add('orbix-initialized');
         
+        // Loop perfeito
         content.innerHTML += content.innerHTML;
-        content.classList.add('ticker-animate');
-        content.style.animationDuration = '40s';
-
-        // Isolate GSAP transform from CSS animation transform by wrapping it
+        
+        // Isolar GSAP do CSS animation
         const gsapWrapper = document.createElement('div');
         gsapWrapper.style.display = 'flex';
         gsapWrapper.style.width = 'fit-content';
@@ -426,7 +427,8 @@ document.addEventListener("DOMContentLoaded", () => {
         content.parentNode.insertBefore(gsapWrapper, content);
         gsapWrapper.appendChild(content);
 
-        // Apply GSAP parallax to the wrapper, while CSS handles constant loop on .faixa-content
+        const direction = index === 0 ? 200 : -200;
+
         gsap.to(gsapWrapper, {
             scrollTrigger: {
                 trigger: ".faixas-container",
@@ -434,10 +436,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 end: "bottom top",
                 scrub: 1.2
             },
-            x: 200, // Usa pixel invés de percent para isolar
+            x: direction,
             ease: "none"
         });
-    }
+    });
 });
 
 // --- Case Studies Navigation ---
@@ -522,55 +524,12 @@ document.addEventListener('DOMContentLoaded', () => {
     initNumberCount();
     initServiceCardFlip();
     initBackgroundAnimations();
-    initProcessAnimations();
     initFaqAccordion();
     
     console.log('Animações premium configuradas com sucesso.');
 });
 
-// --- Animação do Process Timeline ---
-function initProcessAnimations() {
-    const steps = document.querySelectorAll('.process-step');
-    
-    steps.forEach((step, index) => {
-        gsap.fromTo(step,
-            { 
-                opacity: 0, 
-                y: 60,
-                scale: 0.95
-            },
-            {
-                scrollTrigger: {
-                    trigger: step,
-                    start: "top 90%",
-                    toggleActions: "play none none reverse"
-                },
-                opacity: 1,
-                y: 0,
-                scale: 1,
-                duration: 0.8,
-                ease: "power3.out",
-                delay: index * 0.1
-            }
-        );
-        
-        step.addEventListener('mouseenter', () => {
-            gsap.to(step.querySelector('.step-number'), {
-                scale: 1.2,
-                opacity: 0.4,
-                duration: 0.3
-            });
-        });
-        
-        step.addEventListener('mouseleave', () => {
-            gsap.to(step.querySelector('.step-number'), {
-                scale: 1,
-                opacity: 0.15,
-                duration: 0.3
-            });
-        });
-    });
-}
+// Animações Orbix processadas via CSS .reveal
 
 // --- FAQ Accordion ---
 function initFaqAccordion() {
