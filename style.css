@@ -2,7 +2,6 @@
     --bg: #09090b;
     --cyan: #6f91ff;
     --purple: #7000ff;
-    --orange: #FF5C00;
     --text: #fbfbfd;
     --font-heading: 'Bricolage Grotesque', sans-serif;
     --font-body: 'Inter', sans-serif;
@@ -289,6 +288,7 @@ section {
 }
 
 /* --- Botão com Borda Animada Infinita (Snake Effect) --- */
+
 .btn-animated {
     position: relative;
     display: inline-flex;

@@ -253,40 +253,35 @@ function initServiceCardFlip() {
     });
 }
 
-// --- Animações de fundo dinamico ---
+// --- Animações de fundo dinâmico (apenas nas seções específicas) ---
 function initBackgroundAnimations() {
-    // Projetos - gradiente dinâmico
     const projetos = document.querySelector('.projetos');
     if (projetos) {
+        projetos.style.transition = 'background 1.5s ease';
         ScrollTrigger.create({
             trigger: projetos,
             start: "top center",
             onEnter: () => {
-                gsap.to(projetos, {
-                    background: "linear-gradient(180deg, #0a0a1a 0%, #0d1b2a 50%, #1b3a5f 100%)",
-                    duration: 1.5
-                });
+                projetos.style.background = "linear-gradient(180deg, #0a0a1a 0%, #0d1b2a 50%, #1b3a5f 100%)";
             },
             onLeaveBack: () => {
-                gsap.to(projetos, {
-                    background: "#000",
-                    duration: 1.5
-                });
+                projetos.style.background = "#000";
             }
         });
     }
     
-    // Services - transição de cor
     const services = document.querySelector('.services');
     if (services) {
-        gsap.to(services, {
-            scrollTrigger: {
-                trigger: services,
-                start: "top bottom",
-                end: "bottom top",
-                scrub: 1
+        services.style.transition = 'background 1s ease';
+        ScrollTrigger.create({
+            trigger: services,
+            start: "top 80%",
+            onEnter: () => {
+                services.style.background = "#0a0a12";
             },
-            backgroundColor: "#0a0a12"
+            onLeaveBack: () => {
+                services.style.background = "#000";
+            }
         });
     }
 }
