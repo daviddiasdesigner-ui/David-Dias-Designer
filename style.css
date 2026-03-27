@@ -1323,13 +1323,6 @@ h1 {
    SEÇÃO SERVICES
    ============================================ */
 .services {
-    padding: 15vh 10vw;
-    background: #000;
-    border-radius: 24px;
-    margin: 10vh 2vw;
-}
-
-.services {
     padding: 15vh 5vw;
     background: #000;
     position: relative;
@@ -1482,9 +1475,7 @@ h1 {
    ============================================ */
 .about {
     padding: 15vh 5vw;
-    margin: 10vh 2vw;
     background: #000;
-    border-radius: 40px;
     position: relative;
     overflow: hidden;
 }

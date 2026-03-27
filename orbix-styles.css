@@ -381,6 +381,214 @@
     overflow: visible;
 }
 
+/* --- About Section Orbix Override --- */
+.about {
+    padding: 15vh 5vw;
+    background: #000;
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+    border-radius: 0;
+}
+
+.about::before {
+    background:
+        radial-gradient(ellipse at 0% 0%, rgba(111, 145, 255, 0.06) 0%, transparent 50%),
+        radial-gradient(ellipse at 100% 100%, rgba(112, 0, 255, 0.06) 0%, transparent 50%);
+}
+
+.about-container {
+    display: flex;
+    align-items: center;
+    gap: 6vw;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.about-image {
+    flex: 0 0 45%;
+    border-radius: 20px;
+    overflow: hidden;
+    min-height: auto;
+    position: relative;
+}
+
+.about-image::before {
+    display: none;
+}
+
+.about-image img {
+    width: 100%;
+    height: auto;
+    min-height: auto;
+    max-height: 600px;
+    object-fit: cover;
+    display: block;
+    border-radius: 20px;
+}
+
+.about-content {
+    flex: 1;
+}
+
+.about-content .section-title {
+    font-family: var(--font-serif), serif;
+    font-weight: 300;
+    font-size: 3rem;
+    margin-bottom: 2rem;
+}
+
+.about-content .section-title::after {
+    left: 0;
+    transform: none;
+}
+
+.about-text {
+    font-size: 1.1rem;
+    line-height: 1.9;
+    color: #a1a1a1;
+    margin-bottom: 1.5rem;
+}
+
+.about-text:last-of-type {
+    margin-bottom: 3rem;
+}
+
+/* --- FAQ Orbix Override --- */
+.faq {
+    padding: 15vh 5vw;
+    background: #000;
+    position: relative;
+}
+
+.faq .section-title {
+    font-family: var(--font-serif), serif;
+    font-weight: 300;
+}
+
+.faq-list {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.faq-item {
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    background: transparent;
+    border-radius: 0;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+}
+
+.faq-question {
+    padding: 28px 0;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    text-align: left;
+}
+
+.faq-answer {
+    padding-bottom: 24px;
+}
+
+.faq-answer p {
+    color: #a1a1a1;
+    line-height: 1.8;
+}
+
+/* --- Contact Orbix Override --- */
+.contact {
+    padding: 15vh 5vw;
+    background: #000;
+    text-align: center;
+}
+
+.contact .section-title {
+    font-family: var(--font-serif), serif;
+    font-weight: 300;
+    font-size: 3rem;
+}
+
+.contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-group input,
+.form-group textarea {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 18px 20px;
+    color: #fff;
+    font-size: 1rem;
+    width: 100%;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: rgba(255,255,255,0.3);
+}
+
+.submit-btn {
+    background: #fff;
+    color: #000;
+    border: none;
+    padding: 16px 40px;
+    border-radius: 100px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    margin-top: 16px;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(255,255,255,0.15);
+}
+
+.submit-btn svg {
+    stroke: #000;
+}
+
+/* --- Footer Orbix Override --- */
+.footer {
+    padding: 8vh 5vw 4vh;
+    background: #000;
+    border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+.footer-content {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* --- Desktop Accordion Clamping --- */
+@media (min-width: 769px) {
+    .orbix-accordion-header h3 {
+        font-size: clamp(2rem, 4vw, 4rem);
+    }
+
+    .accordion-icon {
+        font-size: clamp(1.5rem, 3vw, 3rem);
+    }
+}
+
 /* --- Mobile Fixes para Orbix Styles --- */
 @media (max-width: 768px) {
     .projeto-card.projeto-75, .projeto-card.projeto-60, .projeto-card.projeto-50, .projeto-card.projeto-40, .projeto-card.projeto-25, .projeto-card.projeto-20 {
@@ -403,4 +611,28 @@
     .orbix-timeline-right { padding-left: 30px; padding-bottom: 60px; }
     
     .orbix-testimonial-card { width: 85vw; }
+
+    /* About mobile */
+    .about-container {
+        flex-direction: column;
+        gap: 5vh;
+    }
+
+    .about-image {
+        flex: 0 0 auto;
+        width: 100%;
+    }
+
+    .about-image img {
+        max-height: 400px;
+    }
+
+    .about-content .section-title {
+        font-size: 2rem;
+    }
+
+    /* Contact mobile */
+    .contact .section-title {
+        font-size: 2rem;
+    }
 }
