@@ -133,6 +133,8 @@ body {
 
 section {
     scroll-margin-top: 15vh;
+    margin-left: 0;
+    margin-right: 0;
 }
 
 
