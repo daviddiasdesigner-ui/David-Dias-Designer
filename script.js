@@ -44,57 +44,7 @@ function initRevealAnimations() {
     });
 }
 
-// --- Scroll Sincronizado para Services ---
-function initServicesAnimations() {
-    const cards = document.querySelectorAll('.services-accordion');
 
-    cards.forEach((card, index) => {
-        gsap.fromTo(card,
-            {
-                opacity: 0,
-                y: 80
-            },
-            {
-                scrollTrigger: {
-                    trigger: card,
-                    start: "top 95%",
-                    toggleActions: "play none none reverse"
-                },
-                opacity: 1,
-                y: 0,
-                duration: 0.8,
-                ease: "power3.out",
-                delay: index * 0.1
-            }
-        );
-    });
-}
-
-// --- Scroll Horizontal para Testimonials ---
-function initTestimonialsScroll() {
-    const track = document.querySelector('.testimonials-track');
-    if (!track) return;
-
-    // Evita duplicar múltiplas vezes se a função for chamada novamente
-    if (track.classList.contains('duplicated')) return;
-    track.classList.add('duplicated');
-
-    // Duplicar os cards 1 vez para loop perfeito de -50% (total 2 sets)
-    const cards = track.innerHTML;
-    track.innerHTML = cards + cards;
-
-    // Animação de scroll horizontal sincronizada ao scroll
-    gsap.to(track, {
-        scrollTrigger: {
-            trigger: '.testimonials',
-            start: "top bottom",
-            end: "bottom top",
-            scrub: 1
-        },
-        xPercent: -50,
-        ease: "none"
-    });
-}
 
 // --- Animação Parallax no About ---
 function initAboutAnimations() {
@@ -239,10 +189,7 @@ function initServicesAnimations() {
     }
 }
 
-// Obsoleto - Accordion agora via CSS
-function initServiceCardFlip() {
-    return;
-}
+
 
 // --- Animações de fundo dinâmico (apenas nas seções específicas) ---
 function initBackgroundAnimations() {
@@ -567,10 +514,8 @@ if (scrollIndicator) {
 
 // --- Inicializar todas as animações ---
 document.addEventListener('DOMContentLoaded', () => {
-    /** ANIMATION INIT **/
-/** ANIMATION INIT **/
-initProcessTimeline();
-initRevealAnimations();
+    initProcessTimeline();
+    initRevealAnimations();
     initServicesAnimations();
     initTestimonialsScroll();
     initAboutAnimations();
