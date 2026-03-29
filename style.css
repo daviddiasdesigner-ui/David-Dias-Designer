@@ -13,18 +13,23 @@
     --font-body: 'Inter', sans-serif;
 
     /* Tipografia Fluida: clamp(Mobile, Tamanho Dinâmico, Desktop) */
-    --fs-h1: clamp(1.5rem, 5vw + 0.5rem, 3.3rem);
-    --fs-h2: clamp(1.75rem, 3vw + 0.5rem, 2rem);
-    --fs-h3: clamp(1.2rem, 2vw + 0.2rem, 1.4rem);
-    /* Ajustado para manter hierarquia lógica */
-    --fs-subtitle: clamp(1rem, 2vw + 0.2rem, 1.4rem);
-    --fs-body: clamp(0.875rem, 1vw + 0.3rem, 1rem);
-    --fs-small: clamp(0.75rem, 1vw + 0.2rem, 0.8rem);
-    --fs-btn: clamp(0.75rem, 1vw + 0.2rem, 0.9rem);
+    --fs-h1: clamp(1.5rem, 5vw + 0.5rem, 3.5rem);
+    --fs-h2: clamp(1.5rem, 3vw + 0.5rem, 2.5rem);
+    --fs-h3: clamp(1.1rem, 1.5vw + 0.2rem, 1.5rem);
+    --fs-subtitle: clamp(0.95rem, 1.5vw + 0.2rem, 1.25rem);
+    --fs-body: clamp(0.875rem, 0.8vw + 0.3rem, 1rem);
+    --fs-small: clamp(0.75rem, 0.5vw + 0.2rem, 0.875rem);
+    --fs-btn: clamp(0.75rem, 0.6vw + 0.2rem, 0.95rem);
 
     /* Espaçamentos Fluidos Base */
-    --section-padding-y: clamp(8vh, 10vh + 2vw, 15vh);
-    --section-padding-x: 5vw;
+    --section-padding-y: clamp(6vh, 8vh + 2vw, 12vh);
+    --section-padding-x: clamp(1.5rem, 5vw, 5vw);
+
+    /* Breakpoints */
+    --bp-sm: 480px;
+    --bp-md: 768px;
+    --bp-lg: 1024px;
+    --bp-xl: 1440px;
 }
 
 /* Propriedade para animação do botão snake */
@@ -43,21 +48,25 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     background-color: var(--bg);
     color: var(--text);
     overflow-x: hidden;
     font-family: var(--font-body);
+    font-size: 100%;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
 section {
-    scroll-margin-top: 15vh;
+    scroll-margin-top: 12vh;
 }
 
 /* Configurações Lenis (Smooth Scroll) */
-
 html.lenis,
 html.lenis body {
     height: auto;
@@ -82,11 +91,10 @@ html.lenis body {
 /* ============================================
    3. UTILITÁRIOS E ANIMAÇÕES
    ============================================ */
-
 .reveal {
     opacity: 0;
-    transform: translateY(60px);
-    filter: blur(10px);
+    transform: translateY(3.75rem);
+    filter: blur(0.625rem);
     transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -96,34 +104,15 @@ html.lenis body {
     filter: blur(0);
 }
 
-/* Delays */
-.reveal-delay-1 {
-    transition-delay: 0.1s;
-}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-5 { transition-delay: 0.5s; }
+.reveal-delay-6 { transition-delay: 0.6s; }
 
-.reveal-delay-2 {
-    transition-delay: 0.2s;
-}
-
-.reveal-delay-3 {
-    transition-delay: 0.3s;
-}
-
-.reveal-delay-4 {
-    transition-delay: 0.4s;
-}
-
-.reveal-delay-5 {
-    transition-delay: 0.5s;
-}
-
-.reveal-delay-6 {
-    transition-delay: 0.6s;
-}
-
-/* Variações de Reveal */
 .reveal-scale {
-    transform: scale(0.8);
+    transform: scale(0.85);
 }
 
 .reveal-scale.active {
@@ -131,7 +120,7 @@ html.lenis body {
 }
 
 .reveal-left {
-    transform: translateX(-80px);
+    transform: translateX(-5rem);
 }
 
 .reveal-left.active {
@@ -139,7 +128,7 @@ html.lenis body {
 }
 
 .reveal-right {
-    transform: translateX(80px);
+    transform: translateX(5rem);
 }
 
 .reveal-right.active {
@@ -147,69 +136,41 @@ html.lenis body {
 }
 
 @keyframes snake-rotate {
-    from {
-        --angle: 0deg;
-    }
-
-    to {
-        --angle: 360deg;
-    }
+    from { --angle: 0deg; }
+    to { --angle: 360deg; }
 }
 
 @keyframes scroll-float {
-
-    0%,
-    100% {
+    0%, 100% {
         transform: translateY(0);
         opacity: 0.4;
     }
-
     50% {
-        transform: translateY(8px);
+        transform: translateY(0.5rem);
         opacity: 0.8;
     }
 }
 
 @keyframes bounceDown {
-
-    0%,
-    20%,
-    50%,
-    80%,
-    100% {
-        transform: translateY(0);
-    }
-
-    40% {
-        transform: translateY(10px);
-    }
-
-    60% {
-        transform: translateY(5px);
-    }
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(0.625rem); }
+    60% { transform: translateY(0.3125rem); }
 }
 
 @keyframes ticker {
-    from {
-        transform: translateX(0);
-    }
-
-    to {
-        transform: translateX(-50%);
-    }
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
 }
 
 /* ============================================
    4. BOTÕES
    ============================================ */
-/* Botão Snake (Animado) */
-
 .btn-animated {
     position: relative;
     display: inline-flex;
     padding: 1px;
     text-decoration: none;
-    border-radius: 40px;
+    border-radius: 3rem;
     overflow: hidden;
     background: rgba(255, 255, 255, 0.05);
     transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
@@ -218,7 +179,7 @@ html.lenis body {
 
 .btn-animated:hover {
     transform: scale(1.05);
-    box-shadow: 0 10px 30px -10px rgba(0, 240, 255, 0.4);
+    box-shadow: 0 0.625rem 1.875rem -0.625rem rgba(0, 240, 255, 0.4);
 }
 
 .btn-animated::before {
@@ -258,14 +219,14 @@ html.lenis body {
     z-index: 1;
     background: var(--bg);
     color: var(--text);
-    padding: 1.5vh 3vw;
-    border-radius: 50px;
+    padding: clamp(1rem, 2vh, 1.5rem) clamp(1.25rem, 3vw, 2.5rem);
+    border-radius: 3rem;
     font-family: var(--font-heading);
     font-weight: 300;
     font-size: var(--fs-btn);
     display: flex;
     align-items: center;
-    gap: 0.8vw;
+    gap: clamp(0.5rem, 1vw, 0.8rem);
     transition: background 0.3s, color 0.3s;
 }
 
@@ -279,7 +240,7 @@ html.lenis body {
 }
 
 .btn-animated:hover svg {
-    transform: translateX(5px) rotate(-10deg);
+    transform: translateX(0.3125rem) rotate(-10deg);
 }
 
 .btn-animated:hover svg polyline,
@@ -290,44 +251,42 @@ html.lenis body {
 /* Botão Solid */
 .btn-solid {
     background: rgba(112, 0, 255, 0.15);
-    padding: 8px;
-    border-radius: 999px;
+    padding: 0.5rem;
+    border-radius: 99rem;
     transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.4s ease;
     border: 1px solid rgba(112, 0, 255, 0.3);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    box-shadow: 0 0 25px rgba(112, 0, 255, 0.2);
+    backdrop-filter: blur(0.75rem);
+    -webkit-backdrop-filter: blur(0.75rem);
+    box-shadow: 0 0 1.5625rem rgba(112, 0, 255, 0.2);
 }
 
 .btn-solid span {
     background: linear-gradient(135deg, #0070FF, #7000ff, #00f0ff);
     color: #fff;
-    padding: clamp(1.5vh, 2.2vh, 3vh) clamp(20px, 4.5vw, 50px);
-    border-radius: 999px;
+    padding: clamp(0.75rem, 1.5vh, 1.25rem) clamp(1.25rem, 3vw, 3rem);
+    border-radius: 99rem;
     font-weight: 600;
     font-size: var(--fs-btn);
-    box-shadow: 0 4px 20px rgba(0, 112, 255, 0.3);
+    box-shadow: 0 0.25rem 1.25rem rgba(0, 112, 255, 0.3);
     transition: all 0.3s;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    transition: all 1s linear;
+    gap: 0.625rem;
 }
 
 .btn-solid:hover {
     background: rgba(255, 255, 255, 0.12);
     transform: scale(1.05);
-    box-shadow: 0 0 20px rgba(255, 92, 0, 0.2);
     background: conic-gradient(from var(--angle), transparent 65%, var(--cyan) 95%, var(--purple) 100%);
     animation: snake-rotate 2s ease-in-out infinite;
-    padding: 9px;
+    padding: 0.5625rem;
     border: none;
 }
 
 .btn-solid:hover span {
     background: linear-gradient(135deg, #00f0ff, #7000ff, #0070FF);
-    box-shadow: 0 6px 25px rgba(0, 240, 255, 0.4);
+    box-shadow: 0 0.375rem 1.5625rem rgba(0, 240, 255, 0.4);
 }
 
 .btn-solid svg {
@@ -335,7 +294,7 @@ html.lenis body {
 }
 
 .main-cta.btn-solid:hover svg {
-    transform: translate(6px, -6px) scale(1.1);
+    transform: translate(0.375rem, -0.375rem) scale(1.1);
 }
 
 .nav-cta.btn-solid:hover svg {
@@ -352,19 +311,19 @@ html.lenis body {
     justify-content: space-between;
     border-radius: 24vh;
     align-items: center;
-    padding: 1.5vh clamp(10px, .9vw, 20px) 1.5vh clamp(15px, 2vw, 30px);
+    padding: 1vh clamp(0.625rem, 0.9vw, 1.25rem) 1vh clamp(0.9375rem, 2vw, 1.875rem);
     margin: 2vh 5vw;
     position: fixed;
     top: 0;
     z-index: 100;
     background: rgba(5, 5, 10, 0.4);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(1rem);
+    -webkit-backdrop-filter: blur(1rem);
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .logo-img {
-    width: clamp(80px, 10vw, 100px);
+    width: clamp(4.5rem, 10vw, 6.25rem);
     height: auto;
     filter: brightness(0) invert(1);
 }
@@ -381,7 +340,6 @@ html.lenis body {
 /* ============================================
    6. HERO SECTION
    ============================================ */
-
 .hero {
     position: relative;
     height: 100vh;
@@ -393,7 +351,7 @@ html.lenis body {
     align-items: center;
     justify-content: center;
     text-align: center;
-    perspective: 1200px;
+    perspective: 75rem;
 }
 
 .hero-background {
@@ -414,7 +372,7 @@ html.lenis body {
     width: 100%;
     height: 100%;
     background: black;
-    backdrop-filter: blur(2px);
+    backdrop-filter: blur(0.125rem);
     opacity: 0.6;
     z-index: 2;
 }
@@ -426,7 +384,7 @@ html.lenis body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: clamp(10vh, 15vh, 20vh);
+    padding-top: clamp(10vh, 15vh, 18vh);
 }
 
 h1 {
@@ -455,8 +413,8 @@ h1 {
     font-weight: 200;
     font-size: var(--fs-subtitle);
     color: #ffffff;
-    max-width: clamp(300px, 60vw, 700px);
-    margin: clamp(2vh, 4vh, 6vh) auto;
+    max-width: clamp(18.75rem, 60vw, 43.75rem);
+    margin: clamp(2vh, 4vh, 5vh) auto;
     text-wrap: balance;
     line-height: 1.6;
 }
@@ -467,23 +425,24 @@ h1 {
 
 .hero-actions {
     display: flex;
-    gap: clamp(10px, 2vw, 30px);
+    gap: clamp(0.625rem, 2vw, 1.875rem);
     justify-content: center;
     padding-top: 5vh;
+    flex-wrap: wrap;
 }
 
 .scroll-indicator {
     margin-top: clamp(4vh, 6vh, 8vh);
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 0.75rem;
     opacity: 0.6;
     animation: scroll-float 5s ease-in-out infinite;
 }
 
 .scroll-indicator p {
     font-family: var(--font-body);
-    font-size: clamp(0.7rem, 1.5vh, 1rem);
+    font-size: clamp(0.625rem, 1.2vh, 0.875rem);
     font-weight: 300;
     text-transform: uppercase;
     letter-spacing: 0.25em;
@@ -491,7 +450,7 @@ h1 {
 }
 
 .scroll-indicator svg {
-    width: clamp(16px, 2vw, 20px);
+    width: clamp(1rem, 2vw, 1.25rem);
     height: auto;
     color: var(--text);
 }
@@ -499,12 +458,11 @@ h1 {
 /* ============================================
    7. SEÇÃO DE FAIXAS (LOGOS)
    ============================================ */
-
 .faixas-container {
     position: relative;
     width: 100%;
     background: var(--bg);
-    padding: 10vh 10vw;
+    padding: clamp(6vh, 10vw, 10vh) 10vw;
     z-index: 99;
     overflow: hidden;
     display: flex;
@@ -543,7 +501,7 @@ h1 {
 .faixa {
     position: relative;
     width: 100%;
-    padding: clamp(1.5vh, 2rem, 3rem) 0;
+    padding: clamp(1.5vh, 2vw, 3vh) 0;
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -555,9 +513,9 @@ h1 {
 }
 
 .logo-box {
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    padding: clamp(15px, 2vw, 30px) clamp(20px, 3vw, 40px);
+    backdrop-filter: blur(0.625rem);
+    -webkit-backdrop-filter: blur(0.625rem);
+    padding: clamp(0.625rem, 2vw, 1.875rem) clamp(1.25rem, 3vw, 2.5rem);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -565,20 +523,19 @@ h1 {
 }
 
 .logo-box:hover {
-    transform: translateY(-5px);
+    transform: translateY(-0.3125rem);
 }
 
 .faixa-content {
     display: flex;
-    gap: 2px;
-    width: fit-content;
+    gap: 0.125rem;
+    width: 100%;
     will-change: transform;
-    padding: 2px 0;
+    padding: 0.125rem 0;
 }
 
-
 .logo-img-item {
-    height: clamp(25px, 3vh, 40px);
+    height: clamp(1.5rem, 3vh, 2.5rem);
     width: auto;
     opacity: 0.8;
     filter: brightness(0) invert(1);
@@ -596,15 +553,14 @@ h1 {
    ============================================ */
 .projetos {
     position: relative;
-    height: fit-content;
     width: 100%;
     background: #000;
     z-index: 20;
-    padding: var(--section-padding-y) clamp(1.5rem, 5vw, 10rem);
+    padding: var(--section-padding-y) var(--section-padding-x);
 }
 
 .projetos-cabecalho {
-    padding: 5vh clamp(20px, 8vw, 12vw);
+    padding: 5vh var(--section-padding-x);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -619,31 +575,34 @@ h1 {
 }
 
 .category-nav {
-    background-color: #0e182429;
+    background-color: rgba(14, 24, 36, 0.15);
     display: flex;
     flex-wrap: wrap;
-    /* Garante que os botões não quebrem o layout */
     justify-content: center;
-    gap: clamp(10px, 1.5vw, 20px);
+    gap: clamp(0.625rem, 1.5vw, 1.25rem);
     margin: 4vh auto;
-    border-radius: 100px;
-    padding: clamp(10px, 2vh, 20px) clamp(15px, 2vw, 20px);
-    width: fit-content;
+    border-radius: 6.25rem;
+    padding: clamp(0.625rem, 2vh, 1.25rem) clamp(0.9375rem, 2vw, 1.25rem);
+    width: 100%;
+    max-width: 40rem;
 }
 
 .category-btn {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 0.625rem;
     background: rgba(14, 51, 198, 0.347);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    padding: clamp(8px, 1.2vh, 12px) clamp(16px, 2vw, 24px);
-    border-radius: 100px;
+    padding: clamp(0.5rem, 1.2vh, 0.75rem) clamp(1rem, 2vw, 1.5rem);
+    border-radius: 6.25rem;
     font-family: var(--font-body);
     font-size: var(--fs-small);
     color: rgba(255, 255, 255, 0.5);
     cursor: pointer;
     transition: all 0.3s ease;
+    flex: 1 1 auto;
+    justify-content: center;
+    min-width: fit-content;
 }
 
 .category-btn:hover {
@@ -658,11 +617,11 @@ h1 {
 }
 
 .category-count {
-    font-size: clamp(0.6rem, 1vw, 0.7rem);
+    font-size: clamp(0.6rem, 0.8vw, 0.7rem);
     color: rgba(255, 255, 255, 0.4);
     background: rgba(255, 255, 255, 0.05);
-    padding: 3px 8px;
-    border-radius: 100px;
+    padding: 0.1875rem 0.5rem;
+    border-radius: 6.25rem;
 }
 
 .category-btn.active .category-count {
@@ -679,7 +638,7 @@ h1 {
     visibility: hidden;
     display: flex;
     flex-direction: column;
-    gap: clamp(15px, 2vw, 30px);
+    gap: clamp(0.9375rem, 2vw, 1.875rem);
 }
 
 .category-content.active {
@@ -688,12 +647,16 @@ h1 {
     visibility: visible;
 }
 
+.projetos-container {
+    width: 100%;
+}
+
 .projetos-grid {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 1.5vw;
-    padding: 20px 0;
+    padding: 1.25rem 0;
 }
 
 /* Grid Sistema Bento */
@@ -701,42 +664,43 @@ h1 {
     position: relative;
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 20px;
+    border-radius: 1.25rem;
     overflow: hidden;
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    min-height: clamp(300px, 60vh, 600px);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    min-height: clamp(18rem, 50vh, 40rem);
+    backdrop-filter: blur(0.75rem);
+    -webkit-backdrop-filter: blur(0.75rem);
 }
 
 .projeto-card.projeto-75 {
     flex: 1 1 calc(75% - 1.5vw);
+    max-width: calc(75% - 1.5vw);
 }
 
 .projeto-card.projeto-60 {
     flex: 1 1 calc(60% - 1.5vw);
+    max-width: calc(60% - 1.5vw);
 }
 
 .projeto-card.projeto-50 {
     flex: 1 1 calc(50% - 1.5vw);
+    max-width: calc(50% - 1.5vw);
 }
 
 .projeto-card.projeto-40 {
     flex: 1 1 calc(40% - 1.5vw);
+    max-width: calc(40% - 1.5vw);
 }
 
 .projeto-card.projeto-25 {
     flex: 1 1 calc(25% - 1.5vw);
-}
-
-.projeto-card.projeto-20 {
-    flex: 1 1 calc(20% - 1.5vw);
+    max-width: calc(25% - 1.5vw);
 }
 
 .projeto-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    transform: translateY(-0.3125rem);
+    box-shadow: 0 1.25rem 2.5rem rgba(0, 0, 0, 0.3);
 }
 
 .projeto-imagem {
@@ -763,7 +727,7 @@ h1 {
     bottom: 0;
     left: 0;
     right: 0;
-    padding: clamp(15px, 2vw, 30px);
+    padding: clamp(0.9375rem, 2vw, 1.875rem);
     background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
     opacity: 0;
     visibility: hidden;
@@ -775,19 +739,6 @@ h1 {
     visibility: visible;
 }
 
-.projeto-logo {
-    position: absolute;
-    top: clamp(10px, 1.5vw, 20px);
-    left: clamp(15px, 2vw, 30px);
-    color: #fff;
-    opacity: 0.9;
-}
-
-.projeto-logo svg {
-    height: clamp(20px, 1.8vw, 40px);
-    max-width: 100px;
-}
-
 .projeto-titulo {
     font-family: var(--font-heading);
     font-size: var(--fs-h3);
@@ -796,22 +747,16 @@ h1 {
     text-wrap: balance;
 }
 
-.projeto-tags {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-}
-
 .tag {
     background: rgba(255, 255, 255, 0.08);
-    padding: 5px 12px;
-    border-radius: 100px;
+    padding: 0.3125rem 0.75rem;
+    border-radius: 6.25rem;
     font-size: var(--fs-small);
     color: rgba(255, 255, 255, 0.7);
 }
 
 /* ============================================
-   9. WHY ME & SERVICES (Auto-Grids Inteligentes)
+   9. WHY ME & SERVICES
    ============================================ */
 .why-me,
 .services,
@@ -844,13 +789,13 @@ h1 {
 .section-title::after {
     content: '';
     position: absolute;
-    bottom: -12px;
+    bottom: -0.75rem;
     left: 50%;
     transform: translateX(-50%);
-    width: 60px;
-    height: 3px;
+    width: 3.75rem;
+    height: 0.1875rem;
     background: linear-gradient(90deg, var(--cyan), var(--purple));
-    border-radius: 2px;
+    border-radius: 0.125rem;
 }
 
 .section-subtitle {
@@ -862,41 +807,32 @@ h1 {
 
 /* Por que Eu? (Bento Section) */
 .why-me {
-    padding: var(--section-padding-y) var(--section-padding-x);
-    max-width: 1400px;
+    max-width: 87.5rem;
     margin: 0 auto;
     text-align: center;
 }
 
 .bento-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
-    gap: 3rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(1.5rem, 3vw, 3rem);
     margin: 8vh auto;
     position: relative;
     z-index: 2;
 }
 
-.accordion-list {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    margin-top: 6vh;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
 .bento-card {
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    padding: clamp(2rem, 3vw, 3rem);
-    border-radius: 24px;
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+    border-radius: 1.5rem;
     transition: all 0.5s ease;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(0.625rem);
     position: relative;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    min-height: 250px;
+    min-height: 15.625rem;
 }
 
 .bento-card::before {
@@ -905,7 +841,7 @@ h1 {
     top: 0;
     left: 0;
     right: 0;
-    height: 2px;
+    height: 0.125rem;
     background: linear-gradient(90deg, transparent, var(--cyan), transparent);
     opacity: 0;
     transition: opacity 0.4s ease;
@@ -914,17 +850,21 @@ h1 {
 .bento-card:hover {
     background: rgba(255, 255, 255, 0.04);
     border-color: rgba(111, 145, 255, 0.3);
-    transform: translateY(-12px);
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), 0 0 40px rgba(111, 145, 255, 0.1);
+    transform: translateY(-0.75rem);
+    box-shadow: 0 1.5625rem 3.125rem rgba(0, 0, 0, 0.4), 0 0 2.5rem rgba(111, 145, 255, 0.1);
 }
 
 .bento-card:hover::before {
     opacity: 1;
 }
 
+.bento-card.bento-full {
+    grid-column: 1 / -1;
+}
+
 .why-me-number {
     font-family: var(--font-heading);
-    font-size: clamp(3.5rem, 5vw, 5rem);
+    font-size: clamp(2.5rem, 5vw, 4rem);
     font-weight: 800;
     margin-bottom: 1.5rem;
     background: linear-gradient(135deg, var(--cyan) 0%, var(--purple) 100%);
@@ -956,20 +896,20 @@ h1 {
 }
 
 /* ============================================
-   9. SERVICES (3D CARDS & STACKING)
+   9. SERVICES (3D CARDS)
    ============================================ */
 .service-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 colunas desktop */
-    gap: 2rem;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(1.25rem, 2vw, 2rem);
     padding: 0 var(--section-padding-x);
-    max-width: 1400px;
+    max-width: 87.5rem;
     margin: 8vh auto;
 }
 
 .service-card {
-    height: 400px;
-    perspective: 1500px;
+    height: clamp(20rem, 40vh, 25rem);
+    perspective: 93.75rem;
 }
 
 .card-inner {
@@ -992,7 +932,7 @@ h1 {
     height: 100%;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
-    border-radius: 24px;
+    border-radius: 1.5rem;
     padding: 2.5rem;
     display: flex;
     flex-direction: column;
@@ -1003,7 +943,7 @@ h1 {
 
 .card-front {
     background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(0.625rem);
 }
 
 .card-back {
@@ -1013,7 +953,7 @@ h1 {
 
 .card-hint {
     margin-top: auto;
-    font-size: 0.8rem;
+    font-size: 0.875rem;
     color: var(--cyan);
     font-weight: 500;
 }
@@ -1026,6 +966,7 @@ h1 {
 .service-title {
     font-size: 1.5rem;
     margin-bottom: 1rem;
+    font-family: var(--font-heading);
 }
 
 .card-back .service-back-list {
@@ -1038,7 +979,7 @@ h1 {
     margin-bottom: 0.8rem;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 0.625rem;
 }
 
 .service-back-list li::before {
@@ -1046,58 +987,37 @@ h1 {
     color: var(--cyan);
 }
 
-@media (max-width: 1024px) {
-    .service-grid {
-        grid-template-columns: repeat(2, 1fr); /* 2 colunas tablet */
-    }
-}
-
-@media (max-width: 768px) {
-    .service-grid {
-        grid-template-columns: 1fr; /* 1 coluna mobile */
-        gap: 3rem;
-    }
-
-    .service-card {
-        position: sticky;
-        top: 100px;
-        height: 350px;
-    }
-}
-
 /* ============================================
    10. ABOUT
    ============================================ */
 .about {
     padding: var(--section-padding-y) 5vw;
-    background: #000;
 }
 
 .about-container {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 5vw;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: clamp(2rem, 5vw, 5vw);
     position: relative;
     z-index: 2;
-    max-width: 1200px;
+    max-width: 75rem;
     margin: 0 auto;
+    align-items: center;
 }
 
 .about-image {
-    flex: 1 1 min(100%, 450px);
-    border-radius: 24px;
+    border-radius: 1.5rem;
     overflow: hidden;
     position: relative;
-    min-height: clamp(300px, 50vh, 500px);
+    min-height: clamp(18rem, 50vh, 35rem);
 }
 
 .about-image::before {
     content: '';
     position: absolute;
-    inset: -2px;
+    inset: -0.125rem;
     background: linear-gradient(135deg, var(--cyan), var(--purple), var(--cyan));
-    border-radius: 26px;
+    border-radius: 1.625rem;
     z-index: -1;
     opacity: 0.5;
     transition: opacity 0.4s ease;
@@ -1110,7 +1030,7 @@ h1 {
 .about-image img {
     width: 100%;
     height: 100%;
-    min-height: clamp(300px, 50vh, 500px);
+    min-height: clamp(18rem, 50vh, 35rem);
     object-fit: cover;
     display: block;
     transition: transform 0.6s ease;
@@ -1118,10 +1038,6 @@ h1 {
 
 .about-image:hover img {
     transform: scale(1.05);
-}
-
-.about-content {
-    flex: 1.2 1 min(100%, 500px);
 }
 
 .about-content .section-title::after {
@@ -1137,7 +1053,7 @@ h1 {
 }
 
 /* ============================================
-   11. TESTIMONIALS (CARD SLIDER)
+   11. TESTIMONIALS
    ============================================ */
 .testimonials {
     padding: var(--section-padding-y) 0;
@@ -1158,15 +1074,19 @@ h1 {
 .testimonials-track {
     display: flex;
     gap: 2rem;
-    padding: 0 2rem;
+    padding: 0 clamp(1rem, 5vw, 2rem);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
 }
 
 .testimonial-card {
-    flex: 0 0 clamp(300px, 40vw, 500px);
+    flex: 0 0 clamp(18.75rem, 40vw, 31.25rem);
+    scroll-snap-align: center;
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    padding: 3rem;
-    border-radius: 24px;
+    padding: clamp(1.5rem, 3vw, 3rem);
+    border-radius: 1.5rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -1178,7 +1098,7 @@ h1 {
 }
 
 .testimonial-text {
-    font-size: 1.1rem;
+    font-size: clamp(0.95rem, 1.2vw, 1.1rem);
     line-height: 1.7;
     font-weight: 300;
     margin-bottom: 2.5rem;
@@ -1187,7 +1107,7 @@ h1 {
 .testimonial-author {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 0.3125rem;
 }
 
 .author-name {
@@ -1214,9 +1134,19 @@ h1 {
 }
 
 .process-timeline {
-    max-width: 1000px;
+    max-width: 62.5rem;
     margin: 0 auto;
     position: relative;
+}
+
+.timeline-main-line {
+    position: absolute;
+    left: calc(5rem + 4rem + 1.8125rem);
+    top: 5rem;
+    bottom: 5rem;
+    width: 0.125rem;
+    background: rgba(255, 255, 255, 0.05);
+    z-index: 1;
 }
 
 .timeline-item {
@@ -1227,71 +1157,38 @@ h1 {
 }
 
 .timeline-left {
-    flex: 0 0 80px;
+    flex: 0 0 5rem;
     text-align: right;
 }
 
 .step-num {
-    font-size: 3rem;
+    font-size: clamp(2rem, 4vw, 3rem);
     font-weight: 200;
     color: rgba(255, 255, 255, 0.2);
+    font-family: var(--font-heading);
+    font-style: italic;
 }
 
 .timeline-center {
-    flex: 0 0 60px; /* Largura fixa para center */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    z-index: 2;
-}
-
-.timeline-dot {
-    width: 12px;
-    height: 12px;
-    background: var(--cyan);
-    border-radius: 50%;
-    z-index: 2;
-    box-shadow: 0 0 15px var(--cyan);
-}
-
-.timeline-main-line {
-    position: absolute;
-    left: 110px; /* 80px do left + 30px de metade da center column, se não houver gap */
-    top: 5rem;
-    bottom: 5rem;
-    width: 2px;
-    background: rgba(255, 255, 255, 0.05);
-    z-index: 1;
-}
-
-/* Removido o gap para garantir alinhamento central */
-.timeline-item {
-    display: flex;
-    padding-bottom: 6rem;
-    position: relative;
-}
-
-.timeline-center {
-    flex: 0 0 60px;
+    flex: 0 0 3.75rem;
     display: flex;
     justify-content: center;
     position: relative;
     z-index: 2;
 }
 
-/* No desktop voltamos a alinhar com o gap calculado */
-@media (min-width: 769px) {
-    .timeline-main-line {
-        left: calc(80px + 4rem + 29px); /* 80px (left) + 4rem (gap) + 29px (centro da dot column de 60px) */
-    }
+.timeline-dot {
+    width: 0.75rem;
+    height: 0.75rem;
+    background: var(--cyan);
+    border-radius: 50%;
+    z-index: 2;
+    box-shadow: 0 0 0.9375rem var(--cyan);
 }
 
-@media (max-width: 768px) {
-    .timeline-main-line {
-        left: 40px; 
-        margin-left: 17px; 
-    }
+.timeline-dot-final {
+    background: var(--purple);
+    box-shadow: 0 0 0.9375rem var(--purple);
 }
 
 .timeline-progress-bar {
@@ -1299,9 +1196,9 @@ h1 {
     top: 0;
     left: 0;
     width: 100%;
-    height: 0%; /* Animado via GSAP */
+    height: 0%;
     background: linear-gradient(to bottom, var(--cyan), var(--purple));
-    box-shadow: 0 0 15px var(--cyan);
+    box-shadow: 0 0 0.9375rem var(--cyan);
 }
 
 .timeline-item:last-child {
@@ -1314,14 +1211,14 @@ h1 {
 
 .step-title {
     font-family: var(--font-heading);
-    font-size: 1.8rem;
+    font-size: clamp(1.25rem, 2vw, 1.8rem);
     margin-bottom: 1rem;
 }
 
 .step-desc {
     color: rgba(255, 255, 255, 0.6);
     line-height: 1.7;
-    max-width: 600px;
+    max-width: 37.5rem;
 }
 
 /* ============================================
@@ -1338,7 +1235,7 @@ h1 {
 }
 
 .faq-list {
-    max-width: 800px;
+    max-width: 50rem;
     margin: 0 auto;
 }
 
@@ -1357,7 +1254,7 @@ h1 {
     cursor: pointer;
     color: var(--text);
     font-family: var(--font-heading);
-    font-size: 1.2rem;
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
     transition: opacity 0.3s;
 }
 
@@ -1367,6 +1264,8 @@ h1 {
 
 .faq-icon {
     transition: transform 0.4s ease;
+    flex-shrink: 0;
+    margin-left: 1rem;
 }
 
 .faq-answer {
@@ -1376,8 +1275,8 @@ h1 {
 }
 
 .faq-answer p {
-    color: rgba(255, 255, 255, 0.5); /* Cinza */
-    line-height: 1.8; /* Espaço maior entre linhas */
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 1.8;
     padding-bottom: 2rem;
 }
 
@@ -1395,7 +1294,7 @@ h1 {
 }
 
 .contact-form {
-    max-width: 600px;
+    max-width: 37.5rem;
     margin: 0 auto;
     display: grid;
     gap: 1.5rem;
@@ -1406,10 +1305,11 @@ h1 {
     width: 100%;
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
+    border-radius: 0.75rem;
     padding: 1.2rem;
     color: var(--text);
     font-family: var(--font-body);
+    font-size: 1rem;
     transition: border-color 0.3s;
 }
 
@@ -1419,23 +1319,30 @@ h1 {
     border-color: var(--cyan);
 }
 
+.form-group textarea {
+    min-height: 8rem;
+    resize: vertical;
+}
+
 .submit-btn {
     background: var(--text);
     color: #000;
     border: 1px solid rgba(255, 255, 255, 0.1);
     padding: 1.2rem 2.5rem;
-    border-radius: 12px; /* Mesmo estilo do formulário */
+    border-radius: 0.75rem;
     font-weight: 600;
+    font-size: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 0.625rem;
     cursor: pointer;
     transition: transform 0.3s, background 0.3s;
+    margin-top: 1rem;
 }
 
 .submit-btn:hover {
-    transform: translateY(-5px);
+    transform: translateY(-0.3125rem);
     background: var(--cyan);
 }
 
@@ -1449,12 +1356,16 @@ h1 {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 4rem;
+    gap: clamp(2rem, 5vw, 4rem);
     margin-bottom: 4vh;
 }
 
+.footer-brand {
+    flex: 1 1 15rem;
+}
+
 .footer-logo {
-    width: 120px;
+    width: 7.5rem;
     margin-bottom: 1rem;
     filter: brightness(0) invert(1);
 }
@@ -1466,13 +1377,14 @@ h1 {
 
 .footer-links {
     display: flex;
-    gap: 2.5rem;
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+    flex-wrap: wrap;
 }
 
 .footer-links a {
     color: rgba(255, 255, 255, 0.6);
     text-decoration: none;
-    font-size: 0.95rem;
+    font-size: clamp(0.875rem, 1vw, 0.95rem);
     transition: color 0.3s;
 }
 
@@ -1488,6 +1400,8 @@ h1 {
 .footer-social a {
     color: rgba(255, 255, 255, 0.6);
     transition: color 0.3s;
+    display: flex;
+    align-items: center;
 }
 
 .footer-social a:hover {
@@ -1504,11 +1418,47 @@ h1 {
 }
 
 /* ============================================
-   11. MEDIA QUERIES ESTRUTURAIS (Obrigatórios)
+   MEDIA QUERIES - TABLET (768px - 1024px)
    ============================================ */
-/* O clamp() não substitui a lógica de layout como esconder menus ou mudar a direção do flex/grid. 
-   Aqui mantemos apenas o mínimo necessário para a estrutura quebrar corretamente no celular. */
+@media (max-width: 1024px) {
+    .bento-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .bento-card.bento-full {
+        grid-column: 1 / -1;
+    }
+
+    .service-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .about-container {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+
+    .about-image {
+        order: -1;
+    }
+
+    .timeline-main-line {
+        left: calc(4rem + 3rem + 1.5rem);
+    }
+
+    .timeline-item {
+        gap: 3rem;
+    }
+}
+
+/* ============================================
+   MEDIA QUERIES - MOBILE (< 768px)
+   ============================================ */
 @media (max-width: 768px) {
+    :root {
+        --section-padding-y: clamp(5vh, 8vh, 8vh);
+        --section-padding-x: clamp(1rem, 5vw, 1.5rem);
+    }
 
     /* Navbar Toggle */
     .navbar {
@@ -1522,7 +1472,7 @@ h1 {
         top: 0;
         width: 100%;
         z-index: 1000;
-        padding-top: 24px;
+        padding-top: 1.5rem;
         pointer-events: none;
     }
 
@@ -1530,45 +1480,27 @@ h1 {
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 16px;
-        padding: 12px 32px;
+        gap: 1rem;
+        padding: 0.75rem 2rem;
         background: rgba(255, 255, 255, 0.03);
-        backdrop-filter: blur(15px);
+        backdrop-filter: blur(0.9375rem);
         border: 0.5px solid rgba(37, 65, 225, 0.1);
-        border-radius: 24px;
+        border-radius: 1.5rem;
         cursor: pointer;
         pointer-events: auto;
         position: relative;
         z-index: 1002;
-        transition: background 1s ease-in;
     }
 
     .logo-pill {
-        width: 90px;
+        width: 5.625rem;
         height: auto;
         filter: brightness(0) invert(1);
     }
 
-    /* Faixas Mobile */
-    .faixas-container {
-        padding: 8vh 5vw;
-    }
-
-    .faixas-title {
-        font-size: 1.25rem;
-    }
-
-    .logo-box {
-        padding: 10px 15px;
-    }
-
-    .logo-img-item {
-        height: 20px;
-    }
-
     .menu-icon-box {
-        width: 40px;
-        height: 40px;
+        width: 2.5rem;
+        height: 2.5rem;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -1576,23 +1508,22 @@ h1 {
     }
 
     .menu-expanded {
-        justify-content: center;
         position: fixed;
-        top: 90px;
+        top: 5.625rem;
         left: 50%;
         transform: translateX(-50%);
         width: 90%;
-        max-width: 400px;
-        padding: 40px 24px;
+        max-width: 25rem;
+        padding: 2.5rem 1.5rem;
         background: rgba(10, 10, 15, 0.98);
-        backdrop-filter: blur(25px);
+        backdrop-filter: blur(1.5625rem);
         border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 32px;
+        border-radius: 2rem;
         display: none;
         flex-direction: column;
         align-items: center;
         pointer-events: auto;
-        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+        box-shadow: 0 1.875rem 3.75rem rgba(0, 0, 0, 0.5);
         z-index: 1001;
     }
 
@@ -1602,7 +1533,7 @@ h1 {
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 16px;
+        gap: 1rem;
         width: 100%;
     }
 
@@ -1612,7 +1543,7 @@ h1 {
         font-family: var(--font-heading);
         font-weight: 200;
         text-decoration: none;
-        padding: 4px 0;
+        padding: 0.25rem 0;
         border-bottom: 1.5px solid transparent;
         transition: color 0.3s ease, border-color 0.3s ease;
     }
@@ -1623,11 +1554,23 @@ h1 {
         border-bottom: 1.5px solid #5632f8;
     }
 
-    /* Layouts que precisam virar Colunas */
+    /* Hero */
+    .hero-content {
+        padding-top: clamp(12vh, 18vh, 16vh);
+    }
+
+    h1 {
+        font-size: clamp(1.75rem, 8vw, 2.5rem);
+    }
+
+    .hero-subtitle {
+        font-size: clamp(0.875rem, 2.5vw, 1rem);
+    }
+
     .hero-actions {
         flex-direction: column;
         width: 100%;
-        max-width: 350px;
+        max-width: 21.875rem;
     }
 
     .main-cta,
@@ -1635,19 +1578,34 @@ h1 {
         width: 100%;
     }
 
-    .projetos-cabecalho {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 2vh;
+    /* Faixas */
+    .faixas-container {
+        padding: 8vh 5vw;
+    }
+
+    .faixas-title {
+        font-size: clamp(1rem, 4vw, 1.25rem);
+    }
+
+    .logo-box {
+        padding: 0.625rem 0.9375rem;
+    }
+
+    .logo-img-item {
+        height: 1.25rem;
+    }
+
+    /* Projetos */
+    .projetos {
+        padding: var(--section-padding-y) var(--section-padding-x);
     }
 
     .projetos-grid {
         flex-direction: column;
         align-items: center;
-        gap: 4vw;
+        gap: 1rem;
     }
 
-    /* Bento Grid Mobile Fallback (Força tudo para 90% da largura na tela pequena) */
     .projeto-card.projeto-75,
     .projeto-card.projeto-60,
     .projeto-card.projeto-50,
@@ -1655,33 +1613,173 @@ h1 {
     .projeto-card.projeto-25 {
         flex: 0 0 90%;
         width: 90%;
-        min-height: 280px;
+        max-width: 90%;
+        min-height: clamp(14rem, 40vh, 20rem);
     }
 
     .projetos-container {
+        padding: 0;
+    }
+
+    /* Bento Grid */
+    .bento-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .bento-card {
+        padding: 1.5rem;
+        min-height: 12rem;
+    }
+
+    .why-me-number {
+        font-size: 2.5rem;
+    }
+
+    /* Services */
+    .service-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
         padding: 0 1rem;
     }
 
-    .category-nav {
+    .service-card {
+        height: clamp(16rem, 45vh, 20rem);
+        position: sticky;
+        top: 6rem;
+    }
+
+    /* About */
+    .about-container {
+        gap: 2rem;
+    }
+
+    .about-image {
+        min-height: 18rem;
+    }
+
+    .about-image img {
+        min-height: 18rem;
+    }
+
+    .about-text {
+        text-align: left;
+    }
+
+    /* Testimonials */
+    .testimonials-track {
+        padding: 0 1rem;
+        gap: 1rem;
+    }
+
+    .testimonial-card {
+        padding: 1.5rem;
+    }
+
+    /* Process */
+    .timeline-item {
+        gap: 1.5rem;
+        padding-bottom: 3rem;
+    }
+
+    .timeline-left {
+        flex: 0 0 2.5rem;
+    }
+
+    .timeline-center {
+        flex: 0 0 2rem;
+    }
+
+    .step-num {
+        font-size: 1.5rem;
+    }
+
+    .timeline-dot {
+        width: 0.625rem;
+        height: 0.625rem;
+    }
+
+    .timeline-main-line {
+        left: 2.8125rem;
+        top: 3rem;
+        bottom: 0;
+    }
+
+    .step-title {
+        font-size: 1.25rem;
+    }
+
+    .step-desc {
+        font-size: 0.9rem;
+    }
+
+    /* FAQ */
+    .faq-question {
+        font-size: 1rem;
+        padding: 1.5rem 0;
+    }
+
+    .faq-answer p {
+        font-size: 0.9rem;
+    }
+
+    /* Contact */
+    .contact-form {
+        padding: 0;
+    }
+
+    .submit-btn {
+        width: 100%;
+    }
+
+    /* Footer */
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 1.5rem;
+    }
+
+    .footer-links {
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .footer-social {
+        justify-content: center;
+    }
+}
+
+/* ============================================
+   MEDIA QUERIES - SMALL MOBILE (< 480px)
+   ============================================ */
+@media (max-width: 480px) {
+    .btn-animated span,
+    .btn-solid span {
+        padding: 0.875rem 1.5rem;
+        font-size: 0.875rem;
+    }
+
+    .hero-actions {
+        gap: 0.75rem;
+    }
+
+    .projeto-card.projeto-75,
+    .projeto-card.projeto-60,
+    .projeto-card.projeto-50,
+    .projeto-card.projeto-40,
+    .projeto-card.projeto-25 {
+        flex: 0 0 100%;
         width: 100%;
         max-width: 100%;
     }
 
-    .category-btn {
-        flex: 1 1 auto;
-        justify-content: center;
-    }
-
-    /* About Me Mobile */
-    .about-container {
+    .category-nav {
         flex-direction: column;
-        gap: 4vh;
-        text-align: center;
     }
 
-    .about-image {
+    .category-btn {
         width: 100%;
-        min-height: 300px;
     }
 
     .about-content .section-title::after {
@@ -1689,111 +1787,61 @@ h1 {
         transform: translateX(-50%);
     }
 
-    .about-text {
-        text-align: left;
-    }
-
-    /* Why Me Mobile */
-    .bento-grid {
-        gap: 1.5rem;
-    }
-
-    .bento-card {
-        padding: 1.5rem;
-        min-height: 200px;
-    }
-
-    .why-me-number {
-        font-size: 2.5rem;
-    }
-
-    /* Services Mobile */
-    .service-grid {
-        padding: 0 1rem;
-    }
-
-    /* Testimonials Mobile */
-    .testimonials-track {
-        padding: 0 1rem;
-    }
-
-    .testimonial-card {
-        padding: 1.5rem;
-    }
-
-    /* Hero Mobile */
-    .hero-content {
-        padding-top: clamp(12vh, 18vh, 25vh);
-    }
-
-    h1 {
-        font-size: 2rem;
-    }
-
-    .hero-subtitle {
-        font-size: 1rem;
-    }
-
-    /* Process Mobile */
-    .timeline-item {
-        gap: 1.5rem;
-    }
-
     .timeline-left {
-        flex: 0 0 30px;
-    }
-
-    .step-num {
-        font-size: 1.5rem;
+        display: none;
     }
 
     .timeline-center {
-        flex: 0 0 30px;
-    }
-
-    .timeline-dot {
-        width: 10px;
-        height: 10px;
+        align-items: flex-start;
+        padding-left: 0;
     }
 
     .timeline-main-line {
-        left: 45px;
+        left: 0.3125rem;
+    }
+
+    .timeline-item {
+        padding-left: 1.5rem;
     }
 
     .step-title {
-        font-size: 1.4rem;
+        font-size: 1.1rem;
+    }
+}
+
+/* ============================================
+   MEDIA QUERIES - LARGE DESKTOP (> 1440px)
+   ============================================ */
+@media (min-width: 1440px) {
+    .bento-grid {
+        grid-template-columns: repeat(3, 1fr);
     }
 
-    .step-desc {
-        font-size: 0.95rem;
+    .service-grid {
+        grid-template-columns: repeat(4, 1fr);
     }
 
-    /* FAQ Mobile */
-    .faq-question {
-        font-size: 1rem;
-        padding: 1.5rem 0;
+    .projetos-grid {
+        gap: 1vw;
     }
 
-    .faq-answer p {
-        font-size: 0.95rem;
+    .projeto-card.projeto-75 {
+        flex: 1 1 calc(75% - 1vw);
+        max-width: calc(75% - 1vw);
     }
 
-    /* Contact Mobile */
-    .contact-form {
-        padding: 0 1rem;
+    .projeto-card.projeto-60 {
+        flex: 1 1 calc(60% - 1vw);
+        max-width: calc(60% - 1vw);
     }
 
-    /* Footer Mobile */
-    .footer-content {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        gap: 2rem;
+    .projeto-card.projeto-40 {
+        flex: 1 1 calc(40% - 1vw);
+        max-width: calc(40% - 1vw);
     }
 
-    .footer-links {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 1.5rem;
+    .projeto-card.projeto-25 {
+        flex: 1 1 calc(25% - 1vw);
+        max-width: calc(25% - 1vw);
     }
 }
