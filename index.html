@@ -22,10 +22,10 @@
 <body>
 
     <!-- Navbar Desktop (Visível apenas em Desktop) -->
-    <header class="navbar">
+    <header class="navegacao">
         <img src="Logo.svg" alt="Logo" class="logo-img">
         <div class="nav-right">
-            <a href="#contato" class="nav-cta btn-solid">
+            <a href="#contato" class="nav-cta btn-azul">
                 <span>Fale Comigo <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
                         <path fill="currentColor"
                             d="M19.05 4.91A9.82 9.82 0 0 0 12.04 2c-5.46 0-9.91 4.45-9.91 9.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91c0-2.65-1.03-5.14-2.9-7.01m-7.01 15.24c-1.48 0-2.93-.4-4.2-1.15l-.3-.18l-3.12.82l.83-3.04l-.2-.31a8.26 8.26 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24c2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.83c.02 4.54-3.68 8.23-8.22 8.23m4.52-6.16c-.25-.12-1.47-.72-1.69-.81c-.23-.08-.39-.12-.56.12c-.17.25-.64.81-.78.97c-.14.17-.29.19-.54.06c-.25-.12-1.05-.39-1.99-1.23c-.74-.66-1.23-1.47-1.38-1.72c-.14-.25-.02-.38.11-.51c.11-.11.25-.29.37-.43s.17-.25.25-.41c.08-.17.04-.31-.02-.43s-.56-1.34-.76-1.84c-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31c-.22.25-.86.85-.86 2.07s.89 2.4 1.01 2.56c.12.17 1.75 2.67 4.23 3.74c.59.26 1.05.41 1.41.52c.59.19 1.13.16 1.56.1c.48-.07 1.47-.6 1.67-1.18c.21-.58.21-1.07.14-1.18s-.22-.16-.47-.28" />
@@ -35,9 +35,9 @@
     </header>
 
     <!-- Header Mobile (Visível apenas em Mobile) -->
-    <header class="header-mobile">
+    <header class="cabecalho-mobile">
         <!-- Pílula Centralizada -->
-        <div class="menu-pill" id="menu-toggle">
+        <div class="menu-pilula" id="menu-toggle">
             <img src="Logo.svg" alt="Logo" class="logo-pill">
             <div class="menu-icon-box" id="hamburger-icon-wrapper">
                 <!-- Ícone Hambúrguer -->
@@ -55,7 +55,7 @@
         </div>
 
         <!-- Menu Expandido -->
-        <div class="menu-expanded" id="menu-overlay">
+        <div class="menu-expandido" id="menu-overlay">
             <nav class="menu-links">
                 <a href="#about" class="menu-link">Sobre</a>
                 <a href="#services" class="menu-link">Serviços</a>
@@ -68,30 +68,30 @@
     </header>
 
     <!-- Seção Hero -->
-    <section class="hero">
-        <video autoplay loop muted playsinline class="hero-background">
+    <section class="pagina-inicial">
+        <video autoplay loop muted playsinline class="pagina-inicial-fundo">
             <source src="Assets/Vídeo-hero.webm" type="video/webm">
         </video>
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
+        <div class="pagina-inicial sobreposicao"></div>
+        <div class="pagina-inicial-conteudo">
             <h1>Design e estratégia <br>para quem busca <br>
                 <span class="word-suck-wrapper">
                     <i id="suck-word">se destacar</i>
                 </span>
             </h1>
-            <p class="hero-subtitle">Transformo marcas comuns em <strong>presenças digitais</strong> que geram
+            <p class="pagina-inicial-subtitulo">Transformo marcas comuns em <strong>presenças digitais</strong> que geram
                 <strong>desejo e autoridade</strong>.
                 Sem excessos, apenas o design que sua empresa precisa para <strong>dominar o mercado</strong>.
             </p>
-            <div class="hero-actions">
-                <a href="#cases" class="btn-animated main-cta">
+            <div class="pagina-inicial-acao">
+                <a href="#cases" class="btn-preto main-cta">
                     <span>Ver portfólio <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                             <line x1="5" y1="12" x2="19" y2="12"></line>
                             <polyline points="12 5 19 12 12 19"></polyline>
                         </svg></span>
                 </a>
-                <a href="#contato" class="main-cta btn-solid">
+                <a href="#contato" class="main-cta btn-azul">
                     <span>Comece um projeto <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                             viewBox="0 0 24 24">
                             <g fill="none" stroke="currentColor" stroke-width="1.5">
@@ -104,16 +104,16 @@
                         </svg></span>
                 </a>
             </div>
-            <div class="scroll-indicator">
-                <p>Continue explorando</p>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                    <path fill="currentColor"
-                        d="M11.47 16.278a.75.75 0 0 0 1.06 0l2.25-2.249a.75.75 0 0 0-1.06-1.06L12 14.686l-1.72-1.719a.75.75 0 1 0-1.06 1.061zM12 9.055a.8.8 0 1 1 0-1.6a.8.8 0 0 1 0 1.6m-.8 2.016a.8.8 0 1 0 1.6 0a.8.8 0 0 0-1.6 0" />
-                    <path fill="currentColor" fill-rule="evenodd"
-                        d="M12 2.001a7.5 7.5 0 0 0-7.5 7.5v5a7.5 7.5 0 0 0 15 0v-5a7.5 7.5 0 0 0-7.5-7.5m-6 7.5a6 6 0 1 1 12 0v5a6 6 0 0 1-12 0z"
-                        clip-rule="evenodd" />
-                </svg>
-            </div>
+        </div>
+        <div class="indicador-rolar">
+            <p>Continue explorando</p>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                <path fill="currentColor"
+                    d="M11.47 16.278a.75.75 0 0 0 1.06 0l2.25-2.249a.75.75 0 0 0-1.06-1.06L12 14.686l-1.72-1.719a.75.75 0 1 0-1.06 1.061zM12 9.055a.8.8 0 1 1 0-1.6a.8.8 0 0 1 0 1.6m-.8 2.016a.8.8 0 1 0 1.6 0a.8.8 0 0 0-1.6 0" />
+                <path fill="currentColor" fill-rule="evenodd"
+                    d="M12 2.001a7.5 7.5 0 0 0-7.5 7.5v5a7.5 7.5 0 0 0 15 0v-5a7.5 7.5 0 0 0-7.5-7.5m-6 7.5a6 6 0 1 1 12 0v5a6 6 0 0 1-12 0z"
+                    clip-rule="evenodd" />
+            </svg>
         </div>
     </section>
 
@@ -157,12 +157,12 @@
         </header>
 
         <!-- Navegação de Categorias -->
-        <nav class="category-nav">
+        <nav class="navegacao-categoria">
             <button class="category-btn active" data-category="social-media">
                 Social Media
                 <span class="category-count">8</span>
             </button>
-            <button class="category-btn" data-category="identidade-visual">
+            <button class="botao-categoria" data-category="identidade-visual">
                 Identidade Visual
                 <span class="category-count">4</span>
             </button>
@@ -172,9 +172,9 @@
         <div class="projetos-container">
             <!-- Social Media -->
             <div class="category-content active" data-category="social-media">
-                <div class="projetos-grid">
+                <div class="projetos-grade">
                     <!-- Projeto 1: 60% largura -->
-                    <article class="projeto-card projeto-60">
+                    <article class="projeto-cartao" projeto-60">
                         <div class="projeto-imagem">
                             <img src="Assets/Social Media - Dentista.png" alt="Dentista Case">
                         </div>
@@ -185,7 +185,7 @@
                     </article>
 
                     <!-- Projeto 2: 40% largura -->
-                    <article class="projeto-card projeto-40">
+                    <article class="projeto-cartao" projeto-40">
                         <div class="projeto-imagem">
                             <img src="Assets/Social Media - Esteticista.png" alt="Esteticista Case">
                         </div>
@@ -196,7 +196,7 @@
                     </article>
 
                     <!-- Projeto 3: 40% largura -->
-                    <article class="projeto-card projeto-40">
+                    <article class="projeto-cartao" projeto-40">
                         <div class="projeto-imagem">
                             <img src="Assets/Social Media - Massoterapia.png" alt="Massoterapia Case">
                         </div>
@@ -207,7 +207,7 @@
                     </article>
 
                     <!-- Projeto 4: 60% largura -->
-                    <article class="projeto-card projeto-60">
+                    <article class="projeto-cartao" projeto-60">
                         <div class="projeto-imagem">
                             <img src="Assets/Social Media - Dentista.png" alt="Dentista Case">
                         </div>
@@ -218,7 +218,7 @@
                     </article>
 
                     <!-- Projeto 5: 60% largura -->
-                    <article class="projeto-card projeto-60">
+                    <article class="projeto-cartao" projeto-60">
                         <div class="projeto-imagem">
                             <img src="Assets/Social Media - Dentista.png" alt="Dentista Case">
                         </div>
@@ -229,7 +229,7 @@
                     </article>
 
                     <!-- Projeto 6: 40% largura -->
-                    <article class="projeto-card projeto-40">
+                    <article class="projeto-cartao" projeto-40">
                         <div class="projeto-imagem">
                             <img src="Assets/Social Media - Esteticista.png" alt="Esteticista Case">
                         </div>
@@ -240,7 +240,7 @@
                     </article>
 
                     <!-- Projeto 7: 40% largura -->
-                    <article class="projeto-card projeto-40">
+                    <article class="projeto-cartao" projeto-40">
                         <div class="projeto-imagem">
                             <img src="Assets/Social Media - Massoterapia.png" alt="Massoterapia Case">
                         </div>
@@ -251,7 +251,7 @@
                     </article>
 
                     <!-- Projeto 8: 60% largura -->
-                    <article class="projeto-card projeto-60">
+                    <article class="projeto-cartao" projeto-60">
                         <div class="projeto-imagem">
                             <img src="Assets/Social Media - Dentista.png" alt="Dentista Case">
                         </div>
@@ -264,10 +264,10 @@
             </div>
 
             <!-- Identidade Visual -->
-            <div class="category-content" data-category="identidade-visual">
-                <div class="projetos-grid">
+            <div class="conteudo-categoria" data-category="identidade-visual">
+                <div class="projetos-grade">
                     <!-- Projeto 1: 75% largura -->
-                    <article class="projeto-card projeto-75">
+                    <article class="projeto-cartao" projeto-75">
                         <div class="projeto-imagem">
                             <img src="Assets/Identidade Visual - Atelier de macramê.png" alt="Atelier Case">
                         </div>
@@ -279,7 +279,7 @@
                     </article>
 
                     <!-- Projeto 2: 25% largura -->
-                    <article class="projeto-card projeto-25">
+                    <article class="projeto-cartao" projeto-25">
                         <div class="projeto-imagem">
                             <img src="Assets/Identidade Visual - Massoterapeuta.png" alt="Massoterapeuta Case">
                         </div>
@@ -290,7 +290,7 @@
                     </article>
 
                     <!-- Projeto 3: 25% largura -->
-                    <article class="projeto-card projeto-25">
+                    <article class="projeto-cartao" projeto-25">
                         <div class="projeto-imagem">
                             <img src="Assets/Identidade Visual - Moda modesta.png" alt="Moda Modesta Case">
                         </div>
@@ -301,7 +301,7 @@
                     </article>
 
                     <!-- Projeto 4: 75% largura (Ajustando a Grid) -->
-                    <article class="projeto-card projeto-75">
+                    <article class="projeto-cartao" projeto-75">
                         <div class="projeto-imagem">
                             <img src="Assets/Identidade Visual - Moda infantil.png" alt="Moda Infantil Case">
                         </div>
@@ -316,63 +316,63 @@
     </section>
 
     <!-- Seção Por Que Escolher -->
-    <section class="why-me reveal" id="why-me">
-        <header class="why-me-header reveal reveal-delay-1">
+    <section class="por-que-eu revelar" id="why-me">
+        <header class="por-que-eu-cabecalho reveal reveal-delay-1">
             <h2 class="section-title font-serif">Por que trabalhar comigo?</h2>
             <p class="section-subtitle">Design focado em resultados reais para o seu negócio</p>
         </header>
         <div class="bento-grid">
-            <div class="bento-card reveal reveal-scale reveal-delay-2">
+            <div class="card-bloco reveal reveal-scale reveal-delay-2">
                 <span class="badge-pill pill-purple">Resultados</span>
                 <div class="bento-content">
-                    <span class="why-me-number font-serif">50+</span>
-                    <h3 class="why-me-title">Projetos Entregues</h3>
-                    <p class="why-me-desc">Cases de sucesso em diversas áreas, do beauty ao tech.</p>
+                    <span class="por-que-eu-numero font-serif">50+</span>
+                    <h3 class="por-que-eu-titulo">Projetos Entregues</h3>
+                    <p class="por-que-eu-descricao">Cases de sucesso em diversas áreas, do beauty ao tech.</p>
                 </div>
             </div>
-            <div class="bento-card reveal reveal-scale reveal-delay-3">
+            <div class="card-bloco reveal reveal-scale reveal-delay-3">
                 <span class="badge-pill pill-green">Senioridade</span>
                 <div class="bento-content">
-                    <span class="why-me-number font-serif">5+</span>
-                    <h3 class="why-me-title">Anos de Experiência</h3>
-                    <p class="why-me-desc">Specializado em design para redes sociais e identidade visual.</p>
+                    <span class="por-que-eu-numero font-serif">5+</span>
+                    <h3 class="por-que-eu-titulo">Anos de Experiência</h3>
+                    <p class="por-que-eu-descricao">Specializado em design para redes sociais e identidade visual.</p>
                 </div>
             </div>
-            <div class="bento-card bento-full reveal reveal-scale reveal-delay-4">
+            <div class="card-bloco card-bloco-cheio reveal reveal-scale reveal-delay-4">
                 <span class="badge-pill pill-cyan">Exclusividade</span>
                 <div class="bento-content">
-                    <span class="why-me-number font-serif">100%</span>
-                    <h3 class="why-me-title">Atendimento Personalizado</h3>
-                    <p class="why-me-desc">Você fala direto comigo, sem intermediários ou burocracias.</p>
+                    <span class="por-que-eu-numero font-serif">100%</span>
+                    <h3 class="por-que-eu-titulo">Atendimento Personalizado</h3>
+                    <p class="por-que-eu-descricao">Você fala direto comigo, sem intermediários ou burocracias.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Seção Serviços -->
-    <section class="services reveal" id="services">
-        <header class="services-header reveal reveal-delay-1">
+    <section class="servicos revelar" id="services">
+        <header class="servicos-cabecalho reveal reveal-delay-1">
             <h2 class="section-title font-serif">O que eu faço</h2>
             <p class="section-subtitle">Soluções completas para sua marca se destacar no digital</p>
         </header>
-        <div class="service-grid">
+        <div class="servicos-grade">
             <!-- Card 1 -->
-            <div class="service-card reveal reveal-scale reveal-delay-2">
+            <div class="servico-cartao reveal reveal-scale reveal-delay-2">
                 <div class="card-inner">
                     <div class="card-front">
-                        <div class="service-icon">
+                        <div class="servico-icone">
                             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                                 <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
                                 <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
                                 <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
                             </svg>
                         </div>
-                        <h3 class="service-title font-serif">Social Media</h3>
-                        <p class="service-desc">Estratégia completa para Instagram e TikTok.</p>
-                        <span class="card-hint">Ver Detalhes →</span>
+                        <h3 class="servico-titulo font-serif">Social Media</h3>
+                        <p class="servico-descricao">Estratégia completa para Instagram e TikTok.</p>
+                        <span class="cartao-dica">Ver Detalhes →</span>
                     </div>
                     <div class="card-back">
-                        <ul class="service-back-list">
+                        <ul class="servico-lista-verso">
                             <li>Design de Feed & Stories</li>
                             <li>Reels & Edição de Vídeo</li>
                             <li>Copywriting Persuasivo</li>
@@ -383,21 +383,21 @@
             </div>
 
             <!-- Card 2 -->
-            <div class="service-card reveal reveal-scale reveal-delay-3">
+            <div class="servico-cartao reveal reveal-scale reveal-delay-3">
                 <div class="card-inner">
                     <div class="card-front">
-                        <div class="service-icon">
+                        <div class="servico-icone">
                             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                                 <circle cx="12" cy="12" r="10"></circle>
                                 <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
                             </svg>
                         </div>
-                        <h3 class="service-title font-serif">Branding</h3>
-                        <p class="service-desc">Identidade que comunica autoridade.</p>
-                        <span class="card-hint">Ver Detalhes →</span>
+                        <h3 class="servico-titulo font-serif">Branding</h3>
+                        <p class="servico-descricao">Identidade que comunica autoridade.</p>
+                        <span class="cartao-dica">Ver Detalhes →</span>
                     </div>
                     <div class="card-back">
-                        <ul class="service-back-list">
+                        <ul class="servico-lista-verso">
                             <li>Logotipos Exclusivos</li>
                             <li>Paleta de Cores & Tipografia</li>
                             <li>Manual da Marca</li>
@@ -408,21 +408,21 @@
             </div>
 
             <!-- Card 3 -->
-            <div class="service-card reveal reveal-scale reveal-delay-4">
+            <div class="servico-cartao reveal reveal-scale reveal-delay-4">
                 <div class="card-inner">
                     <div class="card-front">
-                        <div class="service-icon">
+                        <div class="servico-icone">
                             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                                 <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
                                 <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
                             </svg>
                         </div>
-                        <h3 class="service-title font-serif">Content</h3>
-                        <p class="service-desc">Design editorial e infoprodutos.</p>
-                        <span class="card-hint">Ver Detalhes →</span>
+                        <h3 class="servico-titulo font-serif">Content</h3>
+                        <p class="servico-descricao">Design editorial e infoprodutos.</p>
+                        <span class="cartao-dica">Ver Detalhes →</span>
                     </div>
                     <div class="card-back">
-                        <ul class="service-back-list">
+                        <ul class="servico-lista-verso">
                             <li>Design de Ebooks</li>
                             <li>Apresentações Premium</li>
                             <li>Materiais Educativos</li>
@@ -433,20 +433,20 @@
             </div>
 
             <!-- Card 4 -->
-            <div class="service-card reveal reveal-scale reveal-delay-5">
+            <div class="servico-cartao reveal reveal-scale reveal-delay-5">
                 <div class="card-inner">
                     <div class="card-front">
-                        <div class="service-icon">
+                        <div class="servico-icone">
                             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                                 <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
                             </svg>
                         </div>
-                        <h3 class="service-title font-serif">Motion & IA</h3>
-                        <p class="service-desc">Animações e tecnologia generativa.</p>
-                        <span class="card-hint">Ver Detalhes →</span>
+                        <h3 class="servico-titulo font-serif">Motion & IA</h3>
+                        <p class="servico-descricao">Animações e tecnologia generativa.</p>
+                        <span class="cartao-dica">Ver Detalhes →</span>
                     </div>
                     <div class="card-back">
-                        <ul class="service-back-list">
+                        <ul class="servico-lista-verso">
                             <li>Motion Graphics</li>
                             <li>Animação de Logos</li>
                             <li>Design orientado a IA</li>
@@ -459,22 +459,22 @@
     </section>
 
     <!-- Seção Sobre -->
-    <section class="about reveal" id="about">
-        <div class="about-container">
-            <div class="about-image reveal reveal-left reveal-delay-1">
+    <section class="sobre revelar" id="about">
+        <div class="sobre-container">
+            <div class="sobre-imagem reveal reveal-left reveal-delay-1">
                 <img src="Assets/Foto.png" alt="David Dias">
             </div>
-            <div class="about-content reveal reveal-right reveal-delay-2">
+            <div class="sobre-conteudo reveal reveal-right reveal-delay-2">
                 <h2 class="section-title">Olá, eu sou o David</h2>
-                <p class="about-text">Designer gráfico e especialista em Social Media há mais de 5 anos. Trabalho
+                <p class="sobre-texto">Designer gráfico e especialista em Social Media há mais de 5 anos. Trabalho
                     ajudando marcas a se destacarem no digital através de design estratégica e conteúdo que engaja.
                 </p>
-                <p class="about-text">Não trabalho com design decorativo. Cada elemento que crio tem um propósito:
+                <p class="sobre-texto">Não trabalho com design decorativo. Cada elemento que crio tem um propósito:
                     chamar atenção, passar a mensagem certa e converter seguidores em clientes.</p>
-                <p class="about-text">Se você quer uma marca que realmente funciona nas redes sociais e se
+                <p class="sobre-texto">Se você quer uma marca que realmente funciona nas redes sociais e se
                     diferencia da
                     concorrência, vamos conversar.</p>
-                <a href="#contato" class="btn-animated main-cta">
+                <a href="#contato" class="btn-preto main-cta">
                     <span>Fale comigo</span>
                 </a>
             </div>
@@ -482,12 +482,12 @@
     </section>
 
     <!-- Seção Depoimentos -->
-    <section class="testimonials reveal" id="testimonials">
-        <header class="testimonials-header reveal reveal-delay-1">
+    <section class="depoimentos revelar" id="testimonials">
+        <header class="depoimentos-cabecalho reveal reveal-delay-1">
             <h2 class="section-title font-serif">O que dizem meus clientes</h2>
         </header>
-        <div class="testimonials-wrapper">
-            <div class="testimonials-track">
+        <div class="depoimentos-embrulho">
+            <div class="depoimentos-trilha">
                 <article class="testimonial-card">
                     <div class="testimonial-quote">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
@@ -533,12 +533,12 @@
     </section>
 
     <!-- Seção Processos -->
-    <section class="process reveal" id="process">
-        <header class="process-header reveal reveal-delay-1">
+    <section class="processo revelar" id="process">
+        <header class="processo-cabecalho reveal reveal-delay-1">
             <h2 class="section-title font-serif">Como funciona meu método</h2>
             <p class="section-subtitle">Um processo estruturado para entregar resultados consistentes</p>
         </header>
-        <div class="process-timeline">
+        <div class="processo-linha-tempo">
             <!-- Linha Principal Contínua -->
             <div class="timeline-main-line">
                 <div class="timeline-progress-bar"></div>
@@ -600,76 +600,76 @@
     </section>
 
     <!-- Seção FAQ -->
-    <section class="faq reveal" id="faq">
-        <header class="faq-header reveal reveal-delay-1">
+    <section class="perguntas revelar" id="faq">
+        <header class="perguntas-cabecalho reveal reveal-delay-1">
             <h2 class="section-title">Perguntas Frequentes</h2>
             <p class="section-subtitle">Tire suas dúvidas antes de começar</p>
         </header>
-        <div class="faq-list">
-            <div class="faq-item reveal reveal-delay-2">
-                <button class="faq-question">
+        <div class="perguntas-lista">
+            <div class="pergunta-item reveal reveal-delay-2">
+                <button class="pergunta-pergunta">
                     <span>Quanto tempo demora um projeto?</span>
-                    <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    <svg class="pergunta-icone" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                         stroke-width="2">
                         <polyline points="6 9 12 15 18 9"></polyline>
                     </svg>
                 </button>
-                <div class="faq-answer">
+                <div class="pergunta-resposta">
                     <p>O tempo varia conforme a complexidade. Para identidade visual, geralmente leva de 7 a 14 dias.
                         Para social media, dependendo da quantidade de conteúdo, pode ser de 2 a 4 semanas. Sempre
                         agrego prazos realistas e comunico o progresso durante todo o processo.</p>
                 </div>
             </div>
-            <div class="faq-item reveal reveal-delay-3">
-                <button class="faq-question">
+            <div class="pergunta-item reveal reveal-delay-3">
+                <button class="pergunta-pergunta">
                     <span>Como funciona o pagamento?</span>
-                    <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    <svg class="pergunta-icone" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                         stroke-width="2">
                         <polyline points="6 9 12 15 18 9"></polyline>
                     </svg>
                 </button>
-                <div class="faq-answer">
+                <div class="pergunta-resposta">
                     <p>Trabalho com 50% do valor no início do projeto e 50% na entrega. Para projetos maiores, podemos
                         parcelar em até 4x sem juros. Aceito transferência bancária, PIX e cartão de crédito.</p>
                 </div>
             </div>
-            <div class="faq-item reveal reveal-delay-4">
-                <button class="faq-question">
+            <div class="pergunta-item reveal reveal-delay-4">
+                <button class="pergunta-pergunta">
                     <span>Você atende apenas empresas ou também pessoas físicas?</span>
-                    <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    <svg class="pergunta-icone" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                         stroke-width="2">
                         <polyline points="6 9 12 15 18 9"></polyline>
                     </svg>
                 </button>
-                <div class="faq-answer">
+                <div class="pergunta-resposta">
                     <p>Aguardo todos os tipos de clientes! Desde empreendedores individuais, profissionais autônomos,
                         pequenas empresas até marcas maiores. O que me importa é que você tenha um objetivo claro e
                         queira se destacar no mercado.</p>
                 </div>
             </div>
-            <div class="faq-item reveal reveal-delay-5">
-                <button class="faq-question">
+            <div class="pergunta-item reveal reveal-delay-5">
+                <button class="pergunta-pergunta">
                     <span>Posso solicitar alterações após a entrega?</span>
-                    <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    <svg class="pergunta-icone" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                         stroke-width="2">
                         <polyline points="6 9 12 15 18 9"></polyline>
                     </svg>
                 </button>
-                <div class="faq-answer">
+                <div class="pergunta-resposta">
                     <p>Sim! Meu serviço inclui revisões durante o processo criativo. Após a entrega final, ofereço 15
                         dias para pequenos ajustes gratuitos. Mudanças mais complexas podem ser orçadas separadamente.
                     </p>
                 </div>
             </div>
-            <div class="faq-item reveal reveal-delay-6">
-                <button class="faq-question">
+            <div class="pergunta-item reveal reveal-delay-6">
+                <button class="pergunta-pergunta">
                     <span>Você trabalha com outras ferramentas além de design?</span>
-                    <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    <svg class="pergunta-icone" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                         stroke-width="2">
                         <polyline points="6 9 12 15 18 9"></polyline>
                     </svg>
                 </button>
-                <div class="faq-answer">
+                <div class="pergunta-resposta">
                     <p>Sim! Além de identidade visual e social media, também ofereço serviços de motion design, criação
                         de apresentações, rebranding e consultoria de marca. Se precisar de algo específico, é só
                         perguntar.</p>
@@ -679,7 +679,7 @@
     </section>
 
     <!-- Seção Contato -->
-    <section class="contact" id="contato">
+    <section class="contato" id="contato">
         <header class="contact-header">
             <h2 class="section-title">Vamos criar algo juntos?</h2>
             <p class="section-subtitle">Me conta sobre seu projeto e vamos dar vida à sua marca.</p>
@@ -708,7 +708,7 @@
     </section>
 
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="rodape">
         <div class="footer-content">
             <div class="footer-brand">
                 <img src="Logo.svg" alt="David Dias" class="footer-logo">
