@@ -35,7 +35,9 @@
     box-sizing: border-box;
 }
 
-html { scroll-behavior: smooth; }
+html {
+    scroll-behavior: smooth;
+}
 
 body {
     background-color: var(--bg);
@@ -46,14 +48,26 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-section { scroll-margin-top: 10vh; }
+section {
+    scroll-margin-top: 10vh;
+}
 
-h1, h2, h3, .projeto-titulo, .step-title, .faq-question {
+h1,
+h2,
+h3,
+.projeto-titulo,
+.step-title,
+.faq-question {
     text-wrap: balance;
 }
 
-.font-serif { font-family: 'Playfair Display', serif; }
-.italic { font-style: italic; }
+.font-serif {
+    font-family: 'Playfair Display', serif;
+}
+
+.italic {
+    font-style: italic;
+}
 
 /* ============================================
    ANIMAÇÕES
@@ -70,18 +84,37 @@ h1, h2, h3, .projeto-titulo, .step-title, .faq-question {
 }
 
 @keyframes snake-rotate {
-    from { --angle: 0deg; }
-    to { --angle: 360deg; }
+    from {
+        --angle: 0deg;
+    }
+
+    to {
+        --angle: 360deg;
+    }
 }
 
 @keyframes scroll-float {
-    0%, 100% { transform: translateY(0); opacity: 0.4; }
-    50% { transform: translateY(0.5rem); opacity: 0.8; }
+
+    0%,
+    100% {
+        transform: translateY(0);
+        opacity: 0.4;
+    }
+
+    50% {
+        transform: translateY(0.5rem);
+        opacity: 0.8;
+    }
 }
 
 @keyframes ticker {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
 }
 
 /* ============================================
@@ -98,7 +131,9 @@ h1, h2, h3, .projeto-titulo, .step-title, .faq-question {
     transition: transform 0.3s ease;
 }
 
-.btn-animated:hover { transform: scale(1.03); }
+.btn-animated:hover {
+    transform: scale(1.03);
+}
 
 .btn-animated::before {
     content: '';
@@ -133,7 +168,9 @@ h1, h2, h3, .projeto-titulo, .step-title, .faq-question {
     text-decoration: none;
 }
 
-.btn-solid:hover { transform: scale(1.03); }
+.btn-solid:hover {
+    transform: scale(1.03);
+}
 
 .btn-solid span {
     background: linear-gradient(135deg, #0070FF, #7000ff, #00f0ff);
@@ -176,7 +213,9 @@ h1, h2, h3, .projeto-titulo, .step-title, .faq-question {
     filter: brightness(0) invert(1);
 }
 
-.header-mobile { display: none; }
+.header-mobile {
+    display: none;
+}
 
 /* ============================================
    HERO
@@ -236,7 +275,9 @@ h1 {
     margin-bottom: 2rem;
 }
 
-.hero-subtitle strong { font-weight: 600; }
+.hero-subtitle strong {
+    font-weight: 600;
+}
 
 .hero-actions {
     display: flex;
@@ -311,7 +352,9 @@ h1 {
     transition: opacity 0.3s;
 }
 
-.logo-box:hover { opacity: 1; }
+.logo-box:hover {
+    opacity: 1;
+}
 
 .logo-img-item {
     height: 1.5rem;
@@ -375,7 +418,9 @@ h1 {
     opacity: 0.6;
 }
 
-.projetos-container { width: 100%; }
+.projetos-container {
+    width: 100%;
+}
 
 .category-content {
     display: none;
@@ -401,10 +446,21 @@ h1 {
     cursor: pointer;
 }
 
-.projeto-card.projeto-60 { grid-column: span 2; }
-.projeto-card.projeto-75 { grid-column: span 3; }
-.projeto-card.projeto-40 { grid-column: span 1; }
-.projeto-card.projeto-25 { grid-column: span 1; }
+.projeto-card.projeto-60 {
+    grid-column: span 2;
+}
+
+.projeto-card.projeto-75 {
+    grid-column: span 3;
+}
+
+.projeto-card.projeto-40 {
+    grid-column: span 1;
+}
+
+.projeto-card.projeto-25 {
+    grid-column: span 1;
+}
 
 .projeto-imagem {
     position: absolute;
@@ -426,7 +482,7 @@ h1 {
     position: absolute;
     inset: 0;
     padding: 1rem;
-    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 50%);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 50%);
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -522,9 +578,20 @@ h1 {
     margin-bottom: 0.75rem;
 }
 
-.pill-purple { background: rgba(112, 0, 255, 0.2); color: #a855f7; }
-.pill-green { background: rgba(34, 197, 94, 0.2); color: #22c55e; }
-.pill-cyan { background: rgba(6, 182, 212, 0.2); color: #06b6d4; }
+.pill-purple {
+    background: rgba(112, 0, 255, 0.2);
+    color: #a855f7;
+}
+
+.pill-green {
+    background: rgba(34, 197, 94, 0.2);
+    color: #22c55e;
+}
+
+.pill-cyan {
+    background: rgba(6, 182, 212, 0.2);
+    color: #06b6d4;
+}
 
 .why-me-number {
     font-family: var(--font-heading);
@@ -587,7 +654,8 @@ h1 {
     transform: rotateY(180deg);
 }
 
-.card-front, .card-back {
+.card-front,
+.card-back {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -809,7 +877,9 @@ h1 {
     gap: 1rem;
 }
 
-.timeline-item:last-child { padding-bottom: 0; }
+.timeline-item:last-child {
+    padding-bottom: 0;
+}
 
 .timeline-left {
     flex-shrink: 0;
@@ -994,7 +1064,9 @@ h1 {
     margin-bottom: 1.5rem;
 }
 
-.footer-brand { flex: 1 1 12rem; }
+.footer-brand {
+    flex: 1 1 12rem;
+}
 
 .footer-logo {
     width: 5rem;
@@ -1019,7 +1091,9 @@ h1 {
     transition: color 0.3s;
 }
 
-.footer-links a:hover { color: var(--cyan); }
+.footer-links a:hover {
+    color: var(--cyan);
+}
 
 .footer-social {
     display: flex;
@@ -1031,7 +1105,9 @@ h1 {
     transition: color 0.3s;
 }
 
-.footer-social a:hover { color: var(--cyan); }
+.footer-social a:hover {
+    color: var(--cyan);
+}
 
 .footer-bottom {
     text-align: center;
@@ -1048,7 +1124,7 @@ h1 {
     .bento-grid {
         grid-template-columns: repeat(2, 1fr);
     }
-    
+
     .bento-card.bento-full {
         grid-column: 1 / -1;
     }
@@ -1078,7 +1154,9 @@ h1 {
         --section-padding-x: clamp(0.75rem, 4vw, 1.25rem);
     }
 
-    .navbar { display: none; }
+    .navbar {
+        display: none;
+    }
 
     .header-mobile {
         display: flex;
@@ -1173,11 +1251,13 @@ h1 {
         gap: 0.5rem;
     }
 
-    .btn-animated, .btn-solid {
+    .btn-animated,
+    .btn-solid {
         width: 100%;
     }
 
-    .btn-animated span, .btn-solid span {
+    .btn-animated span,
+    .btn-solid span {
         justify-content: center;
         padding: 0.625rem 1rem;
         font-size: 0.75rem;
@@ -1304,7 +1384,8 @@ h1 {
         transform: rotateY(180deg);
     }
 
-    .card-front, .card-back {
+    .card-front,
+    .card-back {
         padding: 1rem;
     }
 
