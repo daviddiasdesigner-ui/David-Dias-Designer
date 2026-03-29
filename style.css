@@ -600,7 +600,7 @@ h1 {
     width: 100%;
     background: #000;
     z-index: 20;
-    padding: var(--section-padding-y) 10rem;
+    padding: var(--section-padding-y) clamp(1.5rem, 5vw, 10rem);
 }
 
 .projetos-cabecalho {
@@ -1544,9 +1544,26 @@ h1 {
     }
 
     .logo-pill {
-        width: 110px;
+        width: 90px;
         height: auto;
         filter: brightness(0) invert(1);
+    }
+
+    /* Faixas Mobile */
+    .faixas-container {
+        padding: 8vh 5vw;
+    }
+
+    .faixas-title {
+        font-size: 1.25rem;
+    }
+
+    .logo-box {
+        padding: 10px 15px;
+    }
+
+    .logo-img-item {
+        height: 20px;
     }
 
     .menu-icon-box {
@@ -1561,11 +1578,13 @@ h1 {
     .menu-expanded {
         justify-content: center;
         position: fixed;
-        top: 100px;
+        top: 90px;
+        left: 50%;
+        transform: translateX(-50%);
         width: 90%;
-        max-width: 600px;
+        max-width: 400px;
         padding: 40px 24px;
-        background: rgba(10, 10, 15, 0.95);
+        background: rgba(10, 10, 15, 0.98);
         backdrop-filter: blur(25px);
         border: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: 32px;
@@ -1573,7 +1592,7 @@ h1 {
         flex-direction: column;
         align-items: center;
         pointer-events: auto;
-        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
         z-index: 1001;
     }
 
@@ -1636,7 +1655,21 @@ h1 {
     .projeto-card.projeto-25 {
         flex: 0 0 90%;
         width: 90%;
-        aspect-ratio: 1/1;
+        min-height: 280px;
+    }
+
+    .projetos-container {
+        padding: 0 1rem;
+    }
+
+    .category-nav {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .category-btn {
+        flex: 1 1 auto;
+        justify-content: center;
     }
 
     /* About Me Mobile */
@@ -1656,20 +1689,111 @@ h1 {
         transform: translateX(-50%);
     }
 
+    .about-text {
+        text-align: left;
+    }
+
+    /* Why Me Mobile */
+    .bento-grid {
+        gap: 1.5rem;
+    }
+
+    .bento-card {
+        padding: 1.5rem;
+        min-height: 200px;
+    }
+
+    .why-me-number {
+        font-size: 2.5rem;
+    }
+
+    /* Services Mobile */
+    .service-grid {
+        padding: 0 1rem;
+    }
+
+    /* Testimonials Mobile */
+    .testimonials-track {
+        padding: 0 1rem;
+    }
+
+    .testimonial-card {
+        padding: 1.5rem;
+    }
+
+    /* Hero Mobile */
+    .hero-content {
+        padding-top: clamp(12vh, 18vh, 25vh);
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+
     /* Process Mobile */
     .timeline-item {
-        gap: 2rem;
+        gap: 1.5rem;
     }
 
     .timeline-left {
-        flex: 0 0 40px;
+        flex: 0 0 30px;
     }
 
     .step-num {
-        font-size: 1.8rem;
+        font-size: 1.5rem;
+    }
+
+    .timeline-center {
+        flex: 0 0 30px;
+    }
+
+    .timeline-dot {
+        width: 10px;
+        height: 10px;
     }
 
     .timeline-main-line {
-        left: 55px; /* Alinhado com o centro do dot no mobile */
+        left: 45px;
+    }
+
+    .step-title {
+        font-size: 1.4rem;
+    }
+
+    .step-desc {
+        font-size: 0.95rem;
+    }
+
+    /* FAQ Mobile */
+    .faq-question {
+        font-size: 1rem;
+        padding: 1.5rem 0;
+    }
+
+    .faq-answer p {
+        font-size: 0.95rem;
+    }
+
+    /* Contact Mobile */
+    .contact-form {
+        padding: 0 1rem;
+    }
+
+    /* Footer Mobile */
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 2rem;
+    }
+
+    .footer-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1.5rem;
     }
 }
