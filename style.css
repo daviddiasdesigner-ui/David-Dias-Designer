@@ -481,8 +481,6 @@ h1 {
 }
 
 .projetos-container {
-    width: 100%;
-    max-width: 90rem;
     margin: 0 auto;
 }
 
@@ -495,29 +493,19 @@ h1 {
 }
 
 .projetos-grade {
+    height: 100vh;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: 200px;
-    gap: 1.5rem;
-}
-
-.projeto-cartao.projeto-60,
-.projeto-cartao.projeto-75 {
-    grid-row: span 2;
-}
-
-.projeto-cartao.projeto-40,
-.projeto-cartao.projeto-25 {
-    grid-row: span 1;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-auto-rows: minmax(150px, 1fr);
+    gap: min(16px, 1rem);
+    justify-content: center;
 }
 
 .projeto-cartao {
-    position: relative;
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 1.25rem;
     overflow: hidden;
-    aspect-ratio: 4/3;
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -548,7 +536,7 @@ h1 {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 60%);
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.4s ease;
@@ -558,24 +546,8 @@ h1 {
     opacity: 1;
 }
 
-.projeto-cartao.projeto-60 {
-    grid-column: span 2;
-}
-
-.projeto-cartao.projeto-75 {
-    grid-column: span 3;
-}
-
-.projeto-cartao.projeto-40 {
-    grid-column: span 1;
-}
-
-.projeto-cartao.projeto-25 {
-    grid-column: span 1;
-}
-
 .projeto-imagem {
-    position: absolute;
+    position: relative;
     inset: 0;
 }
 
@@ -591,7 +563,7 @@ h1 {
 }
 
 .projeto-conteudo {
-    position: absolute;
+    position: relative;
     inset: 0;
     padding: 1rem;
     background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 50%);
@@ -626,7 +598,7 @@ h1 {
 /* ============================================
    WHY ME
    ============================================ */
-.por-que-eu{
+.por-que-eu {
     position: relative;
     padding: var(--section-padding-y) var(--section-padding-x);
     background: #0a0a0a;
@@ -684,7 +656,7 @@ h1 {
     align-items: center;
 }
 
-.card-bloco-cheio > div {
+.card-bloco-cheio>div {
     padding: 1rem;
 }
 
