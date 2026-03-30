@@ -1312,3 +1312,69 @@ h1 {
     padding-top: 1.5rem;
     border-top: 0.5px solid rgba(255, 255, 255, 0.05);
 }
+
+/* ============================================
+   MOBILE PROJETOS (STACK EFFECT)
+   ============================================ */
+.projetos-mobile-stack {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .projetos-grade {
+        display: none !important;
+    }
+
+    .projetos-mobile-stack {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        padding-bottom: 5rem;
+    }
+
+    .projeto-cartao-mobile {
+        position: sticky;
+        height: 60vh;
+        min-height: 400px;
+        background: #0a0a0a;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 1.25rem;
+        overflow: hidden;
+        box-shadow: 0 -15px 30px rgba(0, 0, 0, 0.6);
+        will-change: transform;
+    }
+    
+    .projeto-cartao-mobile .projeto-conteudo {
+        opacity: 1; /* Sempre visível no mobile */
+    }
+    
+    .projeto-cartao-mobile::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 3px;
+        width: 100%;
+        background: linear-gradient(90deg, var(--cyan), var(--purple));
+        z-index: 10;
+    }
+    
+    .projeto-cartao-mobile::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 60%);
+        pointer-events: none;
+        opacity: 1; /* Transparente no hover não é prático, mantém fixo! */
+    }
+
+    /* Stacking Top Offsets - Criando a escada de cartas */
+    .projeto-cartao-mobile:nth-child(1) { top: 12vh; z-index: 1; }
+    .projeto-cartao-mobile:nth-child(2) { top: 14vh; z-index: 2; }
+    .projeto-cartao-mobile:nth-child(3) { top: 16vh; z-index: 3; }
+    .projeto-cartao-mobile:nth-child(4) { top: 18vh; z-index: 4; }
+    .projeto-cartao-mobile:nth-child(5) { top: 20vh; z-index: 5; }
+    .projeto-cartao-mobile:nth-child(6) { top: 22vh; z-index: 6; }
+    .projeto-cartao-mobile:nth-child(7) { top: 24vh; z-index: 7; }
+    .projeto-cartao-mobile:nth-child(8) { top: 26vh; z-index: 8; }
+}
