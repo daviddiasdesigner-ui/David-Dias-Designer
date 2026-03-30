@@ -3,9 +3,7 @@
  * GSAP + Lenis Smooth Scroll
  */
 
-gsap.registerPlugin(ScrollTrigger);
-
-console.log('Script started');
+gsap.registerPlugin(ScrollTrigger, Flip);
 
 // --- Lenis Smooth Scroll ---
 const lenis = new Lenis({
@@ -13,23 +11,15 @@ const lenis = new Lenis({
     smoothWheel: true
 });
 
-console.log('Lenis initialized:', lenis);
-
 function raf(time) {
     lenis.raf(time);
     requestAnimationFrame(raf);
 }
 
 requestAnimationFrame(raf);
-console.log('RAF started');
 
 lenis.on('scroll', ScrollTrigger.update);
 gsap.ticker.add((time) => lenis.raf(time * 1000));
-
-// Test scroll
-window.addEventListener('wheel', () => console.log('wheel event'));
-window.addEventListener('scroll', () => console.log('scroll event'));
-document.addEventListener('DOMContentLoaded', () => console.log('DOM loaded'));
 
 // --- Menu Mobile ---
 const menuToggle = document.getElementById('menu-toggle');
@@ -124,13 +114,63 @@ if (wordElement) {
 }
 
 // --- Reveal Animations ---
-const reveals = document.querySelectorAll('.reveal');
+const reveals = document.querySelectorAll('.revelar');
 reveals.forEach(element => {
     ScrollTrigger.create({
         trigger: element,
         start: "top 85%",
         onEnter: () => element.classList.add('active'),
         once: true
+    });
+});
+
+// --- Projetos Cards Animation ---
+const projetoCartoes = document.querySelectorAll('.projeto-cartao');
+ScrollTrigger.create({
+    trigger: '.projetos-grade',
+    start: "top 80%",
+    onEnter: () => {
+        gsap.fromTo('.projeto-cartao', 
+            { opacity: 0, y: 50 },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 0.6,
+                stagger: 0.1,
+                ease: "power2.out"
+            }
+        );
+    },
+    once: true
+});
+
+// --- Bento Grid Animation (Simple) ---
+function animateBentoGrid() {
+    const cards = document.querySelectorAll('.projeto-cartao');
+    if (cards.length === 0 || window.innerWidth <= 768) return;
+    
+    const spans = [1, 2, 2, 1, 2, 2, 1, 1];
+    
+    cards.forEach((card, i) => {
+        const span = spans[i % spans.length];
+        card.style.gridColumn = `span ${span}`;
+        card.style.gridRow = `span ${span === 2 ? 2 : 1}`;
+    });
+}
+
+if (window.innerWidth > 768) {
+    setTimeout(() => {
+        animateBentoGrid();
+    }, 1000);
+}
+
+// --- Bento Grid Hover Effect ---
+projetoCartoes.forEach(cartao => {
+    cartao.addEventListener('mouseenter', () => {
+        gsap.to(cartao, { scale: 1.02, duration: 0.3, ease: "power2.out" });
+    });
+    cartao.addEventListener('mouseleave', () => {
+        gsap.to(cartao, { scale: 1, duration: 0.3, ease: "power2.out" });
     });
 });
 
@@ -242,20 +282,7 @@ faixaContents.forEach(content => {
     content.classList.add('js-ready');
 
     const original = content.innerHTML;
-    content.innerHTML = original + original;
-    
-    const isLeft = content.classList.contains('ticker-left');
-    const xMove = isLeft ? -50 : -50;
-
-    gsap.to(content, {
-        x: xMove + '%',
-        repeat: -1,
-        duration: 20,
-        ease: "none",
-        modifiers: {
-            x: gsap.utils.unitize(x => parseFloat(x) % 100 + '%')
-        }
-    });
+    content.innerHTML = original + original + original + original;
 });
 
 // --- Number Count Animation ---
