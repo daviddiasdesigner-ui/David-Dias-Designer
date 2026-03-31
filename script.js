@@ -135,24 +135,6 @@ heroTl.to('.pagina-inicial-acao', {
     duration: 0.8
 }, "-=0.5");
 
-// --- Faixas Container Opacity Animation ---
-const faixasContainer = document.querySelector('.faixas-container');
-if (faixasContainer) {
-    gsap.set(faixasContainer, { opacity: 0, zIndex: 10 });
-    
-    gsap.to(faixasContainer, {
-        opacity: 1,
-        zIndex: 10,
-        duration: 0.5,
-        scrollTrigger: {
-            trigger: faixasContainer,
-            start: "top 80%",
-            end: "bottom 20%",
-            toggleActions: "play reverse play reverse"
-        }
-    });
-}
-
 // --- Projetos 3D Scroll Animation ---
 const projetosSection = document.querySelector('.projetos');
 if (projetosSection) {
@@ -176,31 +158,9 @@ if (projetosSection) {
     });
 }
 
-// --- Services Scroll Animation (Scale Effect - Exit) ---
-const servicosSection = document.querySelector('.servicos');
-if (servicosSection) {
-    gsap.set(servicosSection, {
-        transformOrigin: "center center",
-        perspective: 1500,
-        scale: 1
-    });
-
-    gsap.to(servicosSection, {
-        scale: 0.85,
-        ease: "none",
-        scrollTrigger: {
-            trigger: servicosSection,
-            start: "top 30%",
-            end: "bottom top",
-            scrub: 1
-        }
-    });
-}
-
 // --- 3D Section Reveal Logic ---
 const sections = document.querySelectorAll('.revelar');
 sections.forEach(section => {
-    // Definimos o estado inicial das seções para a inclinação 3D
     gsap.set(section, {
         perspective: 1500,
         rotateX: -10,
@@ -227,52 +187,30 @@ sections.forEach(section => {
 
 // --- Enhanced Element Reveals (Staggered) ---
 const revealGroups = [
-    { trigger: '.servicos-grade', targets: '.servico-cartao', stagger: 0.2 },
-    { trigger: '.projetos-grade', targets: '.projeto-cartao', stagger: 0.8 },
-    { trigger: '.grade-cards', targets: '.card-bloco', stagger: 0.2 }
+    { trigger: '.servicos-grade', targets: '.servico-cartao', stagger: 0.2, has3D: false },
+    { trigger: '.projetos-grade', targets: '.projeto-cartao', stagger: 0.8, has3D: true },
+    { trigger: '.grade-cards', targets: '.card-bloco', stagger: 0.2, has3D: false }
 ];
 
 revealGroups.forEach(group => {
     if (document.querySelector(group.trigger)) {
+        const fromProps = group.has3D 
+            ? { opacity: 0, y: 50, rotateX: 15, z: -50 }
+            : { opacity: 0, y: 30 };
+            
+        const toProps = group.has3D 
+            ? { opacity: 1, y: 0, rotateX: 0, z: 0, duration: 1.2, ease: "power3.out" }
+            : { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" };
+            
         ScrollTrigger.create({
             trigger: group.trigger,
             start: "top 85%",
             onEnter: () => {
-                gsap.fromTo(group.targets, 
-                    { opacity: 0, y: 50, rotateX: 15, z: -50 },
-                    { 
-                        opacity: 1, 
-                        y: 0, 
-                        rotateX: 0, 
-                        z: 0,
-                        duration: 1.2, 
-                        stagger: group.stagger, 
-                        ease: "power3.out" 
-                    }
-                );
+                gsap.fromTo(group.targets, fromProps, toProps);
             },
             once: true
         });
     }
-});
-
-// O Bento Grid agora é gerenciado puramente via CSS para performance e precisão por categoria.
-
-// --- Mobile Ver Mais Glass Effect ---
-const verMaisBtns = document.querySelectorAll('.ver-mais-btn');
-verMaisBtns.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const card = btn.closest('.projeto-cartao-mobile');
-        card.classList.toggle('glass-active');
-        
-        const svg = btn.querySelector('svg');
-        if (card.classList.contains('glass-active')) {
-            gsap.to(svg, { rotation: 180, duration: 0.3 });
-        } else {
-            gsap.to(svg, { rotation: 0, duration: 0.3 });
-        }
-    });
 });
 
 // --- Bento Grid Hover Effect ---
@@ -294,6 +232,23 @@ allProjectCards.forEach(cartao => {
     });
 });
 
+// --- Mobile Ver Mais Glass Effect ---
+const verMaisBtns = document.querySelectorAll('.ver-mais-btn');
+verMaisBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const card = btn.closest('.projeto-cartao-mobile');
+        card.classList.toggle('glass-active');
+        
+        const svg = btn.querySelector('svg');
+        if (card.classList.contains('glass-active')) {
+            gsap.to(svg, { rotation: 180, duration: 0.3 });
+        } else {
+            gsap.to(svg, { rotation: 0, duration: 0.3 });
+        }
+    });
+});
+
 // --- Scroll Indicator Animation ---
 const scrollIndicator = document.querySelector('.scroll-indicator');
 if (scrollIndicator) {
@@ -311,206 +266,189 @@ categoryBtns.forEach(btn => {
         const currentContent = document.querySelector('.conteudo-categoria.active');
         const nextContent = document.querySelector(`.conteudo-categoria[data-category="${targetCategory}"]`);
 
-        if (btn === currentBtn || !nextContent) return;
-
         if (currentBtn) currentBtn.classList.remove('active');
-        btn.classList.add('active');
         if (currentContent) currentContent.classList.remove('active');
-        nextContent.classList.add('active');
+
+        btn.classList.add('active');
+        if (nextContent) nextContent.classList.add('active');
     });
 });
 
-// --- FAQ Accordion ---
-const faqItems = document.querySelectorAll('.pergunta-item');
-faqItems.forEach(item => {
-    const question = item.querySelector('.pergunta-pergunta');
-    const answer = item.querySelector('.pergunta-resposta');
-    const icon = item.querySelector('.pergunta-icone');
+// --- Process Timeline Animation (Novo Layout) ---
+const processoRows = document.querySelectorAll('.processo-row');
 
-    gsap.set(answer, { height: 0, opacity: 0, overflow: 'hidden' });
-
-    question.addEventListener('click', () => {
-        const isOpen = item.classList.contains('pergunta-aberta');
-
-        faqItems.forEach(i => {
-            if (i !== item) {
-                i.classList.remove('pergunta-aberta');
-                gsap.to(i.querySelector('.pergunta-resposta'), { height: 0, opacity: 0, duration: 0.3 });
-                gsap.to(i.querySelector('.pergunta-icone'), { rotation: 0, duration: 0.3 });
-            }
-        });
-
-        if (isOpen) {
-            item.classList.remove('pergunta-aberta');
-            gsap.to(answer, { height: 0, opacity: 0, duration: 0.3 });
-            gsap.to(icon, { rotation: 0, duration: 0.3 });
-        } else {
-            item.classList.add('pergunta-aberta');
-            gsap.to(answer, { height: 'auto', opacity: 1, duration: 0.3 });
-            gsap.to(icon, { rotation: 180, duration: 0.3 });
+if (processoRows.length > 0) {
+    processoRows.forEach((row, index) => {
+        const circle = row.querySelector('.processo-circle');
+        const item = row.querySelector('.processo-item');
+        
+        if (circle) {
+            gsap.set(circle, { backgroundColor: '#e0e0e0', color: '#999', boxShadow: 'none' });
         }
-    });
-});
-
-// Open first FAQ by default
-if (faqItems.length > 0) {
-    faqItems[0].classList.add('pergunta-aberta');
-    gsap.set(faqItems[0].querySelector('.pergunta-resposta'), { height: 'auto', opacity: 1 });
-    gsap.set(faqItems[0].querySelector('.pergunta-icone'), { rotation: 180 });
-}
-
-// --- Process Timeline ---
-const timeline = document.querySelector('.processo-linha-tempo');
-const progressBar = document.querySelector('.timeline-progress-bar');
-const items = document.querySelectorAll('.timeline-item');
-
-if (timeline && progressBar && items.length > 0) {
-    const lastItem = items[items.length - 1];
-    
-    gsap.to(progressBar, {
-        height: "100%",
-        ease: "none",
-        scrollTrigger: {
-            trigger: timeline,
-            start: "top 60%",
-            endTrigger: lastItem,
-            end: "top 60%",
-            scrub: 0.5
-        }
-    });
-
-    // Timeline items scroll animation
-    items.forEach((item, index) => {
-        const rotation = index % 2 === 0 ? -3 : 3;
-        
-        gsap.set(item, {
-            rotate: rotation,
-            transformOrigin: "center bottom"
-        });
-
-        gsap.to(item, {
-            rotate: 0,
-            ease: "none",
-            scrollTrigger: {
-                trigger: item,
-                start: "top 80%",
-                end: "top 40%",
-                scrub: 1
-            }
-        });
-    });
-}
-
-function alignTimelineLine() {
-    const dots = document.querySelectorAll('.timeline-dot');
-    const line = document.querySelector('.timeline-main-line');
-    const container = document.querySelector('.processo-linha-tempo');
-    
-    if (dots.length > 1 && line && container) {
-        const containerRect = container.getBoundingClientRect();
-        const firstDotRect = dots[0].getBoundingClientRect();
-        const lastDotRect = dots[dots.length - 1].getBoundingClientRect();
-        
-        const topOffset = (firstDotRect.top + firstDotRect.height / 2) - containerRect.top;
-        const bottomOffset = containerRect.bottom - (lastDotRect.top + lastDotRect.height / 2);
-        
-        line.style.top = `${topOffset}px`;
-        line.style.bottom = `${bottomOffset}px`;
-        
-        // Refresh necessary after layout shifts
-        ScrollTrigger.refresh();
-    }
-}
-
-// Inicializa e sincroniza no resize/load
-window.addEventListener('load', () => {
-    alignTimelineLine();
-});
-window.addEventListener('resize', alignTimelineLine);
-setTimeout(alignTimelineLine, 800);
-
-items.forEach(item => {
-    const dot = item.querySelector('.timeline-dot');
-    const title = item.querySelector('.step-title');
-    
-    ScrollTrigger.create({
-        trigger: item,
-        start: "top 60%",
-        onEnter: () => {
-            gsap.to(dot, { scale: 1.5, duration: 0.2, ease: "back.out(1.7)" });
-            gsap.to(title, { color: "var(--cyan)", fontWeight: 700, duration: 0.3 });
-        },
-        onLeaveBack: () => {
-            gsap.to(dot, { scale: 1, duration: 0.2 });
-            gsap.to(title, { color: "", fontWeight: "", duration: 0.3 });
-        }
-    });
-});
-
-// --- Faixas Animation ---
-const faixaContents = document.querySelectorAll('.faixa-content');
-faixaContents.forEach(content => {
-    if (content.classList.contains('js-ready')) return;
-    content.classList.add('js-ready');
-
-    const original = content.innerHTML;
-    content.innerHTML = original + original + original + original;
-});
-
-// --- Number Count Animation ---
-const numbers = document.querySelectorAll('.por-que-eu-numero');
-numbers.forEach(num => {
-    const text = num.textContent;
-    const hasPlus = text.includes('+');
-    const value = parseInt(text);
-
-    ScrollTrigger.create({
-        trigger: num,
-        start: "top 90%",
-        once: true,
-        onEnter: () => {
-            if (isNaN(value)) return;
-            gsap.fromTo(num, { textContent: 0 }, {
-                textContent: value,
-                duration: 2,
-                ease: "power2.out",
-                snap: { textContent: 1 },
-                onUpdate: function() {
-                    num.textContent = Math.round(this.targets()[0].textContent) + (hasPlus ? '+' : '');
-                }
+        if (item) {
+            gsap.set(item, { 
+                opacity: 0.6,
+                scale: 0.92,
+                rotate: index % 2 === 0 ? -1.5 : 1.5
             });
         }
-    });
-});
-
-// --- About Parallax ---
-const aboutImage = document.querySelector('.sobre-imagem');
-if (aboutImage) {
-    gsap.to(aboutImage, {
-        y: -30,
-        scrollTrigger: {
-            trigger: '.sobre',
-            start: "top bottom",
-            end: "bottom top",
-            scrub: 1
-        }
+        
+        ScrollTrigger.create({
+            trigger: row,
+            start: "top 75%",
+            end: "top 35%",
+            onEnter: () => {
+                if (circle) {
+                    gsap.to(circle, {
+                        backgroundColor: 'var(--cyan)',
+                        color: '#0a0a0a',
+                        boxShadow: '0 0 25px var(--cyan)',
+                        duration: 0.5
+                    });
+                }
+                if (item) {
+                    gsap.to(item, {
+                        opacity: 1,
+                        scale: 1,
+                        rotate: 0,
+                        duration: 0.5
+                    });
+                }
+            },
+            onLeaveBack: () => {
+                if (circle) {
+                    gsap.to(circle, {
+                        backgroundColor: '#e0e0e0',
+                        color: '#999',
+                        boxShadow: 'none',
+                        duration: 0.5
+                    });
+                }
+                if (item) {
+                    gsap.to(item, {
+                        opacity: 0.6,
+                        scale: 0.92,
+                        rotate: index % 2 === 0 ? -1.5 : 1.5,
+                        duration: 0.5
+                    });
+                }
+            }
+        });
     });
 }
 
-// --- Testimonials Navigation ---
-// Removido o parallax horizontal automático que conflita com o scroll manual das setas
+// --- Mobile Projects Stack Animation ---
+const mobileCards = document.querySelectorAll('.projeto-cartao-mobile');
+if (mobileCards.length > 0) {
+    mobileCards.forEach((card, index) => {
+        gsap.set(card, { y: index * 20, opacity: 0.8 });
+        
+        ScrollTrigger.create({
+            trigger: card,
+            start: "top 90%",
+            end: "top 10%",
+            onUpdate: (self) => {
+                const progress = self.progress;
+                gsap.to(card, {
+                    y: index * 20 * (1 - progress),
+                    opacity: 0.8 + (progress * 0.2),
+                    ease: "none"
+                });
+            }
+        });
+    });
+}
+
+// --- FAQ Accordion ---
+const perguntaButtons = document.querySelectorAll('.pergunta-pergunta');
+perguntaButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const item = btn.parentElement;
+        const isOpen = item.classList.contains('pergunta-aberta');
+        
+        document.querySelectorAll('.pergunta-item').forEach(i => {
+            i.classList.remove('pergunta-aberta');
+            const resposta = i.querySelector('.pergunta-resposta');
+            if (resposta) {
+                gsap.to(resposta, { height: 0, duration: 0.3 });
+            }
+        });
+        
+        if (!isOpen) {
+            item.classList.add('pergunta-aberta');
+            const resposta = item.querySelector('.pergunta-resposta');
+            if (resposta) {
+                resposta.style.height = 'auto';
+                const height = resposta.scrollHeight;
+                resposta.style.height = '0';
+                gsap.to(resposta, { height: height, duration: 0.4, ease: "power3.out" });
+            }
+        }
+    });
+});
+
+// --- Scroll to top button ---
+const scrollTopBtn = document.getElementById('scroll-top');
+if (scrollTopBtn) {
+    scrollTopBtn.addEventListener('click', () => {
+        lenis.scrollTo(0, { duration: 1 });
+    });
+}
+
+// --- Testimonials Navigation (Carousel with Blur Effect) ---
 const prevBtn = document.getElementById('prev-testimonial');
 const nextBtn = document.getElementById('next-testimonial');
-const testimonialsTrack = document.querySelector('.depoimentos-trilha');
+const cards = document.querySelectorAll('.testimonial-card');
 
-if (prevBtn && nextBtn && testimonialsTrack) {
+if (prevBtn && nextBtn && cards.length > 0) {
+    let currentIndex = Math.floor(cards.length / 2);
+    const totalCards = cards.length;
+    
+    function updateCards() {
+        const trilha = document.querySelector('.depoimentos-trilha');
+        
+        cards.forEach((card, i) => {
+            const distance = Math.abs(i - currentIndex);
+            card.style.position = 'relative';
+            card.style.left = 'auto';
+            
+            if (i === currentIndex) {
+                card.style.display = 'flex';
+                gsap.to(card, {
+                    opacity: 1,
+                    scale: 1,
+                    filter: 'blur(0px)',
+                    zIndex: 10,
+                    duration: 0.4,
+                    ease: "power3.out"
+                });
+            } else if (distance === 1) {
+                card.style.display = 'flex';
+                gsap.to(card, {
+                    opacity: 0.4,
+                    scale: 0.85,
+                    filter: 'blur(3px)',
+                    zIndex: 5,
+                    duration: 0.4,
+                    ease: "power3.out"
+                });
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+    
+    // Initialize
+    updateCards();
+    
     prevBtn.addEventListener('click', () => {
-        const scrollAmount = window.innerWidth > 768 ? 400 : 300;
-        testimonialsTrack.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        currentIndex = (currentIndex - 1 + totalCards) % totalCards;
+        updateCards();
     });
+    
     nextBtn.addEventListener('click', () => {
-        const scrollAmount = window.innerWidth > 768 ? 400 : 300;
-        testimonialsTrack.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        currentIndex = (currentIndex + 1) % totalCards;
+        updateCards();
     });
 }
 
