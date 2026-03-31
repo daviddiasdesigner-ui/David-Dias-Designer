@@ -493,7 +493,7 @@ h1 {
 
 @media (max-width: 768px) {
     h1 {
-        font-size: 2.5rem; /* Força um tamanho maior que o clamp padrão no mobile */
+        font-size: 2rem; /* Força um tamanho maior que o clamp padrão no mobile */
     }
 
     .btn-premium {
