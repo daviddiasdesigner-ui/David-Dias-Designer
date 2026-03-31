@@ -135,6 +135,68 @@ heroTl.to('.pagina-inicial-acao', {
     duration: 0.8
 }, "-=0.5");
 
+// --- Faixas Container Opacity Animation ---
+const faixasContainer = document.querySelector('.faixas-container');
+if (faixasContainer) {
+    gsap.set(faixasContainer, { opacity: 0, zIndex: 10 });
+    
+    gsap.to(faixasContainer, {
+        opacity: 1,
+        zIndex: 10,
+        duration: 0.5,
+        scrollTrigger: {
+            trigger: faixasContainer,
+            start: "top 80%",
+            end: "bottom 20%",
+            toggleActions: "play reverse play reverse"
+        }
+    });
+}
+
+// --- Projetos 3D Scroll Animation ---
+const projetosSection = document.querySelector('.projetos');
+if (projetosSection) {
+    gsap.set(projetosSection, {
+        transformOrigin: "center center",
+        perspective: 1500,
+        rotateX: 15,
+        scale: 0.9
+    });
+
+    gsap.to(projetosSection, {
+        rotateX: 0,
+        scale: 1,
+        ease: "none",
+        scrollTrigger: {
+            trigger: projetosSection,
+            start: "top bottom",
+            end: "top 30%",
+            scrub: 1
+        }
+    });
+}
+
+// --- Services Scroll Animation (Scale Effect - Exit) ---
+const servicosSection = document.querySelector('.servicos');
+if (servicosSection) {
+    gsap.set(servicosSection, {
+        transformOrigin: "center center",
+        perspective: 1500,
+        scale: 1
+    });
+
+    gsap.to(servicosSection, {
+        scale: 0.85,
+        ease: "none",
+        scrollTrigger: {
+            trigger: servicosSection,
+            start: "top 30%",
+            end: "bottom top",
+            scrub: 1
+        }
+    });
+}
+
 // --- 3D Section Reveal Logic ---
 const sections = document.querySelectorAll('.revelar');
 sections.forEach(section => {
@@ -165,9 +227,9 @@ sections.forEach(section => {
 
 // --- Enhanced Element Reveals (Staggered) ---
 const revealGroups = [
-    { trigger: '.servicos-grade', targets: '.servico-cartao' },
-    { trigger: '.projetos-grade', targets: '.projeto-cartao' },
-    { trigger: '.grade-cards', targets: '.card-bloco' }
+    { trigger: '.servicos-grade', targets: '.servico-cartao', stagger: 0.2 },
+    { trigger: '.projetos-grade', targets: '.projeto-cartao', stagger: 0.8 },
+    { trigger: '.grade-cards', targets: '.card-bloco', stagger: 0.2 }
 ];
 
 revealGroups.forEach(group => {
@@ -177,14 +239,14 @@ revealGroups.forEach(group => {
             start: "top 85%",
             onEnter: () => {
                 gsap.fromTo(group.targets, 
-                    { opacity: 0, y: 50, scale: 0.9, rotateX: 10 },
+                    { opacity: 0, y: 50, rotateX: 15, z: -50 },
                     { 
                         opacity: 1, 
                         y: 0, 
-                        scale: 1, 
                         rotateX: 0, 
-                        duration: 0.8, 
-                        stagger: 0.15, 
+                        z: 0,
+                        duration: 1.2, 
+                        stagger: group.stagger, 
                         ease: "power3.out" 
                     }
                 );
@@ -196,14 +258,39 @@ revealGroups.forEach(group => {
 
 // O Bento Grid agora é gerenciado puramente via CSS para performance e precisão por categoria.
 
+// --- Mobile Ver Mais Glass Effect ---
+const verMaisBtns = document.querySelectorAll('.ver-mais-btn');
+verMaisBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const card = btn.closest('.projeto-cartao-mobile');
+        card.classList.toggle('glass-active');
+        
+        const svg = btn.querySelector('svg');
+        if (card.classList.contains('glass-active')) {
+            gsap.to(svg, { rotation: 180, duration: 0.3 });
+        } else {
+            gsap.to(svg, { rotation: 0, duration: 0.3 });
+        }
+    });
+});
+
 // --- Bento Grid Hover Effect ---
 const allProjectCards = document.querySelectorAll('.projeto-cartao');
+
+gsap.set(allProjectCards, {
+    opacity: 0,
+    rotateX: 15,
+    z: -50,
+    y: 30
+});
+
 allProjectCards.forEach(cartao => {
     cartao.addEventListener('mouseenter', () => {
-        gsap.to(cartao, { scale: 1.02, duration: 0.3, ease: "power2.out" });
+        gsap.to(cartao, { rotateX: -5, z: 10, scale: 1.02, duration: 0.3, ease: "power2.out" });
     });
     cartao.addEventListener('mouseleave', () => {
-        gsap.to(cartao, { scale: 1, duration: 0.3, ease: "power2.out" });
+        gsap.to(cartao, { rotateX: 0, z: 0, scale: 1, duration: 0.3, ease: "power2.out" });
     });
 });
 
@@ -290,6 +377,27 @@ if (timeline && progressBar && items.length > 0) {
             end: "top 60%",
             scrub: 0.5
         }
+    });
+
+    // Timeline items scroll animation
+    items.forEach((item, index) => {
+        const rotation = index % 2 === 0 ? -3 : 3;
+        
+        gsap.set(item, {
+            rotate: rotation,
+            transformOrigin: "center bottom"
+        });
+
+        gsap.to(item, {
+            rotate: 0,
+            ease: "none",
+            scrollTrigger: {
+                trigger: item,
+                start: "top 80%",
+                end: "top 40%",
+                scrub: 1
+            }
+        });
     });
 }
 
