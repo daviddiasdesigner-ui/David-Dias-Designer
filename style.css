@@ -494,6 +494,10 @@ h1 {
 }
 
 @media screen and (max-width: 479px) {
+    html {
+        height: 100svh;
+    }
+
     h1 {
         font-size: 2rem;
     }
@@ -509,6 +513,10 @@ h1 {
 }
 
 @media screen and (max-width: 768px) {
+    html {
+        height: 100svh;
+    }
+
     title {
         width: 95vw;
     }
@@ -524,6 +532,10 @@ h1 {
 }
 
 @media screen and (min-width: 769px) and (max-width: 1024px) {
+    html {
+        height: 100svh;
+    }
+
     h1 {
         font-size: 3rem;
     }
