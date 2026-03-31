@@ -14,7 +14,7 @@
     --fs-h3: clamp(1.125rem, 1.5vw, 1.5rem);
     --fs-subtitle: clamp(1rem, 1.5vw, 1.25rem);
     --fs-body: clamp(0.9rem, 0.8vw, 1.1rem);
-    --fs-btn: clamp(0.8rem, 0.6vw, 1rem);
+    --fs-btn: clamp(0.6rem, 0.6vw, 1rem);
 
     --section-padding-y: clamp(8vh, 12vh, 16vh);
     --section-padding-x: clamp(1.5rem, 5vw, 5rem);
@@ -175,6 +175,7 @@ p {
     cursor: pointer;
     border: none;
     width: fit-content;
+    white-space: nowrap;
 }
 
 .btn-premium:hover {
@@ -247,6 +248,7 @@ p {
 
 .btn-azul {
     display: flex;
+    white-space: nowrap;
     justify-content: center;
     align-items: center;
     background: rgba(112, 0, 255, 0.15);
@@ -491,14 +493,39 @@ h1 {
     margin-bottom: 1.5rem;
 }
 
-@media (max-width: 768px) {
+@media screen and (max-width: 479px) {
     h1 {
-        font-size: 1.9rem; /* Força um tamanho maior que o clamp padrão no mobile */
+        font-size: 2rem;
+    }
+
+    .btn-premium {
+        height: 3rem;
+    }
+
+    .btn-premium span {
+        padding: 0.75rem 2rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    title {
+        width: 95vw;
+    }
+
+    h1 {
+        font-size: 3rem;
     }
 
     .btn-premium {
         height: 4.5rem;
-        font-size: small;
+        font-size: 12px;
+    }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    h1 {
+        font-size: 3rem;
     }
 }
 
@@ -545,7 +572,7 @@ h1 {
 
 .indicador-rolar {
     position: absolute;
-    bottom: 6rem;
+    bottom: 7rem;
     display: flex;
     flex-direction: row;
     align-items: center;
