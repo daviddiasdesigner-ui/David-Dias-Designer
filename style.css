@@ -9,7 +9,7 @@
     --font-heading: 'Bricolage Grotesque';
     --font-body: 'Inter', sans-serif;
 
-    --fs-h1: clamp(1.75rem, 4vw, 4rem);
+    --fs-h1: clamp(1.75rem, 5vw, 4rem);
     --fs-h2: clamp(1.5rem, 3vw, 2.25rem);
     --fs-h3: clamp(1.125rem, 1.5vw, 1.5rem);
     --fs-subtitle: clamp(1rem, 1.5vw, 1.25rem);
@@ -493,7 +493,7 @@ h1 {
 
 @media (max-width: 768px) {
     h1 {
-        font-size: 2rem; /* Força um tamanho maior que o clamp padrão no mobile */
+        font-size: 1.9rem; /* Força um tamanho maior que o clamp padrão no mobile */
     }
 
     .btn-premium {
