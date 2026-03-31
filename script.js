@@ -24,17 +24,21 @@ gsap.ticker.add((time) => lenis.raf(time * 1000));
 // --- Menu Mobile ---
 const menuToggle = document.getElementById('menu-toggle');
 const menuOverlay = document.getElementById('menu-overlay');
+const siteOverlay = document.getElementById('site-overlay');
 const iconMenu = document.querySelector('.icon-menu');
 const iconClose = document.querySelector('.icon-close');
 let isMenuOpen = false;
 
 if (menuToggle && menuOverlay) {
-    menuToggle.addEventListener('click', () => {
+    menuToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
         if (!isMenuOpen) {
             isMenuOpen = true;
             iconMenu.style.display = 'none';
             iconClose.style.display = 'block';
             menuOverlay.style.display = 'flex';
+            siteOverlay.style.display = 'block';
+            document.body.classList.add('menu-open');
 
             gsap.fromTo(menuOverlay,
                 { opacity: 0, y: -10, scale: 0.95 },
@@ -46,6 +50,37 @@ if (menuToggle && menuOverlay) {
                 { y: 0, opacity: 1, stagger: 0.08, duration: 0.4, ease: 'power3.out', delay: 0.1 }
             );
         } else {
+            closeMenu();
+        }
+    });
+    
+    if (siteOverlay) {
+        siteOverlay.addEventListener('click', closeMenu);
+    }
+}
+
+function closeMenu() {
+    if (!isMenuOpen) return;
+    isMenuOpen = false;
+    iconMenu.style.display = 'block';
+    iconClose.style.display = 'none';
+    document.body.classList.remove('menu-open');
+
+    gsap.to(menuOverlay, {
+        opacity: 0,
+        y: -10,
+        scale: 0.95,
+        duration: 0.3,
+        ease: 'power2.in',
+        onComplete: () => menuOverlay.style.display = 'none'
+    });
+    
+    gsap.to(siteOverlay, {
+        opacity: 0,
+        duration: 0.3,
+        onComplete: () => siteOverlay.style.display = 'none'
+    });
+}
             isMenuOpen = false;
             iconMenu.style.display = 'block';
             iconClose.style.display = 'none';
@@ -58,8 +93,14 @@ if (menuToggle && menuOverlay) {
                 ease: 'power2.in',
                 onComplete: () => menuOverlay.style.display = 'none'
             });
-        }
-    });
+            
+            gsap.to(siteOverlay, {
+                opacity: 0,
+                duration: 0.3,
+                onComplete: () => siteOverlay.style.display = 'none'
+            });
+        });
+    }
 }
 
 // --- Parallax Video ---
@@ -133,7 +174,7 @@ heroTl.to('.pagina-inicial-acao', {
     opacity: 1,
     y: 0,
     duration: 0.8
-}, "-=0.5");
+});
 
 // --- Projetos 3D Scroll Animation ---
 const projetosSection = document.querySelector('.projetos');

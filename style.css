@@ -37,7 +37,7 @@
 
 html {
     scroll-behavior: auto;
-    overflow-x: hidden;
+    overflow: auto;
 }
 
 body {
@@ -45,7 +45,6 @@ body {
     color: var(--text);
     font-family: var(--font-body);
     font-size: 100%;
-    overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
 }
 
@@ -410,7 +409,10 @@ p {
     align-items: center;
     padding: 1.25rem 1.5rem;
     pointer-events: none;
-    /* Deixa apenas a pílula clicável */
+}
+
+.cabecalho-mobile.menu-active .menu-pilula {
+    pointer-events: none;
 }
 
 @media (max-width: 768px) {
@@ -423,8 +425,8 @@ p {
     pointer-events: all;
     display: flex;
     align-items: center;
-    gap: 1.25rem;
-    padding: 1rem 3rem;
+    gap: 1rem;
+    padding: 0.5rem 1.5rem;
     background: rgba(9, 9, 11, 0.8);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
@@ -440,8 +442,8 @@ p {
 }
 
 .logo-pill {
-    width: 3rem;
-    height: 3rem;
+    aspect-ratio: 16/9;
+    width: 5rem;
     object-fit: contain;
     filter: brightness(0) invert(1);
 }
@@ -456,8 +458,8 @@ p {
 }
 
 .icon-svg {
-    width: 28px;
-    height: 28px;
+    aspect-ratio: 1/1;
+    width: 2rem;
 }
 
 .icon-svg {
@@ -471,35 +473,59 @@ p {
     top: 6.5rem;
     left: 50%;
     transform: translateX(-50%);
-    width: min(92vw, 28rem);
+    width: min(70vw, 28rem);
     background: rgba(9, 9, 11, 0.92);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 2rem;
     padding: 2rem;
-    z-index: 190;
+    z-index: 300;
+    pointer-events: auto;
+}
+
+/* Overlay que desativa o site quando menu está aberto */
+.site-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 250;
+    pointer-events: auto;
 }
 
 .menu-links {
+    width: 100%;
     display: flex;
+    align-items: center;
+    justify-content: center;
     flex-direction: column;
     gap: 0.25rem;
 }
 
 .menu-link {
     display: block;
+    width: 100%;
     padding: 1.1rem 1.25rem;
+    background-color: #acacac30;
     color: rgba(255, 255, 255, 0.7);
     text-decoration: none;
-    font-size: 1.2rem;
+    text-align: center;
+    font-size: 1rem;
     font-weight: 500;
     border-radius: 1rem;
     transition: all 0.2s ease;
 }
 
 .menu-link:hover {
-    background: rgba(255, 255, 255, 0.06);
+    background: rgba(111, 145, 255, 0.3);
+    color: #fff;
+}
+
+.menu-link:active {
+    background: rgba(111, 145, 255, 0.5);
     color: #fff;
 }
 
@@ -665,7 +691,8 @@ h1 {
    ============================================ */
 .faixas-container {
     position: sticky;
-    top: 30%;
+    top: 0;
+    z-index: 1;
     padding: var(--section-padding-y) var(--section-padding-x);
     background-image: linear-gradient(to bottom, #1919f7, #16a6f9);
     text-align: center;
@@ -673,12 +700,7 @@ h1 {
     border-image: linear-gradient(to right, transparent, rgb(78, 137, 255), transparent) 1;
     border-bottom: 3px solid transparent;
     border-image: linear-gradient(to right, transparent, rgb(78, 137, 255), transparent) 1;
-}
-
-@media (max-width: 768px) {
-    .faixas-container {
-        padding: 3rem 1rem;
-    }
+    will-change: transform;
 }
 
 .faixas-header {
@@ -752,10 +774,9 @@ h1 {
     background: #dff3ff;
     position: relative;
     z-index: 20;
-    border-radius: 2rem;
+    border-radius: 2rem 2rem 0 0;
     transform-style: preserve-3d;
     perspective: 1500px;
-    margin-bottom: -36px;
 }
 
 .projetos::before {
@@ -1001,8 +1022,8 @@ h1 {
    WHY ME
    ============================================ */
 .por-que-eu {
-    margin-top: 10rem;
     position: relative;
+    z-index: 20;
     padding: var(--section-padding-y) var(--section-padding-x);
     background: #0a0a0a;
     text-align: center;
@@ -1113,6 +1134,8 @@ h1 {
    SERVICES
    ============================================ */
 .servicos {
+    position: relative;
+    z-index: 20;
     padding: var(--section-padding-y) var(--section-padding-x);
     background: #0a0a0a;
 }
@@ -1240,9 +1263,10 @@ h1 {
    ABOUT
    ============================================ */
 .sobre {
+    position: relative;
+    z-index: 20;
     padding: var(--section-padding-y) var(--section-padding-x);
     background: #0a0a0a;
-    position: relative;
     overflow: visible;
 }
 
@@ -1470,16 +1494,17 @@ h1 {
    TESTIMONIALS
    ============================================ */
 .depoimentos {
+    position: relative;
+    z-index: 20;
     padding: var(--section-padding-y) 0;
     background: #0a0a0a;
     overflow: visible;
-    position: relative;
 }
 
 .depoimentos-embrulho {
     position: relative;
     max-width: 100%;
-    overflow: visible;
+    overflow: hidden;
     padding: 0;
     display: flex;
     justify-content: center;
@@ -1492,7 +1517,7 @@ h1 {
     align-items: center;
     gap: 1.5rem;
     padding: 2rem 0;
-    overflow: visible;
+    overflow: hidden;
     width: 100%;
     min-height: 250px;
 }
@@ -1603,9 +1628,10 @@ h1 {
    PROCESS
    ============================================ */
 .processo {
+    position: relative;
+    z-index: 20;
     padding: var(--section-padding-y) var(--section-padding-x);
     background: #0a0a0a;
-    position: relative;
     overflow: visible;
     perspective: 1500px;
 }
@@ -1931,9 +1957,10 @@ h1 {
    FAQ
    ============================================ */
 .perguntas {
+    position: relative;
+    z-index: 20;
     padding: var(--section-padding-y) var(--section-padding-x);
     background: #0a0a0a;
-    position: relative;
 }
 
 /* FAQ */
@@ -2061,10 +2088,11 @@ h1 {
    CONTACT
    ============================================ */
 .contato {
+    position: relative;
+    z-index: 20;
     padding: var(--section-padding-y) var(--section-padding-x);
     background: #0a0a0a;
     text-align: center;
-    position: relative;
 }
 
 .contato::before {
@@ -2192,6 +2220,8 @@ h1 {
    FOOTER
    ============================================ */
 .rodape {
+    position: relative;
+    z-index: 20;
     padding: 5rem var(--section-padding-x) 2rem;
     background: #050505;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
