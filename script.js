@@ -113,59 +113,92 @@ if (wordElement) {
     gsap.to(wordElement, { scale: 1.1, duration: 2, ease: "sine.inOut", yoyo: true, repeat: -1 });
 }
 
-// --- Reveal Animations ---
-const reveals = document.querySelectorAll('.revelar');
-reveals.forEach(element => {
+// --- Premium Entrance Header ---
+const heroTl = gsap.timeline({ defaults: { ease: "expo.out" }});
+
+if (document.querySelector('.anima-gigante')) {
+    heroTl.fromTo('.anima-gigante', 
+        { scale: 4, opacity: 0, filter: "blur(30px)", y: -100 },
+        { scale: 1, opacity: 1, filter: "blur(0px)", y: 0, duration: 1.5, delay: 0.3 }
+    );
+}
+
+if (document.querySelector('.anima-escrita')) {
+    heroTl.to('.anima-escrita', 
+        { opacity: 1, y: 0, duration: 1 }, "-=0.8"
+    );
+}
+
+heroTl.to('.pagina-inicial-acao', {
+    opacity: 1,
+    y: 0,
+    duration: 0.8
+}, "-=0.5");
+
+// --- 3D Section Reveal Logic ---
+const sections = document.querySelectorAll('.revelar');
+sections.forEach(section => {
+    // Definimos o estado inicial das seções para a inclinação 3D
+    gsap.set(section, {
+        perspective: 1500,
+        rotateX: -10,
+        y: 80,
+        opacity: 0,
+        transformOrigin: "center top"
+    });
+
     ScrollTrigger.create({
-        trigger: element,
-        start: "top 85%",
-        onEnter: () => element.classList.add('active'),
+        trigger: section,
+        start: "top 90%",
+        onEnter: () => {
+            gsap.to(section, {
+                rotateX: 0,
+                y: 0,
+                opacity: 1,
+                duration: 1.2,
+                ease: "power3.out"
+            });
+        },
         once: true
     });
 });
 
-// --- Projetos Cards Animation ---
-const projetoCartoes = document.querySelectorAll('.projeto-cartao');
-ScrollTrigger.create({
-    trigger: '.projetos-grade',
-    start: "top 80%",
-    onEnter: () => {
-        gsap.fromTo('.projeto-cartao', 
-            { opacity: 0, y: 50 },
-            {
-                opacity: 1,
-                y: 0,
-                duration: 0.6,
-                stagger: 0.1,
-                ease: "power2.out"
-            }
-        );
-    },
-    once: true
+// --- Enhanced Element Reveals (Staggered) ---
+const revealGroups = [
+    { trigger: '.servicos-grade', targets: '.servico-cartao' },
+    { trigger: '.projetos-grade', targets: '.projeto-cartao' },
+    { trigger: '.grade-cards', targets: '.card-bloco' }
+];
+
+revealGroups.forEach(group => {
+    if (document.querySelector(group.trigger)) {
+        ScrollTrigger.create({
+            trigger: group.trigger,
+            start: "top 85%",
+            onEnter: () => {
+                gsap.fromTo(group.targets, 
+                    { opacity: 0, y: 50, scale: 0.9, rotateX: 10 },
+                    { 
+                        opacity: 1, 
+                        y: 0, 
+                        scale: 1, 
+                        rotateX: 0, 
+                        duration: 0.8, 
+                        stagger: 0.15, 
+                        ease: "power3.out" 
+                    }
+                );
+            },
+            once: true
+        });
+    }
 });
 
-// --- Bento Grid Animation (Simple) ---
-function animateBentoGrid() {
-    const cards = document.querySelectorAll('.projeto-cartao');
-    if (cards.length === 0 || window.innerWidth <= 768) return;
-    
-    const spans = [1, 2, 2, 1, 2, 2, 1, 1];
-    
-    cards.forEach((card, i) => {
-        const span = spans[i % spans.length];
-        card.style.gridColumn = `span ${span}`;
-        card.style.gridRow = `span ${span === 2 ? 2 : 1}`;
-    });
-}
-
-if (window.innerWidth > 768) {
-    setTimeout(() => {
-        animateBentoGrid();
-    }, 1000);
-}
+// O Bento Grid agora é gerenciado puramente via CSS para performance e precisão por categoria.
 
 // --- Bento Grid Hover Effect ---
-projetoCartoes.forEach(cartao => {
+const allProjectCards = document.querySelectorAll('.projeto-cartao');
+allProjectCards.forEach(cartao => {
     cartao.addEventListener('mouseenter', () => {
         gsap.to(cartao, { scale: 1.02, duration: 0.3, ease: "power2.out" });
     });
@@ -181,51 +214,51 @@ if (scrollIndicator) {
 }
 
 // --- Category Navigation ---
-const categoryBtns = document.querySelectorAll('.category-btn');
-const categoryContents = document.querySelectorAll('.category-content');
+const categoryBtns = document.querySelectorAll('.botao-categoria');
+const categoryContents = document.querySelectorAll('.conteudo-categoria');
 
 categoryBtns.forEach(btn => {
     btn.addEventListener('click', () => {
         const targetCategory = btn.dataset.category;
-        const currentBtn = document.querySelector('.category-btn.active');
-        const currentContent = document.querySelector('.category-content.active');
-        const nextContent = document.querySelector(`.category-content[data-category="${targetCategory}"]`);
+        const currentBtn = document.querySelector('.botao-categoria.active');
+        const currentContent = document.querySelector('.conteudo-categoria.active');
+        const nextContent = document.querySelector(`.conteudo-categoria[data-category="${targetCategory}"]`);
 
         if (btn === currentBtn || !nextContent) return;
 
-        currentBtn.classList.remove('active');
+        if (currentBtn) currentBtn.classList.remove('active');
         btn.classList.add('active');
-        currentContent.classList.remove('active');
+        if (currentContent) currentContent.classList.remove('active');
         nextContent.classList.add('active');
     });
 });
 
 // --- FAQ Accordion ---
-const faqItems = document.querySelectorAll('.faq-item');
+const faqItems = document.querySelectorAll('.pergunta-item');
 faqItems.forEach(item => {
-    const question = item.querySelector('.faq-question');
-    const answer = item.querySelector('.faq-answer');
-    const icon = item.querySelector('.faq-icon');
+    const question = item.querySelector('.pergunta-pergunta');
+    const answer = item.querySelector('.pergunta-resposta');
+    const icon = item.querySelector('.pergunta-icone');
 
     gsap.set(answer, { height: 0, opacity: 0, overflow: 'hidden' });
 
     question.addEventListener('click', () => {
-        const isOpen = item.classList.contains('faq-open');
+        const isOpen = item.classList.contains('pergunta-aberta');
 
         faqItems.forEach(i => {
             if (i !== item) {
-                i.classList.remove('faq-open');
-                gsap.to(i.querySelector('.faq-answer'), { height: 0, opacity: 0, duration: 0.3 });
-                gsap.to(i.querySelector('.faq-icon'), { rotation: 0, duration: 0.3 });
+                i.classList.remove('pergunta-aberta');
+                gsap.to(i.querySelector('.pergunta-resposta'), { height: 0, opacity: 0, duration: 0.3 });
+                gsap.to(i.querySelector('.pergunta-icone'), { rotation: 0, duration: 0.3 });
             }
         });
 
         if (isOpen) {
-            item.classList.remove('faq-open');
+            item.classList.remove('pergunta-aberta');
             gsap.to(answer, { height: 0, opacity: 0, duration: 0.3 });
             gsap.to(icon, { rotation: 0, duration: 0.3 });
         } else {
-            item.classList.add('faq-open');
+            item.classList.add('pergunta-aberta');
             gsap.to(answer, { height: 'auto', opacity: 1, duration: 0.3 });
             gsap.to(icon, { rotation: 180, duration: 0.3 });
         }
@@ -234,28 +267,59 @@ faqItems.forEach(item => {
 
 // Open first FAQ by default
 if (faqItems.length > 0) {
-    faqItems[0].classList.add('faq-open');
-    gsap.set(faqItems[0].querySelector('.faq-answer'), { height: 'auto', opacity: 1 });
-    gsap.set(faqItems[0].querySelector('.faq-icon'), { rotation: 180 });
+    faqItems[0].classList.add('pergunta-aberta');
+    gsap.set(faqItems[0].querySelector('.pergunta-resposta'), { height: 'auto', opacity: 1 });
+    gsap.set(faqItems[0].querySelector('.pergunta-icone'), { rotation: 180 });
 }
 
 // --- Process Timeline ---
-const timeline = document.querySelector('.process-timeline');
+const timeline = document.querySelector('.processo-linha-tempo');
 const progressBar = document.querySelector('.timeline-progress-bar');
 const items = document.querySelectorAll('.timeline-item');
 
-if (timeline && progressBar) {
+if (timeline && progressBar && items.length > 0) {
+    const lastItem = items[items.length - 1];
+    
     gsap.to(progressBar, {
         height: "100%",
         ease: "none",
         scrollTrigger: {
             trigger: timeline,
             start: "top 60%",
-            end: "bottom 80%",
-            scrub: 1
+            endTrigger: lastItem,
+            end: "top 60%",
+            scrub: 0.5
         }
     });
 }
+
+function alignTimelineLine() {
+    const dots = document.querySelectorAll('.timeline-dot');
+    const line = document.querySelector('.timeline-main-line');
+    const container = document.querySelector('.processo-linha-tempo');
+    
+    if (dots.length > 1 && line && container) {
+        const containerRect = container.getBoundingClientRect();
+        const firstDotRect = dots[0].getBoundingClientRect();
+        const lastDotRect = dots[dots.length - 1].getBoundingClientRect();
+        
+        const topOffset = (firstDotRect.top + firstDotRect.height / 2) - containerRect.top;
+        const bottomOffset = containerRect.bottom - (lastDotRect.top + lastDotRect.height / 2);
+        
+        line.style.top = `${topOffset}px`;
+        line.style.bottom = `${bottomOffset}px`;
+        
+        // Refresh necessary after layout shifts
+        ScrollTrigger.refresh();
+    }
+}
+
+// Inicializa e sincroniza no resize/load
+window.addEventListener('load', () => {
+    alignTimelineLine();
+});
+window.addEventListener('resize', alignTimelineLine);
+setTimeout(alignTimelineLine, 800);
 
 items.forEach(item => {
     const dot = item.querySelector('.timeline-dot');
@@ -266,7 +330,7 @@ items.forEach(item => {
         start: "top 60%",
         onEnter: () => {
             gsap.to(dot, { scale: 1.5, duration: 0.2, ease: "back.out(1.7)" });
-            gsap.to(title, { color: "#6f91ff", fontWeight: 700, duration: 0.3 });
+            gsap.to(title, { color: "var(--cyan)", fontWeight: 700, duration: 0.3 });
         },
         onLeaveBack: () => {
             gsap.to(dot, { scale: 1, duration: 0.2 });
@@ -286,7 +350,7 @@ faixaContents.forEach(content => {
 });
 
 // --- Number Count Animation ---
-const numbers = document.querySelectorAll('.why-me-number');
+const numbers = document.querySelectorAll('.por-que-eu-numero');
 numbers.forEach(num => {
     const text = num.textContent;
     const hasPlus = text.includes('+');
@@ -297,6 +361,7 @@ numbers.forEach(num => {
         start: "top 90%",
         once: true,
         onEnter: () => {
+            if (isNaN(value)) return;
             gsap.fromTo(num, { textContent: 0 }, {
                 textContent: value,
                 duration: 2,
@@ -311,12 +376,12 @@ numbers.forEach(num => {
 });
 
 // --- About Parallax ---
-const aboutImage = document.querySelector('.about-image');
+const aboutImage = document.querySelector('.sobre-imagem');
 if (aboutImage) {
     gsap.to(aboutImage, {
         y: -30,
         scrollTrigger: {
-            trigger: '.about',
+            trigger: '.sobre',
             start: "top bottom",
             end: "bottom top",
             scrub: 1
@@ -324,17 +389,20 @@ if (aboutImage) {
     });
 }
 
-// --- Testimonials Horizontal Scroll ---
-const testimonialsTrack = document.querySelector('.testimonials-track');
-if (testimonialsTrack) {
-    gsap.to(testimonialsTrack, {
-        x: -200,
-        scrollTrigger: {
-            trigger: '.testimonials',
-            start: "top bottom",
-            end: "bottom top",
-            scrub: 1
-        }
+// --- Testimonials Navigation ---
+// Removido o parallax horizontal automático que conflita com o scroll manual das setas
+const prevBtn = document.getElementById('prev-testimonial');
+const nextBtn = document.getElementById('next-testimonial');
+const testimonialsTrack = document.querySelector('.depoimentos-trilha');
+
+if (prevBtn && nextBtn && testimonialsTrack) {
+    prevBtn.addEventListener('click', () => {
+        const scrollAmount = window.innerWidth > 768 ? 400 : 300;
+        testimonialsTrack.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    });
+    nextBtn.addEventListener('click', () => {
+        const scrollAmount = window.innerWidth > 768 ? 400 : 300;
+        testimonialsTrack.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     });
 }
 
