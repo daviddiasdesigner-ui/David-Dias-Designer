@@ -417,6 +417,7 @@ p {
 @media (max-width: 768px) {
     .cabecalho-mobile {
         display: flex;
+        padding: 1.25rem 0;
     }
 }
 
@@ -434,6 +435,7 @@ p {
     cursor: pointer;
     transition: border-color 0.3s;
     user-select: none;
+    width: max-content;
 }
 
 .menu-pilula:hover {
