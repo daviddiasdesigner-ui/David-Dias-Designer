@@ -398,7 +398,8 @@ p {
    MOBILE HEADER & HAMBURGER MENU
    ============================================ */
 .cabecalho-mobile {
-    display: none;
+    display: flex;
+    flex-direction: row;
     position: fixed;
     top: 0;
     left: 0;
@@ -469,12 +470,10 @@ p {
 
 /* Menu expandido overlay */
 .menu-expandido {
-    display: none;
+    display: flex;
     position: fixed;
     top: 6.5rem;
-    left: 50%;
-    transform: translateX(-50%);
-    width: min(70vw, 28rem);
+    width: min(100vw, 28rem);
     background: rgba(9, 9, 11, 0.92);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
