@@ -81,28 +81,6 @@ function closeMenu() {
         onComplete: () => siteOverlay.style.display = 'none'
     });
 }
-            isMenuOpen = false;
-            iconMenu.style.display = 'block';
-            iconClose.style.display = 'none';
-
-            gsap.to(menuOverlay, {
-                opacity: 0,
-                y: -10,
-                scale: 0.95,
-                duration: 0.3,
-                ease: 'power2.in',
-                onComplete: () => menuOverlay.style.display = 'none'
-            });
-            
-            gsap.to(siteOverlay, {
-                opacity: 0,
-                duration: 0.3,
-                onComplete: () => siteOverlay.style.display = 'none'
-            });
-        });
-    }
-}
-
 // --- Parallax Video ---
 const videoFundo = document.querySelector('.pagina-inicial-fundo');
 if (videoFundo) {
