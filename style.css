@@ -37,7 +37,6 @@
 
 html {
     scroll-behavior: auto;
-    overflow: auto;
 }
 
 body {
@@ -1498,7 +1497,7 @@ h1 {
     z-index: 20;
     padding: var(--section-padding-y) 0;
     background: #0a0a0a;
-    overflow: visible;
+    overflow: hidden;
 }
 
 .depoimentos-embrulho {
