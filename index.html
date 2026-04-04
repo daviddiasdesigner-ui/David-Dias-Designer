@@ -77,10 +77,9 @@
                 <a href="#contato" class="menu-link">Contato</a>
             </nav>
         </div>
-    </header>
 
     <!-- Seção Hero -->
-    <section class="pagina-inicial">
+    <section class="pagina-inicial" id="Home"> 
         <video autoplay loop muted playsinline class="pagina-inicial-fundo">
             <source src="Assets/Vídeo-hero.webm" type="video/webm">
         </video>
@@ -122,8 +121,7 @@
                     </span>
                 </a>
             </div>
-        </div>
-        <div class="indicador-rolar">
+             <div class="indicador-rolar">
             <p>Continue explorando</p>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                 <path fill="currentColor"
@@ -133,6 +131,8 @@
                     clip-rule="evenodd" />
             </svg>
         </div>
+        </div>
+       
     </section>
 
     <!-- Seção Faixas (Logos Carousel) -->
@@ -160,6 +160,16 @@
                     <div class="logo-box"><img src="Assets/3.webp" alt="Logo" class="logo-img-item"></div>
                     <div class="logo-box"><img src="Assets/4.webp" alt="Logo" class="logo-img-item"></div>
                 </div>
+                <div class="faixa-content ticker-right">
+                    <div class="logo-box"><img src="Assets/1.webp" alt="Logo" class="logo-img-item"></div>
+                    <div class="logo-box"><img src="Assets/2.webp" alt="Logo" class="logo-img-item"></div>
+                    <div class="logo-box"><img src="Assets/3.webp" alt="Logo" class="logo-img-item"></div>
+                    <div class="logo-box"><img src="Assets/4.webp" alt="Logo" class="logo-img-item"></div>
+                    <div class="logo-box"><img src="Assets/1.webp" alt="Logo" class="logo-img-item"></div>
+                    <div class="logo-box"><img src="Assets/2.webp" alt="Logo" class="logo-img-item"></div>
+                    <div class="logo-box"><img src="Assets/3.webp" alt="Logo" class="logo-img-item"></div>
+                    <div class="logo-box"><img src="Assets/4.webp" alt="Logo" class="logo-img-item"></div>
+                </div>
             </div>
             <div class="faixa faixa-left">
                 <div class="faixa-content ticker-left">
@@ -172,13 +182,26 @@
                     <div class="logo-box"><img src="Assets/7.webp" alt="Logo" class="logo-img-item"></div>
                     <div class="logo-box"><img src="Assets/8.webp" alt="Logo" class="logo-img-item"></div>
                 </div>
+                <div class="faixa-content ticker-left">
+                    <div class="logo-box"><img src="Assets/5.webp" alt="Logo" class="logo-img-item"></div>
+                    <div class="logo-box"><img src="Assets/6.webp" alt="Logo" class="logo-img-item"></div>
+                    <div class="logo-box"><img src="Assets/7.webp" alt="Logo" class="logo-img-item"></div>
+                    <div class="logo-box"><img src="Assets/8.webp" alt="Logo" class="logo-img-item"></div>
+                    <div class="logo-box"><img src="Assets/5.webp" alt="Logo" class="logo-img-item"></div>
+                    <div class="logo-box"><img src="Assets/6.webp" alt="Logo" class="logo-img-item"></div>
+                    <div class="logo-box"><img src="Assets/7.webp" alt="Logo" class="logo-img-item"></div>
+                    <div class="logo-box"><img src="Assets/8.webp" alt="Logo" class="logo-img-item"></div>
+                </div>
             </div>
+            
+
+            
         </div>
     </section>
 
     <!-- Seção Projetos -->
-    <section class="projetos revelar" id="cases">
-        <header class="projetos-cabecalho">
+    <section class="projetos" id="cases">
+        <header class="projetos-cabecalho revelar">
             <h2 class="projetos-titulo">Cases de sucesso</h2>
         </header>
 
@@ -458,6 +481,17 @@
                             <span class="tag">Kids</span>
                         </div>
                     </article>
+
+                    <!-- Projeto 5: 75% largura (Ajustando a Grid) -->
+                    <article class="projeto-cartao">
+                        <div class="projeto-imagem">
+                            <img src="Assets/Identidade Visual - Moda Praia.png" alt="Moda praia">
+                        </div>
+                        <div class="projeto-conteudo">
+                            <h3 class="projeto-titulo font-serif">Moda praia</h3>
+                            <span class="tag">Moda praia</span>
+                        </div>
+                    </article>
                 </div>
                 <!-- Mobile Sticky Cards -->
                 <div class="projetos-mobile-stack">
@@ -526,7 +560,7 @@
         </div>
     </section>
     <!-- Seção Por Que Escolher -->
-    <section class="por-que-eu revelar" id="why-me">
+    <section class="por-que-eu" id="why-me">
         <header class="por-que-eu-cabecalho reveal reveal-delay-1">
             <h2 class="section-title font-serif">Por que trabalhar comigo?</h2>
             <p class="section-subtitle">Design focado em resultados reais para o seu negócio</p>
@@ -576,7 +610,7 @@
     </section>
 
     <!-- Seção Serviços -->
-    <section class="servicos revelar" id="services">
+    <section class="servicos" id="services">
         <header class="servicos-cabecalho reveal reveal-delay-1">
             <h2 class="section-title font-serif">O que eu faço</h2>
             <p class="section-subtitle">Soluções completas para sua marca se destacar no digital</p>
@@ -685,8 +719,8 @@
     </section>
 
     <!-- Seção Sobre -->
-    <section class="sobre revelar" id="about">
-        <div class="sobre-light"></div>
+    <section class="sobre" id="about">
+        <div class="sobre-light revelar"></div>
         <div class="sobre-container">
             <div class="sobre-imagem reveal reveal-left reveal-delay-1">
                 <img src="Assets/Foto.png" alt="David Dias">
@@ -731,7 +765,7 @@
     </section>
 
     <!-- Seção Depoimentos -->
-    <section class="depoimentos revelar" id="testimonials">
+    <section class="depoimentos" id="testimonials">
         <header class="depoimentos-cabecalho reveal reveal-delay-1">
             <h2 class="section-title font-serif">O que dizem meus clientes</h2>
         </header>
@@ -852,7 +886,7 @@
     </section>
 
     <!-- Seção Processos -->
-    <section class="processo revelar" id="process">
+    <section class="processo" id="process">
         <header class="processo-cabecalho reveal reveal-delay-1">
             <h2 class="section-title font-serif">Como funciona meu método</h2>
             <p class="section-subtitle">Um processo estruturado para entregar resultados consistentes</p>
@@ -932,7 +966,7 @@
     </section>
 
     <!-- Seção FAQ -->
-    <section class="perguntas revelar" id="faq">
+    <section class="perguntas" id="faq">
         <header class="perguntas-cabecalho reveal reveal-delay-1">
             <h2 class="section-title">Perguntas Frequentes</h2>
             <p class="section-subtitle">Tire suas dúvidas antes de começar</p>
@@ -1012,7 +1046,7 @@
 
     <!-- Seção Contato -->
     <section class="contato" id="contato">
-        <header class="contact-header">
+        <header class="contact-header revelar">
             <h2 class="section-title">Vamos criar algo juntos?</h2>
             <p class="section-subtitle">Me conta sobre seu projeto e vamos dar vida à sua marca.</p>
         </header>
@@ -1053,8 +1087,8 @@
                 </div>
                 <button type="submit" class="submit-btn">
                     <span>
-                        Enviar Mensagem
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        Enviar Mensagem 
+                        <svg class="svg-Btn" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                             <line x1="22" y1="2" x2="11" y2="13"></line>
                             <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
@@ -1067,7 +1101,7 @@
 
     <!-- Footer -->
     <footer class="rodape">
-        <div class="rodape-content">
+        <div class="rodape-content revelar">
             <div class="rodape-brand">
                 <img src="Logo.svg" alt="David Dias Designer" class="rodape-logo">
                 <p class="rodape-tagline">Design estratégico para marcas que buscam dominar o mercado digital através de autoridade e estética premium.</p>
@@ -1096,8 +1130,8 @@
         
         <div class="rodape-bottom">
             <div class="rodape-bottom-container">
-                <p>© 2024 David Dias Designer. Todos os direitos reservados.</p>
-                <p class="rodape-location">São Paulo, Brasil</p>
+                <p>© 2026 David Dias Designer. Todos os direitos reservados.</p>
+                <p class="rodape-location">Pernambuco, Brasil</p>
             </div>
         </div>
     </footer>

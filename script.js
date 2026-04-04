@@ -36,8 +36,8 @@ if (menuToggle && menuOverlay) {
             isMenuOpen = true;
             iconMenu.style.display = 'none';
             iconClose.style.display = 'block';
-            menuOverlay.style.display = 'flex';
-            siteOverlay.style.display = 'block';
+            menuOverlay.classList.add('active');
+            siteOverlay.classList.add('active');
             document.body.classList.add('menu-open');
 
             gsap.fromTo(menuOverlay,
@@ -57,6 +57,10 @@ if (menuToggle && menuOverlay) {
     if (siteOverlay) {
         siteOverlay.addEventListener('click', closeMenu);
     }
+    
+    document.querySelectorAll('.menu-link').forEach(link => {
+        link.addEventListener('click', closeMenu);
+    });
 }
 
 function closeMenu() {
@@ -72,13 +76,13 @@ function closeMenu() {
         scale: 0.95,
         duration: 0.3,
         ease: 'power2.in',
-        onComplete: () => menuOverlay.style.display = 'none'
+        onComplete: () => menuOverlay.classList.remove('active')
     });
     
     gsap.to(siteOverlay, {
         opacity: 0,
         duration: 0.3,
-        onComplete: () => siteOverlay.style.display = 'none'
+        onComplete: () => siteOverlay.classList.remove('active')
     });
 }
 // --- Parallax Video ---
@@ -137,8 +141,8 @@ const heroTl = gsap.timeline({ defaults: { ease: "expo.out" }});
 
 if (document.querySelector('.anima-gigante')) {
     heroTl.fromTo('.anima-gigante', 
-        { scale: 4, opacity: 0, filter: "blur(30px)", y: -100 },
-        { scale: 1, opacity: 1, filter: "blur(0px)", y: 0, duration: 1.5, delay: 0.3 }
+        { scale: 4, opacity: 0, filter: "blur(30px)", y: -100, rotateX: 15 },
+        { scale: 1, opacity: 1, filter: "blur(0px)", y: 0, rotateX: 0, duration: 1.5, delay: 0.3 }
     );
 }
 
@@ -160,14 +164,12 @@ if (projetosSection) {
     gsap.set(projetosSection, {
         transformOrigin: "center center",
         perspective: 1500,
-        rotateX: 15,
         scale: 0.9
     });
 
     gsap.to(projetosSection, {
-        rotateX: 0,
         scale: 1,
-        ease: "none",
+        ease: "ease-in",
         scrollTrigger: {
             trigger: projetosSection,
             start: "top bottom",
@@ -215,7 +217,7 @@ revealGroups.forEach(group => {
     if (document.querySelector(group.trigger)) {
         const fromProps = group.has3D 
             ? { opacity: 0, y: 50, rotateX: 15, z: -50 }
-            : { opacity: 0, y: 30 };
+            : { opacity: 0, y: 0 };
             
         const toProps = group.has3D 
             ? { opacity: 1, y: 0, rotateX: 0, z: 0, duration: 1.2, ease: "power3.out" }
@@ -293,65 +295,38 @@ categoryBtns.forEach(btn => {
     });
 });
 
-// --- Process Timeline Animation (Novo Layout) ---
+// --- Process Timeline Animation (Staggered per row) ---
 const processoRows = document.querySelectorAll('.processo-row');
-
 if (processoRows.length > 0) {
     processoRows.forEach((row, index) => {
-        const circle = row.querySelector('.processo-circle');
-        const item = row.querySelector('.processo-item');
-        
-        if (circle) {
-            gsap.set(circle, { backgroundColor: '#e0e0e0', color: '#999', boxShadow: 'none' });
-        }
-        if (item) {
-            gsap.set(item, { 
-                opacity: 0.6,
-                scale: 0.92,
-                rotate: index % 2 === 0 ? -1.5 : 1.5
-            });
-        }
-        
+        gsap.set(row, {
+            opacity: 0,
+            y: 60,
+            scale: 0.95
+        });
+
         ScrollTrigger.create({
             trigger: row,
-            start: "top 75%",
-            end: "top 35%",
+            start: "top 85%",
             onEnter: () => {
+                gsap.to(row, {
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    duration: 0.8,
+                    delay: 0.15 * index,
+                    ease: "power3.out"
+                });
+                // Activate the circle when it enters
+                const circle = row.querySelector('.processo-circle');
                 if (circle) {
                     gsap.to(circle, {
-                        backgroundColor: 'var(--cyan)',
-                        color: '#0a0a0a',
-                        boxShadow: '0 0 25px var(--cyan)',
-                        duration: 0.5
-                    });
-                }
-                if (item) {
-                    gsap.to(item, {
-                        opacity: 1,
-                        scale: 1,
-                        rotate: 0,
-                        duration: 0.5
+                        delay: 0.15 * index + 0.3,
+                        onComplete: () => circle.classList.add('active')
                     });
                 }
             },
-            onLeaveBack: () => {
-                if (circle) {
-                    gsap.to(circle, {
-                        backgroundColor: '#e0e0e0',
-                        color: '#999',
-                        boxShadow: 'none',
-                        duration: 0.5
-                    });
-                }
-                if (item) {
-                    gsap.to(item, {
-                        opacity: 0.6,
-                        scale: 0.92,
-                        rotate: index % 2 === 0 ? -1.5 : 1.5,
-                        duration: 0.5
-                    });
-                }
-            }
+            once: true
         });
     });
 }
@@ -380,6 +355,7 @@ if (mobileCards.length > 0) {
 
 // --- FAQ Accordion ---
 const perguntaButtons = document.querySelectorAll('.pergunta-pergunta');
+
 perguntaButtons.forEach(btn => {
     btn.addEventListener('click', () => {
         const item = btn.parentElement;
@@ -414,25 +390,29 @@ if (scrollTopBtn) {
     });
 }
 
-// --- Testimonials Navigation (Carousel with Blur Effect) ---
+// --- Testimonials Navigation (Infinite Carousel with Blur Effect) ---
 const prevBtn = document.getElementById('prev-testimonial');
 const nextBtn = document.getElementById('next-testimonial');
 const cards = document.querySelectorAll('.testimonial-card');
 
 if (prevBtn && nextBtn && cards.length > 0) {
-    let currentIndex = Math.floor(cards.length / 2);
+    let currentIndex = 0;
     const totalCards = cards.length;
     
+    // Helper: get wrapped index (handles negative and overflow)
+    function wrapIndex(i) {
+        return ((i % totalCards) + totalCards) % totalCards;
+    }
+    
     function updateCards() {
-        const trilha = document.querySelector('.depoimentos-trilha');
+        const prevIndex = wrapIndex(currentIndex - 1);
+        const nextIndex = wrapIndex(currentIndex + 1);
         
         cards.forEach((card, i) => {
-            const distance = Math.abs(i - currentIndex);
-            card.style.position = 'relative';
-            card.style.left = 'auto';
-            
             if (i === currentIndex) {
+                // Active card — centered, fully visible
                 card.style.display = 'flex';
+                card.style.order = '2';
                 gsap.to(card, {
                     opacity: 1,
                     scale: 1,
@@ -441,8 +421,22 @@ if (prevBtn && nextBtn && cards.length > 0) {
                     duration: 0.4,
                     ease: "power3.out"
                 });
-            } else if (distance === 1) {
+            } else if (i === prevIndex) {
+                // Previous neighbor — left, blurred
                 card.style.display = 'flex';
+                card.style.order = '1';
+                gsap.to(card, {
+                    opacity: 0.4,
+                    scale: 0.85,
+                    filter: 'blur(3px)',
+                    zIndex: 5,
+                    duration: 0.4,
+                    ease: "power3.out"
+                });
+            } else if (i === nextIndex) {
+                // Next neighbor — right, blurred
+                card.style.display = 'flex';
+                card.style.order = '3';
                 gsap.to(card, {
                     opacity: 0.4,
                     scale: 0.85,
@@ -452,7 +446,9 @@ if (prevBtn && nextBtn && cards.length > 0) {
                     ease: "power3.out"
                 });
             } else {
+                // All other cards — hidden
                 card.style.display = 'none';
+                card.style.order = '99';
             }
         });
     }
@@ -461,12 +457,12 @@ if (prevBtn && nextBtn && cards.length > 0) {
     updateCards();
     
     prevBtn.addEventListener('click', () => {
-        currentIndex = (currentIndex - 1 + totalCards) % totalCards;
+        currentIndex = wrapIndex(currentIndex - 1);
         updateCards();
     });
     
     nextBtn.addEventListener('click', () => {
-        currentIndex = (currentIndex + 1) % totalCards;
+        currentIndex = wrapIndex(currentIndex + 1);
         updateCards();
     });
 }
