@@ -42,13 +42,17 @@ if (menuToggle && menuOverlay) {
 
             gsap.fromTo(menuOverlay,
                 { opacity: 0, y: -10, scale: 0.95 },
-                { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: 'expo.out' }
+                { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: 'expo.out', overwrite: true }
             );
 
             gsap.fromTo('.menu-link',
                 { y: 20, opacity: 0 },
-                { y: 0, opacity: 1, stagger: 0.08, duration: 0.4, ease: 'power3.out', delay: 0.1 }
+                { y: 0, opacity: 1, stagger: 0.08, duration: 0.4, ease: 'power3.out', delay: 0.1, overwrite: true }
             );
+            
+            if (siteOverlay) {
+                gsap.to(siteOverlay, { opacity: 1, duration: 0.3, overwrite: true });
+            }
         } else {
             closeMenu();
         }
@@ -76,14 +80,22 @@ function closeMenu() {
         scale: 0.95,
         duration: 0.3,
         ease: 'power2.in',
-        onComplete: () => menuOverlay.classList.remove('active')
+        overwrite: true,
+        onComplete: () => {
+            if (!isMenuOpen) menuOverlay.classList.remove('active');
+        }
     });
     
-    gsap.to(siteOverlay, {
-        opacity: 0,
-        duration: 0.3,
-        onComplete: () => siteOverlay.classList.remove('active')
-    });
+    if (siteOverlay) {
+        gsap.to(siteOverlay, {
+            opacity: 0,
+            duration: 0.3,
+            overwrite: true,
+            onComplete: () => {
+                if (!isMenuOpen) siteOverlay.classList.remove('active');
+            }
+        });
+    }
 }
 // --- Parallax Video ---
 const videoFundo = document.querySelector('.pagina-inicial-fundo');
@@ -209,7 +221,6 @@ sections.forEach(section => {
 // --- Enhanced Element Reveals (Staggered) ---
 const revealGroups = [
     { trigger: '.servicos-grade', targets: '.servico-cartao', stagger: 0.2, has3D: false },
-    { trigger: '.projetos-grade', targets: '.projeto-cartao', stagger: 0.8, has3D: true },
     { trigger: '.grade-cards', targets: '.card-bloco', stagger: 0.2, has3D: false }
 ];
 
@@ -234,15 +245,8 @@ revealGroups.forEach(group => {
     }
 });
 
-// --- Bento Grid Hover Effect ---
+// --- projects Hover Effect ---
 const allProjectCards = document.querySelectorAll('.projeto-cartao');
-
-gsap.set(allProjectCards, {
-    opacity: 0,
-    rotateX: 15,
-    z: -50,
-    y: 30
-});
 
 allProjectCards.forEach(cartao => {
     cartao.addEventListener('mouseenter', () => {
@@ -295,40 +299,93 @@ categoryBtns.forEach(btn => {
     });
 });
 
-// --- Process Timeline Animation (Staggered per row) ---
-const processoRows = document.querySelectorAll('.processo-row');
-if (processoRows.length > 0) {
-    processoRows.forEach((row, index) => {
-        gsap.set(row, {
-            opacity: 0,
-            y: 60,
-            scale: 0.95
+// --- Process Scroll Animation ---
+const processoContainer = document.querySelector('.processo-container');
+const progressLine = document.querySelector('.line-progress');
+const processSteps = document.querySelectorAll('.processo-step');
+
+// animação do container
+if (processoContainer) {
+    gsap.set(processoContainer, {
+        y: 30
+    });
+
+    gsap.to(processoContainer, {
+        y: 0,
+        ease: "power3.out",
+        scrollTrigger: {
+            trigger: processoContainer,
+            start: "top 80%",
+            end: "top 40%",
+            scrub: 1
+        }
+    });
+}
+
+// animação da linha (agora validando os DOIS)
+if (progressLine && processoContainer && processSteps.length > 0) {
+    const firstStep = processSteps[0];
+    const lastStep = processSteps[processSteps.length - 1];
+    const firstMarker = firstStep.querySelector('.processo-marker');
+    const lastMarker = lastStep.querySelector('.processo-marker');
+    
+    if (firstMarker && lastMarker) {
+        const firstRect = firstMarker.getBoundingClientRect();
+        const lastRect = lastMarker.getBoundingClientRect();
+        const containerRect = processoContainer.getBoundingClientRect();
+        
+        const lineHeight = endPercent - startPercent;
+        
+        gsap.set(progressLine, { 
+            top: startPercent + '%',
+            height: '0%'
         });
 
-        ScrollTrigger.create({
-            trigger: row,
-            start: "top 85%",
-            onEnter: () => {
-                gsap.to(row, {
-                    opacity: 1,
-                    y: 0,
-                    scale: 1,
-                    duration: 0.8,
-                    delay: 0.15 * index,
-                    ease: "power3.out"
-                });
-                // Activate the circle when it enters
-                const circle = row.querySelector('.processo-circle');
-                if (circle) {
-                    gsap.to(circle, {
-                        delay: 0.15 * index + 0.3,
-                        onComplete: () => circle.classList.add('active')
-                    });
-                }
-            },
-            once: true
+        gsap.to(progressLine, {
+            height: lineHeight + '%',
+            ease: "none",
+            scrollTrigger: {
+                trigger: processoContainer,
+                start: "top 80%",
+                end: "bottom 20%",
+                scrub: 1
+            }
         });
+    }
+}
+
+// Ativar steps quando entrarem na viewport
+processSteps.forEach((step) => {
+    ScrollTrigger.create({
+        trigger: step,
+        start: "top 70%",
+        onEnter: () => step.classList.add('active'),
+        onLeaveBack: () => step.classList.remove('active')
     });
+});
+
+
+// --- projects Staggered Reveal (Orbix Style) ---
+const projectsGrid = document.querySelector('.projetos-grade');
+const projectCards = document.querySelectorAll('.projeto-cartao');
+
+if (projectsGrid && projectCards.length > 0) {
+    gsap.fromTo(projectCards, 
+        { y: 60, opacity: 0, scale: 0.95 },
+        {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            duration: 1.2,
+            stagger: 0.2,
+            ease: "power4.out",
+            scrollTrigger: {
+                trigger: projectsGrid,
+                start: "top 80%",
+                once: true
+            }
+        }
+    );
 }
 
 // --- Mobile Projects Stack Animation ---
@@ -466,5 +523,10 @@ if (prevBtn && nextBtn && cards.length > 0) {
         updateCards();
     });
 }
+
+// --- Final ScrollTrigger Sync ---
+window.addEventListener('load', () => {
+    ScrollTrigger.refresh();
+});
 
 console.log('Portfolio initialized');

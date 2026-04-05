@@ -885,82 +885,112 @@
         </div>
     </section>
 
-    <!-- Seção Processos -->
     <section class="processo" id="process">
         <header class="processo-cabecalho reveal reveal-delay-1">
-            <h2 class="section-title font-serif">Como funciona meu método</h2>
-            <p class="section-subtitle">Um processo estruturado para entregar resultados consistentes</p>
+            <span class="processo-subtitle">Metodologia</span>
+            <h2 class="section-title">Como transformo seu projeto em resultado</h2>
+            <p class="processo-intro">Um processo estruturado para entregar excelência e impacto em cada detalhe.</p>
         </header>
-        <div class="processo-timeline">
-            <!-- Step 1 -->
-            <div class="processo-row">
-                <div class="processo-circle-wrapper">
-                    <div class="processo-circle active">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <path d="m21 21-4.35-4.35"></path>
-                        </svg>
-                    </div>
+
+        <div class="processo-container">
+            <div class="processo-steps">
+                <!-- Linha de Progresso Vertical -->
+                <div class="processo-vertical-line">
+                    <div class="line-bg"></div>
+                    <div class="line-progress" id="process-progress"></div>
                 </div>
-                <div class="processo-item">
-                    <div class="processo-step-tag">Step 1</div>
-                    <div class="processo-card-content">
-                        <h3 class="processo-card-title">Descobrimento</h3>
-                        <p class="processo-card-text">Entendo seu negócio, objetivos e público-alvo. Analiso sua marca atual e identifico oportunidades de crescimento.</p>
+
+                <!-- Passo 01 -->
+                <article class="processo-step" data-step="1">
+                    <div class="processo-marker-container">
+                        <div class="processo-marker">
+                            <span class="marker-number">01</span>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <!-- Step 2 -->
-            <div class="processo-row">
-                <div class="processo-circle-wrapper">
-                    <div class="processo-circle">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-                        </svg>
+                    <div class="processo-content">
+                        <div class="processo-text">
+                            <span class="step-tag">Imersão</span>
+                            <h3 class="step-title">Descoberta e Estratégia</h3>
+                            <p class="step-desc">Entendemos a fundo seu negócio, público e objetivos para traçar o caminho mais curto até os resultados.</p>
+                        </div>
+                        <div class="processo-visual">
+                            <div class="visual-placeholder">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                                </svg>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="processo-item">
-                    <div class="processo-step-tag">Step 2</div>
-                    <div class="processo-card-content">
-                        <h3 class="processo-card-title">Estratégia</h3>
-                        <p class="processo-card-text">Criei o roadmap visual com direção estratégica. Definimos paleta, tipografia e tom de comunicação.</p>
+                </article>
+
+                <!-- Passo 02 -->
+                <article class="processo-step" data-step="2">
+                    <div class="processo-marker-container">
+                        <div class="processo-marker">
+                            <span class="marker-number">02</span>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <!-- Step 3 -->
-            <div class="processo-row">
-                <div class="processo-circle-wrapper">
-                    <div class="processo-circle">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-                        </svg>
+                    <div class="processo-content">
+                        <div class="processo-text">
+                            <span class="step-tag">Criação</span>
+                            <h3 class="step-title">Conceito e Design</h3>
+                            <p class="step-desc">Transformamos a estratégia em visual. Cores, formas e tipografias que comunicam autoridade e desejo.</p>
+                        </div>
+                        <div class="processo-visual">
+                            <div class="visual-placeholder">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                                </svg>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="processo-item">
-                    <div class="processo-step-tag">Step 3</div>
-                    <div class="processo-card-content">
-                        <h3 class="processo-card-title">Criação</h3>
-                        <p class="processo-card-text">Desenvolvo as peças de design com atenção aos detalhes. Entrego mockups, protótipos e especificações.</p>
+                </article>
+
+                <!-- Passo 03 -->
+                <article class="processo-step" data-step="3">
+                    <div class="processo-marker-container">
+                        <div class="processo-marker">
+                            <span class="marker-number">03</span>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <!-- Step 4 -->
-            <div class="processo-row">
-                <div class="processo-circle-wrapper">
-                    <div class="processo-circle">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                        </svg>
+                    <div class="processo-content">
+                        <div class="processo-text">
+                            <span class="step-tag">Execução</span>
+                            <h3 class="step-title">Desenvolvimento e Refinamento</h3>
+                            <p class="step-desc">Onde o design ganha vida. Peças para social media, identidades visuais e assets prontos para brilhar.</p>
+                        </div>
+                        <div class="processo-visual">
+                            <div class="visual-placeholder">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                </svg>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="processo-item">
-                    <div class="processo-step-tag">Step 4</div>
-                    <div class="processo-card-content">
-                        <h3 class="processo-card-title">Entrega</h3>
-                        <p class="processo-card-text">Entrego todos os arquivos organizados e prontos para uso. Guia de marca completo para futuras aplicações.</p>
+                </article>
+
+                <!-- Passo 04 -->
+                <article class="processo-step" data-step="4">
+                    <div class="processo-marker-container">
+                        <div class="processo-marker">
+                            <span class="marker-number">04</span>
+                        </div>
                     </div>
-                </div>
+                    <div class="processo-content">
+                        <div class="processo-text">
+                            <span class="step-tag">Entrega</span>
+                            <h3 class="step-title">Lançamento e Suporte</h3>
+                            <p class="step-desc">Entrega final de todos os arquivos e orientações para que sua marca domine o digital.</p>
+                        </div>
+                        <div class="processo-visual">
+                            <div class="visual-placeholder">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </article>
             </div>
         </div>
     </section>
