@@ -1353,19 +1353,84 @@ p {
     right: 1rem;
 }
 
+/* ============================================
+   DEPOIMENTOS - CSS SCROLL-DRIVEN (1 card per view)
+   ============================================ */
+.depoimentos-trilha {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 2rem 0;
+    overflow: hidden;
+    width: 100%;
+    min-height: 300px;
+    scroll-snap-type: x mandatory;
+}
+
+@supports (animation-timeline: view()) {
+    .testimonial-card {
+        animation: testimonial-reveal linear both;
+        animation-timeline: --testimonial-view;
+        animation-range: entry 30% cover 60%;
+    }
+    
+    .depoimentos-trilha {
+        view-timeline-name: --testimonial-view;
+        view-timeline-axis: inline;
+    }
+    
+    .testimonial-card:nth-child(1) { --testimonial-view: --testimonial-1; }
+    .testimonial-card:nth-child(2) { --testimonial-view: --testimonial-2; }
+    .testimonial-card:nth-child(3) { --testimonial-view: --testimonial-3; }
+    .testimonial-card:nth-child(4) { --testimonial-view: --testimonial-4; }
+    .testimonial-card:nth-child(5) { --testimonial-view: --testimonial-5; }
+    .testimonial-card:nth-child(6) { --testimonial-view: --testimonial-6; }
+    .testimonial-card:nth-child(7) { --testimonial-view: --testimonial-7; }
+    .testimonial-card:nth-child(8) { --testimonial-view: --testimonial-8; }
+    
+    @keyframes testimonial-reveal {
+        from {
+            opacity: 0;
+            transform: translateX(50px) scale(0.9);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0) scale(1);
+        }
+    }
+}
+
 .testimonial-card {
     flex: 0 0 auto;
+    width: 100%;
     max-width: 600px;
-    width: 40%;
     min-height: 280px;
     background: rgba(255, 255, 255, 0.02);
     border: 1px solid rgba(255, 255, 255, 0.05);
     padding: 2rem;
     border-radius: 1.5rem;
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: space-between;
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    scroll-snap-align: center;
+}
+
+.testimonial-card.active {
+    display: flex;
+    animation: card-fade-in 0.5s ease-out;
+}
+
+@keyframes card-fade-in {
+    from {
+        opacity: 0;
+        transform: translateX(30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
 }
 
 .testimonial-card:hover {
@@ -1622,25 +1687,65 @@ p {
     transform: scale(1.1);
 }
 
-/* Response for Process */
-@media screen and (max-width: 768px) {
+/* ============================================
+   PROCESSO - CSS SCROLL-DRIVEN ANIMATIONS
+   ============================================ */
+@supports (animation-timeline: view()) {
+    .processo-step {
+        view-timeline-name: --step-view;
+        view-timeline-axis: block;
+        animation: step-reveal linear both;
+        animation-timeline: --step-view;
+        animation-range: entry 25% cover 50%;
+    }
+    
+    .processo-step[data-step="1"] { --step-view: --step-1; }
+    .processo-step[data-step="2"] { --step-view: --step-2; }
+    .processo-step[data-step="3"] { --step-view: --step-3; }
+    .processo-step[data-step="4"] { --step-view: --step-4; }
+
+    @keyframes step-reveal {
+        from {
+            opacity: 0;
+            transform: translateY(40px) scale(0.95);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    .processo-vertical-line .line-progress {
+        animation: line-grow linear both;
+        animation-timeline: --process-line;
+        animation-range: entry 90%;
+    }
+
     .processo-container {
-        padding-left: 2.5rem;
+        view-timeline-name: --process-line;
+        view-timeline-axis: block;
+    }
+
+    @keyframes line-grow {
+        from { height: 0%; }
+        to { height: 100%; }
+    }
+}
+
+@supports not (animation-timeline: view()) {
+    .processo-step {
+        opacity: 0;
+        transform: translateY(30px);
     }
     
-    .processo-marker-container {
-        left: -2.5rem;
-        width: 2.5rem;
+    .processo-step.active {
+        opacity: 1;
+        transform: translateY(0);
+        transition: all 0.6s ease-out;
     }
     
-    .processo-content {
-        grid-template-columns: 1fr;
-        padding: 2rem;
-        gap: 1.5rem;
-    }
-    
-    .step-title {
-        font-size: 1.75rem;
+    .processo-vertical-line .line-progress {
+        height: 0%;
     }
 }
 
@@ -1866,6 +1971,7 @@ p {
 .pergunta-resposta {
     overflow: hidden;
     height: 0;
+    transition: height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .pergunta-resposta p {
@@ -1873,6 +1979,34 @@ p {
     font-size: 0.95rem;
     line-height: 1.8;
     padding: 0 1.5rem 1.5rem;
+}
+
+/* ============================================
+   FAQ - CSS SCROLL-DRIVEN ANIMATIONS
+   ============================================ */
+@supports (animation-timeline: view()) {
+    .pergunta-item {
+        animation: item-fade-in linear both;
+        animation-timeline: --faq-item-view;
+        animation-range: entry 20% cover 50%;
+    }
+    
+    .pergunta-item:nth-child(1) { --faq-item-view: --faq-1; }
+    .pergunta-item:nth-child(2) { --faq-item-view: --faq-2; }
+    .pergunta-item:nth-child(3) { --faq-item-view: --faq-3; }
+    .pergunta-item:nth-child(4) { --faq-item-view: --faq-4; }
+    .pergunta-item:nth-child(5) { --faq-item-view: --faq-5; }
+    
+    @keyframes item-fade-in {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
 }
 
 /* ============================================
@@ -2011,27 +2145,38 @@ p {
 }
 
 .submit-btn {
-    background-color: #0000006f;
-    color: #ffffffce;
-    display: flex;
-    justify-content: center;
-    padding: 2rem 4rem;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 1rem;
+    padding: 1.25rem;
+    padding-bottom: 1.4rem;
+    color: #fff;
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 500;
     cursor: pointer;
-
-
+    transition: all 0.3s ease;
 }
 
-.submit-btn :hover {
-    background-color: #ebebeb;
-    color: #050505;
+.submit-btn span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+}
+
+.submit-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--cyan);
+    color: var(--cyan);
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.2);
 }
 
 .svg-Btn {
     aspect-ratio: 1 1;
-    width: .8rem;
+    width: 1.2rem;
     height: auto;
-    padding-top: 1rem;
 }
 
 /* Submit-btn agora é gerida pelo btn-premium */
@@ -2685,6 +2830,18 @@ p {
         right: 0.5rem;
     }
 
+    .depoimentos-trilha {
+        scroll-snap-type: x mandatory;
+    }
+
+    .testimonial-card {
+        width: 100%;
+        max-width: 90vw;
+        min-height: 220px;
+        padding: 1.5rem;
+        scroll-snap-align: center;
+    }
+
     /* --- Process Section Mobile --- */
     .processo {
         padding: var(--section-padding-y) var(--section-padding-x);
@@ -2697,6 +2854,57 @@ p {
 
     .processo-cabecalho h2 {
         font-size: 1.5rem;
+    }
+
+    .processo-container {
+        margin: 3rem auto 0;
+        padding-left: 2rem;
+    }
+
+    .processo-steps {
+        gap: 2rem;
+    }
+
+    .processo-vertical-line {
+        left: 0;
+    }
+
+    .processo-marker-container {
+        left: -2rem;
+        width: 2rem;
+    }
+
+    .processo-marker {
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+
+    .marker-number {
+        font-size: 0.55rem;
+    }
+
+    .processo-content {
+        grid-template-columns: 1fr;
+        padding: 1.5rem;
+        gap: 1rem;
+    }
+
+    .step-title {
+        font-size: 1.5rem;
+    }
+
+    .step-desc {
+        font-size: 0.95rem;
+    }
+
+    .step-tag {
+        font-size: 0.65rem;
+        padding: 0.3rem 0.8rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .processo-visual {
+        min-height: 120px;
     }
 
     .processo-timeline {

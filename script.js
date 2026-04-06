@@ -299,68 +299,13 @@ categoryBtns.forEach(btn => {
     });
 });
 
-// --- Process Scroll Animation ---
-const processoContainer = document.querySelector('.processo-container');
-const progressLine = document.querySelector('.line-progress');
+// --- Process Scroll Animation (CSS-driven) ---
 const processSteps = document.querySelectorAll('.processo-step');
 
-// animação do container
-if (processoContainer) {
-    gsap.set(processoContainer, {
-        y: 30
-    });
-
-    gsap.to(processoContainer, {
-        y: 0,
-        ease: "power3.out",
-        scrollTrigger: {
-            trigger: processoContainer,
-            start: "top 80%",
-            end: "top 40%",
-            scrub: 1
-        }
-    });
-}
-
-// animação da linha (agora validando os DOIS)
-if (progressLine && processoContainer && processSteps.length > 0) {
-    const firstStep = processSteps[0];
-    const lastStep = processSteps[processSteps.length - 1];
-    const firstMarker = firstStep.querySelector('.processo-marker');
-    const lastMarker = lastStep.querySelector('.processo-marker');
-    
-    if (firstMarker && lastMarker) {
-        const firstRect = firstMarker.getBoundingClientRect();
-        const lastRect = lastMarker.getBoundingClientRect();
-        const containerRect = processoContainer.getBoundingClientRect();
-        
-        const lineHeight = endPercent - startPercent;
-        
-        gsap.set(progressLine, { 
-            top: startPercent + '%',
-            height: '0%'
-        });
-
-        gsap.to(progressLine, {
-            height: lineHeight + '%',
-            ease: "none",
-            scrollTrigger: {
-                trigger: processoContainer,
-                start: "top 80%",
-                end: "bottom 20%",
-                scrub: 1
-            }
-        });
-    }
-}
-
-// Ativar steps quando entrarem na viewport
 processSteps.forEach((step) => {
-    ScrollTrigger.create({
-        trigger: step,
-        start: "top 70%",
-        onEnter: () => step.classList.add('active'),
-        onLeaveBack: () => step.classList.remove('active')
+    step.addEventListener('click', () => {
+        processSteps.forEach(s => s.classList.remove('active'));
+        step.classList.add('active');
     });
 });
 
@@ -410,30 +355,24 @@ if (mobileCards.length > 0) {
     });
 }
 
-// --- FAQ Accordion ---
+// --- FAQ Accordion (CSS-driven) ---
 const perguntaButtons = document.querySelectorAll('.pergunta-pergunta');
 
 perguntaButtons.forEach(btn => {
     btn.addEventListener('click', () => {
         const item = btn.parentElement;
+        const resposta = item.querySelector('.pergunta-resposta');
         const isOpen = item.classList.contains('pergunta-aberta');
-        
-        document.querySelectorAll('.pergunta-item').forEach(i => {
-            i.classList.remove('pergunta-aberta');
-            const resposta = i.querySelector('.pergunta-resposta');
-            if (resposta) {
-                gsap.to(resposta, { height: 0, duration: 0.3 });
-            }
-        });
         
         if (!isOpen) {
             item.classList.add('pergunta-aberta');
-            const resposta = item.querySelector('.pergunta-resposta');
             if (resposta) {
-                resposta.style.height = 'auto';
-                const height = resposta.scrollHeight;
+                resposta.style.height = resposta.scrollHeight + 'px';
+            }
+        } else {
+            item.classList.remove('pergunta-aberta');
+            if (resposta) {
                 resposta.style.height = '0';
-                gsap.to(resposta, { height: height, duration: 0.4, ease: "power3.out" });
             }
         }
     });
@@ -447,7 +386,7 @@ if (scrollTopBtn) {
     });
 }
 
-// --- Testimonials Navigation (Infinite Carousel with Blur Effect) ---
+// --- Testimonials Navigation (1 card per view) ---
 const prevBtn = document.getElementById('prev-testimonial');
 const nextBtn = document.getElementById('next-testimonial');
 const cards = document.querySelectorAll('.testimonial-card');
@@ -456,61 +395,21 @@ if (prevBtn && nextBtn && cards.length > 0) {
     let currentIndex = 0;
     const totalCards = cards.length;
     
-    // Helper: get wrapped index (handles negative and overflow)
     function wrapIndex(i) {
         return ((i % totalCards) + totalCards) % totalCards;
     }
     
     function updateCards() {
-        const prevIndex = wrapIndex(currentIndex - 1);
-        const nextIndex = wrapIndex(currentIndex + 1);
-        
         cards.forEach((card, i) => {
             if (i === currentIndex) {
-                // Active card — centered, fully visible
-                card.style.display = 'flex';
-                card.style.order = '2';
-                gsap.to(card, {
-                    opacity: 1,
-                    scale: 1,
-                    filter: 'blur(0px)',
-                    zIndex: 10,
-                    duration: 0.4,
-                    ease: "power3.out"
-                });
-            } else if (i === prevIndex) {
-                // Previous neighbor — left, blurred
-                card.style.display = 'flex';
-                card.style.order = '1';
-                gsap.to(card, {
-                    opacity: 0.4,
-                    scale: 0.85,
-                    filter: 'blur(3px)',
-                    zIndex: 5,
-                    duration: 0.4,
-                    ease: "power3.out"
-                });
-            } else if (i === nextIndex) {
-                // Next neighbor — right, blurred
-                card.style.display = 'flex';
-                card.style.order = '3';
-                gsap.to(card, {
-                    opacity: 0.4,
-                    scale: 0.85,
-                    filter: 'blur(3px)',
-                    zIndex: 5,
-                    duration: 0.4,
-                    ease: "power3.out"
-                });
+                card.classList.add('active');
             } else {
-                // All other cards — hidden
-                card.style.display = 'none';
-                card.style.order = '99';
+                card.classList.remove('active');
             }
         });
     }
     
-    // Initialize
+    // Initialize first card as active
     updateCards();
     
     prevBtn.addEventListener('click', () => {
