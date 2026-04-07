@@ -19,16 +19,26 @@
     <link rel="icon" type="image/svg+xml" href="Logo.svg">
 </head>
 
-<body>
+<body class="preloader-active">
+
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="preloader-content">
+            <div class="preloader-logo-wrapper">
+                <img src="Assets/Logo carregamento.svg" alt="Logo" class="preloader-logo">
+            </div>
+            <div class="preloader-overlay"></div>
+        </div>
+    </div>
 
     <!-- Navbar Desktop (Visível apenas em Desktop) -->
     <header class="navegacao">
         <img src="Logo.svg" alt="Logo" class="logo-img">
         <nav class="links-desktop">
-            <a href="#home">Home</a>
-            <a href="#about">Sobre</a>
-            <a href="#services">Serviços</a>
-            <a href="#cases">Projetos</a>
+            <a class="link-nav revelar" href="#home">Home</a>
+            <a class="link-nav revelar" href="#about">Sobre</a>
+            <a class="link-nav revelar" href="#services">Serviços</a>
+            <a class="link-nav revelar" href="#cases">Projetos</a>
         </nav>
         <div class="nav-right">
             <a href="#contato" class="nav-cta btn-azul">
@@ -91,11 +101,11 @@
                 </span>
             </h1>
             <p class="pagina-inicial-subtitulo anima-escrita">Transformo marcas comuns em <strong>presenças digitais</strong> que geram
-                <strong>desejo e autoridade</strong>.
+                <span class="anima-escrita-bold">desejo e autoridade.</span>
                 Sem excessos, apenas o design que sua empresa precisa para <strong>dominar o mercado</strong>.
             </p>
             <div class="pagina-inicial-acao">
-                <a href="#cases" class="btn-premium btn-inverted main-cta">
+                <a href="#cases" class="btn-azul main-cta">
                     <span>
                         Ver portfólio
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
@@ -138,7 +148,6 @@
     <!-- Seção Faixas (Logos Carousel) -->
     <section class="faixas-container">
         <header class="faixas-header">
-            <h2 class="faixas-title">Marcas que confiam no meu trabalho</h2>
             <div class="faixa-indicator">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                     stroke-linecap="round" stroke-linejoin="round">
@@ -223,7 +232,7 @@
             <div class="conteudo-categoria active" data-category="social-media">
                 <div class="projetos-grade">
                     <!-- Projeto 1: 60% largura -->
-                    <article class="projeto-cartao">
+                    <article class="projeto-cartao revelar">
                         <div class="projeto-imagem">
                             <img src="Assets/Social Media - Dentista.png" alt="Dentista Case">
                         </div>
@@ -234,7 +243,7 @@
                     </article>
 
                     <!-- Projeto 2: 40% largura -->
-                    <article class="projeto-cartao">
+                    <article class="projeto-cartao revelar">
                         <div class="projeto-imagem">
                             <img src="Assets/Social Media - Esteticista.png" alt="Esteticista Case">
                         </div>
@@ -245,7 +254,7 @@
                     </article>
 
                     <!-- Projeto 3: 40% largura -->
-                    <article class="projeto-cartao">
+                    <article class="projeto-cartao revelar">
                         <div class="projeto-imagem">
                             <img src="Assets/Social Media - Massoterapia.png" alt="Massoterapia Case">
                         </div>
@@ -256,7 +265,7 @@
                     </article>
 
                     <!-- Projeto 4: 60% largura -->
-                    <article class="projeto-cartao">
+                    <article class="projeto-cartao revelar">
                         <div class="projeto-imagem">
                             <img src="Assets/Social Media - Dentista.png" alt="Dentista Case">
                         </div>
@@ -267,7 +276,7 @@
                     </article>
 
                     <!-- Projeto 5: 60% largura -->
-                    <article class="projeto-cartao">
+                    <article class="projeto-cartao revelar">
                         <div class="projeto-imagem">
                             <img src="Assets/Social Media - Dentista.png" alt="Dentista Case">
                         </div>
@@ -278,7 +287,7 @@
                     </article>
 
                     <!-- Projeto 6: 40% largura -->
-                    <article class="projeto-cartao">
+                    <article class="projeto-cartao revelar">
                         <div class="projeto-imagem">
                             <img src="Assets/Social Media - Esteticista.png" alt="Esteticista Case">
                         </div>
@@ -289,7 +298,7 @@
                     </article>
 
                     <!-- Projeto 7: 40% largura -->
-                    <article class="projeto-cartao">
+                    <article class="projeto-cartao revelar">
                         <div class="projeto-imagem">
                             <img src="Assets/Social Media - Massoterapia.png" alt="Massoterapia Case">
                         </div>
@@ -300,7 +309,7 @@
                     </article>
 
                     <!-- Projeto 8: 60% largura -->
-                    <article class="projeto-cartao">
+                    <article class="projeto-cartao revelar">
                         <div class="projeto-imagem">
                             <img src="Assets/Social Media - Dentista.png" alt="Dentista Case">
                         </div>
@@ -438,7 +447,7 @@
             <div class="conteudo-categoria" data-category="identidade-visual">
                 <div class="projetos-grade">
                     <!-- Projeto 1: 75% largura -->
-                    <article class="projeto-cartao">
+                    <article class="projeto-cartao revelar">
                         <div class="projeto-imagem">
                             <img src="Assets/Identidade Visual - Atelier de macramê.png" alt="Atelier Case">
                         </div>
@@ -450,7 +459,7 @@
                     </article>
 
                     <!-- Projeto 2: 25% largura -->
-                    <article class="projeto-cartao">
+                    <article class="projeto-cartao revelar">
                         <div class="projeto-imagem">
                             <img src="Assets/Identidade Visual - Massoterapeuta.png" alt="Massoterapeuta Case">
                         </div>
@@ -461,7 +470,7 @@
                     </article>
 
                     <!-- Projeto 3: 25% largura -->
-                    <article class="projeto-cartao">
+                    <article class="projeto-cartao revelar">
                         <div class="projeto-imagem">
                             <img src="Assets/Identidade Visual - Moda modesta.png" alt="Moda Modesta Case">
                         </div>
@@ -472,7 +481,7 @@
                     </article>
 
                     <!-- Projeto 4: 75% largura (Ajustando a Grid) -->
-                    <article class="projeto-cartao">
+                    <article class="projeto-cartao revelar">
                         <div class="projeto-imagem">
                             <img src="Assets/Identidade Visual - Moda infantil.png" alt="Moda Infantil Case">
                         </div>
@@ -483,7 +492,7 @@
                     </article>
 
                     <!-- Projeto 5: 75% largura (Ajustando a Grid) -->
-                    <article class="projeto-cartao">
+                    <article class="projeto-cartao revelar">
                         <div class="projeto-imagem">
                             <img src="Assets/Identidade Visual - Moda Praia.png" alt="Moda praia">
                         </div>

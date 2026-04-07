@@ -5,6 +5,46 @@
 
 gsap.registerPlugin(ScrollTrigger, Flip);
 
+// --- Preloader Animation ---
+const preloader = document.querySelector('.preloader');
+const preloaderLogo = document.querySelector('.preloader-logo');
+const preloaderOverlay = document.querySelector('.preloader-overlay');
+
+const preloaderTL = gsap.timeline({
+    onComplete: () => {
+        preloader.style.display = 'none';
+        document.body.classList.remove('preloader-active');
+    }
+});
+
+preloaderTL
+    .set(preloaderLogo, {
+        x: -window.innerWidth * 0.5,
+        y: window.innerHeight * 0.5,
+        scale: 0.1,
+        opacity: 0,
+        filter: "blur(50px)"
+    })
+    .to(preloaderLogo, {
+        x: 0,
+        y: 0,
+        scale: 1,
+        opacity: 1,
+        filter: "blur(0px)",
+        duration: 1.5,
+        ease: "power3.out"
+    })
+    .to(preloaderLogo, {
+        scale: 30,
+        duration: 1.2,
+        ease: "power3.in"
+    }, "-=0.2")
+    .to(preloaderOverlay, {
+        opacity: 0,
+        duration: 0.8,
+        ease: "power2.in"
+    }, "-=1.2");
+
 // --- Lenis Smooth Scroll ---
 const lenis = new Lenis({
     duration: 1,
@@ -181,7 +221,7 @@ if (projetosSection) {
 
     gsap.to(projetosSection, {
         scale: 1,
-        ease: "ease-in",
+        ease: "ease-in-out",
         scrollTrigger: {
             trigger: projetosSection,
             start: "top bottom",
@@ -193,11 +233,11 @@ if (projetosSection) {
 
 // --- 3D Section Reveal Logic ---
 const sections = document.querySelectorAll('.revelar');
-sections.forEach(section => {
+sections.forEach((section, index) => {
     gsap.set(section, {
-        perspective: 1500,
-        rotateX: -10,
-        y: 80,
+        perspective: 2000,
+        rotateX: -50,
+        y: 100,
         opacity: 0,
         transformOrigin: "center top"
     });
@@ -206,12 +246,14 @@ sections.forEach(section => {
         trigger: section,
         start: "top 90%",
         onEnter: () => {
+            const delay = Math.min(index * 0.15, 0.8);
             gsap.to(section, {
                 rotateX: 0,
                 y: 0,
                 opacity: 1,
-                duration: 1.2,
-                ease: "power3.out"
+                duration: 2,
+                delay: delay,
+                ease: "power2.out"
             });
         },
         once: true

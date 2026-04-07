@@ -135,6 +135,60 @@ p {
     opacity: 0.8;
 }
 
+/* ============================================
+   PRELOADER
+   ============================================ */
+body.preloader-active {
+    overflow: hidden !important;
+}
+
+.preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg);
+    z-index: 9999;
+    overflow: hidden;
+}
+
+.preloader-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.preloader-logo-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.preloader-logo {
+    width: clamp(100px, 20vw, 200px);
+    height: auto;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.preloader-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg);
+    z-index: 1;
+}
+
 /* Prevenção de FOUC para o Hero Animado */
 .anima-gigante {
     opacity: 0;
@@ -146,6 +200,7 @@ p {
 .pagina-inicial-acao {
     opacity: 0;
     transform: translateY(30px);
+    filter: none
 }
 
 /* ============================================
@@ -186,6 +241,15 @@ p {
 .links-desktop a:hover {
     color: #fff;
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.link-nav .link-1::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    width: 10%;
+    height: 10%;
+    background-color: #0070FF;
 }
 
 .logo-img {
@@ -233,19 +297,24 @@ p {
 .btn-azul span {
     background: linear-gradient(135deg, #0070FF, #7000ff, #00f0ff);
     color: #fff;
-    padding: 0.75rem 1.75rem;
+    padding: 1rem 1.75rem;
     border-radius: 99rem;
-    font-weight: 600;
-    font-size: var(--fs-btn);
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
 }
 
+.main-cta,.btn-azul span {
+    min-width: 12rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
 /* ============================================
-   BOTÕES (btn-premium)
+   BOTÕES (Botão Snake)
    ============================================ */
+
 .btn-premium {
     position: relative;
     display: flex;
@@ -268,42 +337,36 @@ p {
 }
 
 /* camada interna */
-.btn-premium::after {
+.btn-premium::after{
+    --angle: 0deg;
     content: "";
     position: absolute;
-    inset: 2px;
-    border-radius: 4rem;
-    background: #0f0f0f;
+    inset: 0;
+    background-image: conic-gradient(from var(--angle), #0e1cda 10%, transparent 20%);
+    animation: spin 4s linear infinite;
+    padding: 3px;
+    z-index: -1;
 }
 
 /* borda animada */
 .btn-premium::before {
     content: "";
     position: absolute;
+    filter: blur(1.5rem);
+    opacity: .2;
     inset: 0;
-    filter: blur(2px);
-    background: conic-gradient(from 0deg,
-            transparent 0%,
-            rgba(124, 58, 237, 0.2) 70%,
-            #3a3ded 80%,
-            rgba(124, 58, 237, 0.2) 90%,
-            transparent 100%);
-    animation: spin 8s linear infinite;
+    background-color: #006eff6c;
 }
 
 @keyframes spin {
+    from {
+        --angle: 0deg;
+    }
     to {
-        transform: rotate(calc(360deg * 2));
+        --angle: 360deg;
     }
 }
 
-
-
-
-.btn-premium:hover::before {
-    opacity: 1;
-    animation-duration: s;
-}
 
 .btn-premium span {
     position: relative;
@@ -313,8 +376,6 @@ p {
     padding: 1.15rem 3.5rem;
     border-radius: 4rem;
     font-family: var(--font-heading);
-    font-weight: 500;
-    font-size: 1.05rem;
     width: 100%;
     height: 100%;
     display: flex;
@@ -324,8 +385,9 @@ p {
     transition: background 0.3s;
 }
 
-.btn-premium:hover span {
+.btn-premium:after:hover span {
     background: rgba(9, 9, 11, 0.85);
+    animation: spin 8s linear infinite;
 }
 
 .btn-premium.btn-inverted span {
@@ -353,16 +415,6 @@ p {
 
 .btn-premium.submit-btn::before {
     display: none !important;
-}
-
-@keyframes snake-rotate {
-    0% {
-        transform: translatex(-100%);
-    }
-
-    100% {
-        transform: translatex(100%);
-    }
 }
 
 /* ============================================
@@ -399,6 +451,12 @@ p {
     pointer-events: none;
 }
 
+.word-suck-wrapper {
+    display: inline-block;
+    position: relative;
+    color: #0070FF;
+}
+
 .pagina-inicial-sobreposicao {
     position: absolute;
     inset: 0;
@@ -418,6 +476,14 @@ p {
     width: 80%;
     margin: 0 auto;
     perspective: 500px;
+}
+
+.anima-escrita-bold {
+    background-image: linear-gradient(to right, #0070FF, #7000ff, #00f0ff);
+    -webkit-text-fill-color: beige;
+    padding: 0.2rem 0.5rem;
+    border-radius: .5rem;
+    font-weight: 600;
 }
 
 .pagina-inicial-subtitulo strong {
