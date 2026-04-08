@@ -342,7 +342,7 @@ const processoStepsWrapper = document.querySelector('.processo-steps');
 if (processoSection && processoStepsWrapper) {
     const processSteps = processoStepsWrapper.querySelectorAll('.processo-step');
     const isMobile = window.innerWidth < 768;
-    const stepWidth = isMobile ? window.innerWidth * 0.85 : 500;
+    const stepWidth = isMobile ? window.innerWidth * 0.85 - 32 : 500;
     const gap = isMobile ? 16 : 32;
     const viewportWidth = window.innerWidth;
     

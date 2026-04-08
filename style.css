@@ -3028,9 +3028,9 @@ p {
 
     .processo-step {
         flex: 0 0 85%;
-        width: 85%;
-        max-width: 85%;
-        padding: 1.25rem;
+        width: calc(85vw - 2rem);
+        max-width: calc(85vw - 2rem);
+        padding: 1rem;
     }
 
     .processo-timeline {
