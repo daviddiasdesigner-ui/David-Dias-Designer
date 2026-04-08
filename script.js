@@ -426,6 +426,7 @@ if (scrollTopBtn) {
 const prevBtn = document.getElementById('prev-testimonial');
 const nextBtn = document.getElementById('next-testimonial');
 const cards = document.querySelectorAll('.testimonial-card');
+const dots = document.querySelectorAll('.depoimentos-dots .dot');
 
 if (prevBtn && nextBtn && cards.length > 0) {
     let currentIndex = 0;
@@ -443,6 +444,14 @@ if (prevBtn && nextBtn && cards.length > 0) {
                 card.classList.remove('active');
             }
         });
+        
+        dots.forEach((dot, i) => {
+            if (i === currentIndex) {
+                dot.classList.add('active');
+            } else {
+                dot.classList.remove('active');
+            }
+        });
     }
     
     // Initialize first card as active
@@ -456,6 +465,14 @@ if (prevBtn && nextBtn && cards.length > 0) {
     nextBtn.addEventListener('click', () => {
         currentIndex = wrapIndex(currentIndex + 1);
         updateCards();
+    });
+    
+    // Dot click handlers
+    dots.forEach((dot) => {
+        dot.addEventListener('click', () => {
+            currentIndex = parseInt(dot.dataset.index);
+            updateCards();
+        });
     });
 }
 

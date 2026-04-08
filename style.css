@@ -140,7 +140,8 @@ p {
    ============================================ */
 
 :root {
-    --transition-speed: 4s; /* Velocidade da expansão */
+    --transition-speed: 4s;
+    /* Velocidade da expansão */
     --logo-size: clamp(150px, 20vw, 250px);
 }
 
@@ -150,14 +151,15 @@ p {
     left: 0;
     width: 100%;
     height: 100%;
-    background: #000; /* Cor sólida para esconder o site inicialmente */
+    background: #000;
+    /* Cor sólida para esconder o site inicialmente */
     z-index: 9999;
     display: flex;
     align-items: center;
     justify-content: center;
     /* Impede que o blend-mode do logo interaja com as camadas do preloader, 
        fazendo-o interagir com o que está FORA (o site) */
-    isolation: isolate; 
+    isolation: isolate;
     transition: background 0.5s ease;
 }
 
@@ -174,12 +176,14 @@ p {
 
 /* O Blend-mode aplicado APENAS ao logo quando a classe é disparada */
 .preloader.logo-blend .preloader-logo-wrapper {
-    mix-blend-mode: screen; /* Faz o branco do logo virar uma "janela" para o site */
+    mix-blend-mode: screen;
+    /* Faz o branco do logo virar uma "janela" para o site */
 }
 
 /* Expansão controlada */
 .preloader.logo-reveal .preloader-logo-wrapper {
-    transform: scale(50); /* Aumente se necessário para cobrir a tela */
+    transform: scale(50);
+    /* Aumente se necessário para cobrir a tela */
 }
 
 /* Quando a expansão começa, o fundo do preloader deve ficar transparente 
@@ -203,9 +207,20 @@ p {
 }
 
 @keyframes strokeAnimation {
-    0% { stroke-dashoffset: 4500; fill: transparent; }
-    80% { stroke-dashoffset: 0; fill: transparent; }
-    100% { stroke-dashoffset: 0; fill: #fff; }
+    0% {
+        stroke-dashoffset: 4500;
+        fill: transparent;
+    }
+
+    80% {
+        stroke-dashoffset: 0;
+        fill: transparent;
+    }
+
+    100% {
+        stroke-dashoffset: 0;
+        fill: #fff;
+    }
 }
 
 /* Scroll-driven animations using view() timeline */
@@ -219,6 +234,7 @@ p {
         opacity: 0;
         transform: translateY(200px) scale(0.9);
     }
+
     to {
         opacity: 1;
         transform: translateY(0) scale(1);
@@ -279,7 +295,7 @@ p {
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
-.link-nav .link-1::before{
+.link-nav .link-1::before {
     content: "";
     position: absolute;
     inset: 0;
@@ -341,7 +357,8 @@ p {
     gap: 0.5rem;
 }
 
-.main-cta,.btn-azul span {
+.main-cta,
+.btn-azul span {
     min-width: 12rem;
     font-size: 0.9rem;
     font-weight: 500;
@@ -373,7 +390,7 @@ p {
 }
 
 /* camada interna */
-.btn-premium::after{
+.btn-premium::after {
     --angle: 0deg;
     content: "";
     position: absolute;
@@ -398,6 +415,7 @@ p {
     from {
         --angle: 0deg;
     }
+
     to {
         --angle: 360deg;
     }
@@ -1401,35 +1419,28 @@ p {
 .depoimentos-embrulho {
     position: relative;
     max-width: 100%;
-    overflow: hidden;
+    overflow: visible;
     padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 2rem;
 }
 
-.depoimentos-trilha {
+.depoimentos-nav {
+    overflow: visible;
+    position: absolute;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 1.5rem;
-    padding: 2rem 0;
-    overflow: hidden;
-    width: 100%;
-    min-height: 250px;
-}
-
-.depoimentos-trilha::-webkit-scrollbar {
-    display: none;
+    gap: 40rem;
+    z-index: 100;
 }
 
 .depoimentos-btn-nav {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 100;
-    width: 3rem;
-    height: 3rem;
+    aspect-ratio: 1;
+    padding: .8rem;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -1441,61 +1452,93 @@ p {
     transition: all 0.3s ease;
 }
 
+
+.depoimentos-trilha::-webkit-scrollbar {
+    display: none;
+}
+
 .depoimentos-btn-nav:hover {
     background: rgba(255, 255, 255, 0.1);
     border-color: var(--cyan);
     color: var(--cyan);
 }
 
-.depoimentos-btn-nav.prev {
-    left: 1rem;
+.depoimentos-dots {
+    position: absolute;
+    bottom: -2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
 }
 
-.depoimentos-btn-nav.next {
-    right: 1rem;
+.depoimentos-dots .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.depoimentos-dots .dot:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+.depoimentos-dots .dot.active {
+    background: var(--cyan);
+    transform: scale(1.2);
 }
 
 /* ============================================
    DEPOIMENTOS - CSS SCROLL-DRIVEN (1 card per view)
    ============================================ */
-.depoimentos-trilha {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1.5rem;
-    padding: 2rem 0;
-    overflow: hidden;
-    width: 100%;
-    min-height: 300px;
-    scroll-snap-type: x mandatory;
-}
-
 @supports (animation-timeline: view()) {
-    .testimonial-card {
-        animation: testimonial-reveal linear both;
-        animation-timeline: --testimonial-view;
-        animation-range: entry 30% cover 60%;
-    }
-    
     .depoimentos-trilha {
         view-timeline-name: --testimonial-view;
         view-timeline-axis: inline;
     }
-    
-    .testimonial-card:nth-child(1) { --testimonial-view: --testimonial-1; }
-    .testimonial-card:nth-child(2) { --testimonial-view: --testimonial-2; }
-    .testimonial-card:nth-child(3) { --testimonial-view: --testimonial-3; }
-    .testimonial-card:nth-child(4) { --testimonial-view: --testimonial-4; }
-    .testimonial-card:nth-child(5) { --testimonial-view: --testimonial-5; }
-    .testimonial-card:nth-child(6) { --testimonial-view: --testimonial-6; }
-    .testimonial-card:nth-child(7) { --testimonial-view: --testimonial-7; }
-    .testimonial-card:nth-child(8) { --testimonial-view: --testimonial-8; }
-    
+
+    .testimonial-card:nth-child(1) {
+        --testimonial-view: --testimonial-1;
+    }
+
+    .testimonial-card:nth-child(2) {
+        --testimonial-view: --testimonial-2;
+    }
+
+    .testimonial-card:nth-child(3) {
+        --testimonial-view: --testimonial-3;
+    }
+
+    .testimonial-card:nth-child(4) {
+        --testimonial-view: --testimonial-4;
+    }
+
+    .testimonial-card:nth-child(5) {
+        --testimonial-view: --testimonial-5;
+    }
+
+    .testimonial-card:nth-child(6) {
+        --testimonial-view: --testimonial-6;
+    }
+
+    .testimonial-card:nth-child(7) {
+        --testimonial-view: --testimonial-7;
+    }
+
+    .testimonial-card:nth-child(8) {
+        --testimonial-view: --testimonial-8;
+    }
+
     @keyframes testimonial-reveal {
         from {
             opacity: 0;
             transform: translateX(50px) scale(0.9);
         }
+
         to {
             opacity: 1;
             transform: translateX(0) scale(1);
@@ -1505,8 +1548,7 @@ p {
 
 .testimonial-card {
     flex: 0 0 auto;
-    width: 100%;
-    max-width: 600px;
+    width: clamp(280px, 80vw, 600px);
     min-height: 280px;
     background: rgba(255, 255, 255, 0.02);
     border: 1px solid rgba(255, 255, 255, 0.05);
@@ -1514,7 +1556,9 @@ p {
     border-radius: 1.5rem;
     display: none;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     scroll-snap-align: center;
 }
@@ -1529,6 +1573,7 @@ p {
         opacity: 0;
         transform: translateX(30px) scale(0.95);
     }
+
     to {
         opacity: 1;
         transform: translateX(0) scale(1);
@@ -1555,6 +1600,7 @@ p {
 }
 
 .testimonial-author {
+    gap: .5rem;
     display: flex;
     flex-direction: column;
 }
@@ -1610,59 +1656,37 @@ p {
 }
 
 .processo-container {
-    position: relative;
     display: flex;
-    max-width: 70rem;
+    max-width: 100%;
     margin: 5rem auto 0;
-    padding-left: 4rem;
-    min-height: 200px;
 }
 
 .processo-steps {
-    position: relative;
     display: flex;
-    flex-direction: column;
-    gap: 4rem;
-    padding-left: 2rem;
+    gap: 2rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 2rem 1rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
 }
 
-.processo-vertical-line {
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    z-index: 1;
-}
-
-.line-bg {
-    position: absolute;
-    inset: 0;
-    background: rgba(255, 255, 255, 0.1);
-    z-index: 1;
-}
-
-.line-progress {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 0%;
-    background: linear-gradient(to bottom, var(--cyan), var(--purple));
-    box-shadow: 0 0 15px var(--cyan);
-    z-index: 2;
+.processo-steps::-webkit-scrollbar {
+    display: none;
 }
 
 .processo-step {
-    position: relative;
+    flex: 0 0 auto;
+    width: clamp(280px, 70vw, 400px);
     display: flex;
-    gap: 3rem;
-    align-items: flex-start;
-    padding: 1.5rem;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 2rem;
     border-radius: 1rem;
-    border: 2px solid transparent;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.02);
     transition: all 0.4s ease;
+    scroll-snap-align: center;
 }
 
 .processo-step.active {
@@ -1671,31 +1695,21 @@ p {
     box-shadow: 0 0 30px rgba(58, 81, 255, 0.15);
 }
 
-.processo-step.active .processo-content .processo-text,
 .processo-step.active .step-tag,
 .processo-step.active .step-title,
 .processo-step.active .step-desc {
     color: #111;
 }
 
-.processo-marker-container {
-    position: absolute;
-    left: -4rem;
-    width: 4rem;
-    display: flex;
-    justify-content: center;
-}
-
 .processo-marker {
-    width: 2rem;
-    height: 2rem;
+    width: 2.5rem;
+    height: 2.5rem;
     background: #111;
     border: 2px solid rgba(255, 255, 255, 0.1);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 5;
     transition: all 0.4s ease;
 }
 
@@ -1715,19 +1729,6 @@ p {
 
 .processo-step.active .marker-number {
     color: #fff;
-}
-
-.processo-content {
-    flex: 1;
-    display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
-    gap: 2.5rem;
-    padding: 3rem;
-    transition: all 0.5s ease;
-}
-
-.processo-step.active .processo-content {
-    transform: translateX(10px);
 }
 
 .step-tag {
@@ -1800,37 +1801,43 @@ p {
         animation-timeline: --step-view;
         animation-range: entry 25% cover 50%;
     }
-    
-    .processo-step[data-step="1"] { --step-view: --step-1; }
-    .processo-step[data-step="2"] { --step-view: --step-2; }
-    .processo-step[data-step="3"] { --step-view: --step-3; }
-    .processo-step[data-step="4"] { --step-view: --step-4; }
+
+    .processo-step[data-step="1"] {
+        --step-view: --step-1;
+    }
+
+    .processo-step[data-step="2"] {
+        --step-view: --step-2;
+    }
+
+    .processo-step[data-step="3"] {
+        --step-view: --step-3;
+    }
+
+    .processo-step[data-step="4"] {
+        --step-view: --step-4;
+    }
 
     @keyframes step-reveal {
         from {
             opacity: 0;
             transform: translateY(40px) scale(0.95);
         }
+
         to {
             opacity: 1;
             transform: translateY(0) scale(1);
         }
     }
 
-    .processo-vertical-line .line-progress {
-        animation: line-grow linear both;
-        animation-timeline: --process-line;
-        animation-range: entry 90%;
-    }
-
-    .processo-container {
-        view-timeline-name: --process-line;
-        view-timeline-axis: block;
-    }
-
     @keyframes line-grow {
-        from { height: 0%; }
-        to { height: 100%; }
+        from {
+            height: 0%;
+        }
+
+        to {
+            height: 100%;
+        }
     }
 }
 
@@ -1839,15 +1846,11 @@ p {
         opacity: 0;
         transform: translateY(30px);
     }
-    
+
     .processo-step.active {
         opacity: 1;
         transform: translateY(0);
         transition: all 0.6s ease-out;
-    }
-    
-    .processo-vertical-line .line-progress {
-        height: 0%;
     }
 }
 
@@ -2092,18 +2095,33 @@ p {
         animation-timeline: --faq-item-view;
         animation-range: entry 20% cover 50%;
     }
-    
-    .pergunta-item:nth-child(1) { --faq-item-view: --faq-1; }
-    .pergunta-item:nth-child(2) { --faq-item-view: --faq-2; }
-    .pergunta-item:nth-child(3) { --faq-item-view: --faq-3; }
-    .pergunta-item:nth-child(4) { --faq-item-view: --faq-4; }
-    .pergunta-item:nth-child(5) { --faq-item-view: --faq-5; }
-    
+
+    .pergunta-item:nth-child(1) {
+        --faq-item-view: --faq-1;
+    }
+
+    .pergunta-item:nth-child(2) {
+        --faq-item-view: --faq-2;
+    }
+
+    .pergunta-item:nth-child(3) {
+        --faq-item-view: --faq-3;
+    }
+
+    .pergunta-item:nth-child(4) {
+        --faq-item-view: --faq-4;
+    }
+
+    .pergunta-item:nth-child(5) {
+        --faq-item-view: --faq-5;
+    }
+
     @keyframes item-fade-in {
         from {
             opacity: 0;
             transform: translateY(20px);
         }
+
         to {
             opacity: 1;
             transform: translateY(0);
@@ -2899,8 +2917,7 @@ p {
     }
 
     .testimonial-card {
-        width: 100%;
-        max-width: 90vw;
+        width: clamp(280px, 90vw, 600px);
         min-height: 220px;
         padding: 1.5rem;
     }
@@ -2919,29 +2936,17 @@ p {
         font-size: 0.72rem;
     }
 
+    .depoimentos-nav {
+        gap: 1rem;
+    }
+
     .depoimentos-btn-nav {
         width: 2.5rem;
         height: 2.5rem;
     }
 
-    .depoimentos-btn-nav.prev {
-        left: 0.5rem;
-    }
-
-    .depoimentos-btn-nav.next {
-        right: 0.5rem;
-    }
-
     .depoimentos-trilha {
         scroll-snap-type: x mandatory;
-    }
-
-    .testimonial-card {
-        width: 100%;
-        max-width: 90vw;
-        min-height: 220px;
-        padding: 1.5rem;
-        scroll-snap-align: center;
     }
 
     /* --- Process Section Mobile --- */
@@ -2967,28 +2972,18 @@ p {
         gap: 2rem;
     }
 
-    .processo-vertical-line {
-        left: 0;
-    }
-
-    .processo-marker-container {
-        left: -2rem;
-        width: 2rem;
+    .processo-step {
+        width: clamp(260px, 85vw, 320px);
+        padding: 1.5rem;
     }
 
     .processo-marker {
-        width: 1.5rem;
-        height: 1.5rem;
+        width: 2rem;
+        height: 2rem;
     }
 
     .marker-number {
-        font-size: 0.55rem;
-    }
-
-    .processo-content {
-        grid-template-columns: 1fr;
-        padding: 1.5rem;
-        gap: 1rem;
+        font-size: 0.65rem;
     }
 
     .step-title {
