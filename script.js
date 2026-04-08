@@ -5,45 +5,39 @@
 
 gsap.registerPlugin(ScrollTrigger, Flip);
 
-// --- Preloader Animation ---
-const preloader = document.querySelector('.preloader');
-const preloaderLogo = document.querySelector('.preloader-logo');
-const preloaderOverlay = document.querySelector('.preloader-overlay');
+// --- Preloader Animation (CSS-based only) ---
+window.addEventListener('load', () => {
+    const preloader = document.querySelector('.preloader');
+    
+    // Timeline da animação
+    
+    // Passo 1: O desenho do SVG termina (3s de animação no CSS)
+    setTimeout(() => {
+        
+        // Passo 2: Aplica o Blend Mode suavemente
+        preloader.classList.add('logo-blend');
+        console.log("Blend aplicado");
 
-const preloaderTL = gsap.timeline({
-    onComplete: () => {
-        preloader.style.display = 'none';
-        document.body.classList.remove('preloader-active');
-    }
+        // Pequeno intervalo para o olho humano perceber o blend antes da explosão
+        setTimeout(() => {
+            
+            // Passo 3: Inicia a expansão (Reveal)
+            // Aqui o fundo do preloader fica transparente e o logo cresce
+            preloader.classList.add('logo-reveal');
+            console.log("Iniciando expansão");
+
+            // Libera o scroll um pouco antes de terminar para melhorar o UX
+            document.body.classList.remove('preloader-active');
+
+            // Passo 4: Limpeza final (opcional)
+            setTimeout(() => {
+                preloader.style.display = 'none';
+            }, 7000); // Deve bater com a --transition-speed do CSS
+
+        }, 1000); // Pausa dramática com o blend ativado
+
+    }, 7000); // Tempo do desenho (3s) + pequena margem
 });
-
-preloaderTL
-    .set(preloaderLogo, {
-        x: -window.innerWidth * 0.5,
-        y: window.innerHeight * 0.5,
-        scale: 0.1,
-        opacity: 0,
-        filter: "blur(50px)"
-    })
-    .to(preloaderLogo, {
-        x: 0,
-        y: 0,
-        scale: 1,
-        opacity: 1,
-        filter: "blur(0px)",
-        duration: 1.5,
-        ease: "power3.out"
-    })
-    .to(preloaderLogo, {
-        scale: 30,
-        duration: 1.2,
-        ease: "power3.in"
-    }, "-=0.2")
-    .to(preloaderOverlay, {
-        opacity: 0,
-        duration: 0.8,
-        ease: "power2.in"
-    }, "-=1.2");
 
 // --- Lenis Smooth Scroll ---
 const lenis = new Lenis({
