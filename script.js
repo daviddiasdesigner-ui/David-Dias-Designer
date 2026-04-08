@@ -335,15 +335,82 @@ categoryBtns.forEach(btn => {
     });
 });
 
-// --- Process Scroll Animation (CSS-driven) ---
-const processSteps = document.querySelectorAll('.processo-step');
+// --- Process Horizontal Scroll (GSAP) ---
+const processoSection = document.querySelector('.processo');
+const processoStepsWrapper = document.querySelector('.processo-steps');
 
-processSteps.forEach((step) => {
-    step.addEventListener('click', () => {
-        processSteps.forEach(s => s.classList.remove('active'));
-        step.classList.add('active');
+if (processoSection && processoStepsWrapper) {
+    const processSteps = processoStepsWrapper.querySelectorAll('.processo-step');
+    const isMobile = window.innerWidth < 768;
+    const stepWidth = isMobile ? window.innerWidth * 0.85 : 500;
+    const gap = isMobile ? 16 : 32;
+    const viewportWidth = window.innerWidth;
+    
+    const movementPerStep = stepWidth + gap;
+    let totalMovement;
+    
+    if (isMobile) {
+        totalMovement = movementPerStep * (processSteps.length - 1) - (viewportWidth - stepWidth);
+    } else {
+        totalMovement = movementPerStep * (processSteps.length - 1) - (viewportWidth - stepWidth) / 2;
+    }
+    
+    gsap.to(processoStepsWrapper, {
+        x: -totalMovement,
+        ease: "none",
+        scrollTrigger: {
+            trigger: processoSection,
+            start: "top top",
+            end: "+=" + totalMovement,
+            pin: true,
+            scrub: 1,
+            invalidateOnRefresh: true
+        }
     });
-});
+    
+    gsap.to('.timeline-line-progress', {
+        width: '100%',
+        ease: "none",
+        scrollTrigger: {
+            trigger: processoSection,
+            start: "top top",
+            end: "+=" + totalMovement,
+            scrub: 1
+        }
+    });
+    
+    const processDots = document.querySelectorAll('.process-dot');
+    const timelineProgress = document.querySelector('.timeline-line-progress');
+    
+    ScrollTrigger.create({
+        trigger: processoSection,
+        start: "top top",
+        end: "+=" + totalMovement,
+        onUpdate: (self) => {
+            const progressWidth = timelineProgress.offsetWidth;
+            const totalWidth = timelineProgress.parentElement.offsetWidth;
+            const progressPercent = totalWidth > 0 ? (progressWidth / totalWidth) * 100 : 0;
+            
+            processDots.forEach((dot, i) => {
+                const dotPosition = 15 + (70 / (processDots.length - 1)) * i;
+                if (progressPercent >= dotPosition) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+            
+            processSteps.forEach((step, i) => {
+                const stepPosition = 15 + (70 / (processSteps.length - 1)) * i;
+                if (progressPercent >= stepPosition) {
+                    step.classList.add('active');
+                } else {
+                    step.classList.remove('active');
+                }
+            });
+        }
+    });
+}
 
 
 // --- projects Staggered Reveal (Orbix Style) ---
