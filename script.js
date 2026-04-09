@@ -210,7 +210,7 @@ if (projetosSection) {
     gsap.set(projetosSection, {
         transformOrigin: "center center",
         perspective: 1500,
-        scale: 0.9
+        scale: 0.8
     });
 
     gsap.to(projetosSection, {
@@ -341,74 +341,100 @@ const processoStepsWrapper = document.querySelector('.processo-steps');
 
 if (processoSection && processoStepsWrapper) {
     const processSteps = processoStepsWrapper.querySelectorAll('.processo-step');
-    const isMobile = window.innerWidth < 768;
-    const stepWidth = isMobile ? window.innerWidth * 0.85 - 32 : 500;
-    const gap = isMobile ? 16 : 32;
-    const viewportWidth = window.innerWidth;
     
-    const movementPerStep = stepWidth + gap;
-    let totalMovement;
-    
-    if (isMobile) {
-        totalMovement = movementPerStep * (processSteps.length - 1) - (viewportWidth - stepWidth);
-    } else {
-        totalMovement = movementPerStep * (processSteps.length - 1) - (viewportWidth - stepWidth) / 2;
+    function initProcessScroll() {
+        const isMobile = window.innerWidth < 768;
+        const stepWidth = isMobile ? window.innerWidth * 0.85 : 320;
+        const gap = isMobile ? 16 : 32;
+        const numSteps = processSteps.length;
+        
+        const totalWidth = (stepWidth * numSteps) + (gap * (numSteps - 1));
+        const totalMovement = totalWidth - stepWidth;
+
+        ScrollTrigger.getAll().forEach(t => {
+            if (t.vars.id === 'processScroll') t.kill();
+        });
+
+        const processDots = document.querySelectorAll('.process-dot');
+
+        // Usa uma única Timeline para garantir que tudo (cards, linha, e dots)
+        // se mantenha 100% sincronizado durante o scroll.
+        // E usamos 'scrub: true' para parear exatamente com a fluidez do Lenis
+        // sem causar lag extra nas animações visuais!
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                id: 'processScroll',
+                trigger: '.processo-container',
+                pin: processoSection,
+                start: "top 20%",
+                end: () => "+=" + (totalMovement + 500),
+                scrub: true,
+                onUpdate: () => {
+                    const progressLine = document.querySelector('.timeline-line-progress');
+                    if (!progressLine) return;
+                    
+                    const progressRect = progressLine.getBoundingClientRect();
+                    const lineRight = progressRect.right;
+                    
+                    processDots.forEach((dot) => {
+                        const dotRect = dot.getBoundingClientRect();
+                        const dotCenter = dotRect.left + (dotRect.width / 2);
+                        
+                        // O cálculo agora é 100% baseado na renderização física (a ponta da linha tocou a bolinha visualmente?)
+                        // E só permite ligar se a linha realmente já começou a crescer (> 5px de largura).
+                        if (progressRect.width > 5 && lineRight >= (dotCenter - 4)) {
+                            dot.classList.add('active');
+                        } else {
+                            dot.classList.remove('active');
+                        }
+                    });
+                    
+                    const screenCenter = window.innerWidth / 2;
+                    processSteps.forEach((step) => {
+                        const stepRect = step.getBoundingClientRect();
+                        const stepCenter = stepRect.left + (stepRect.width / 2);
+                        
+                        // Verifica se o centro do card está fisicamente perto do centro da janela do navegador.
+                        // Multiplicar a largura por 0.6 cria o ponto exato de suavização (crossfade) no eixo cruzado.
+                        const threshold = stepRect.width * 0.6;
+                        const distance = Math.abs(screenCenter - stepCenter);
+                        
+                        // Card ganha opacidade e escala APENAS se estiver posicionado de forma focada no centro em renderização
+                        // (E se a barra de scroll tiver começado)
+                        if (distance <= threshold && progressRect.width > 5) {
+                            step.classList.add('active');
+                        } else {
+                            step.classList.remove('active');
+                        }
+                    });
+                }
+            }
+        });
+
+        // Adiciona as duas animações na MESMA timeline
+        tl.to(processoStepsWrapper, {
+            x: -totalMovement,
+            ease: "none"
+        }, 0);
+
+        // AQUI FOI CORRIGIDO O "DELAY":
+        // A linha crescia até 100vw, ultrapassando a visualização.
+        // Agora, ela cresce exatamente '70vw', acompanhando milimetricamente as bolinhas.
+        tl.to('.timeline-line-progress', {
+            width: '70vw',
+            ease: "none"
+        }, 0);
     }
+
+    initProcessScroll();
     
-    gsap.to(processoStepsWrapper, {
-        x: -totalMovement,
-        ease: "none",
-        scrollTrigger: {
-            trigger: processoSection,
-            start: "top top",
-            end: "+=" + totalMovement,
-            pin: true,
-            scrub: 1,
-            invalidateOnRefresh: true
-        }
-    });
-    
-    gsap.to('.timeline-line-progress', {
-        width: '100%',
-        ease: "none",
-        scrollTrigger: {
-            trigger: processoSection,
-            start: "top top",
-            end: "+=" + totalMovement,
-            scrub: 1
-        }
-    });
-    
-    const processDots = document.querySelectorAll('.process-dot');
-    const timelineProgress = document.querySelector('.timeline-line-progress');
-    
-    ScrollTrigger.create({
-        trigger: processoSection,
-        start: "top top",
-        end: "+=" + totalMovement,
-        onUpdate: (self) => {
-            const progressWidth = timelineProgress.offsetWidth;
-            const totalWidth = timelineProgress.parentElement.offsetWidth;
-            const progressPercent = totalWidth > 0 ? (progressWidth / totalWidth) * 100 : 0;
-            
-            processDots.forEach((dot, i) => {
-                const dotPosition = 15 + (70 / (processDots.length - 1)) * i;
-                if (progressPercent >= dotPosition) {
-                    dot.classList.add('active');
-                } else {
-                    dot.classList.remove('active');
-                }
-            });
-            
-            processSteps.forEach((step, i) => {
-                const stepPosition = 15 + (70 / (processSteps.length - 1)) * i;
-                if (progressPercent >= stepPosition) {
-                    step.classList.add('active');
-                } else {
-                    step.classList.remove('active');
-                }
-            });
-        }
+    let timeout;
+    window.addEventListener('resize', () => {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            gsap.set(processoStepsWrapper, { clearProps: 'all' });
+            initProcessScroll();
+        }, 200);
     });
 }
 
