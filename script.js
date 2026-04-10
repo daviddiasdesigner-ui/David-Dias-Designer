@@ -55,6 +55,56 @@ requestAnimationFrame(raf);
 lenis.on('scroll', ScrollTrigger.update);
 gsap.ticker.add((time) => lenis.raf(time * 1000));
 
+// --- Navbar Hide/Show Logic ---
+let lastScrollY = 0;
+const desktopNav = document.querySelector('.navegacao');
+const mobileNav = document.querySelector('.cabecalho-mobile');
+let isNavHidden = false;
+
+lenis.on('scroll', (e) => {
+    if (isMenuOpen) return;
+
+    const currentScrollY = e.scroll;
+    const diff = currentScrollY - lastScrollY;
+    
+    if (currentScrollY > 50) {
+        if (diff > 10 && !isNavHidden) {
+            // Rolando para baixo rápido -> Esconde
+            isNavHidden = true;
+            gsap.to([desktopNav, mobileNav], {
+                y: -150,
+                autoAlpha: 0,
+                duration: 0.4,
+                ease: "power2.inOut",
+                overwrite: true
+            });
+        } else if (diff < -10 && isNavHidden) {
+            // Rolando para cima -> Mostra
+            isNavHidden = false;
+            gsap.to([desktopNav, mobileNav], {
+                y: 0,
+                autoAlpha: 1,
+                duration: 0.4,
+                ease: "power2.out",
+                overwrite: true
+            });
+        }
+    } else {
+        if (isNavHidden) {
+            isNavHidden = false;
+            gsap.to([desktopNav, mobileNav], {
+                y: 0,
+                autoAlpha: 1,
+                duration: 0.4,
+                ease: "power2.out",
+                overwrite: true
+            });
+        }
+    }
+    
+    lastScrollY = currentScrollY;
+});
+
 // --- Menu Mobile ---
 const menuToggle = document.getElementById('menu-toggle');
 const menuOverlay = document.getElementById('menu-overlay');
@@ -445,7 +495,7 @@ const projectCards = document.querySelectorAll('.projeto-cartao');
 
 if (projectsGrid && projectCards.length > 0) {
     gsap.fromTo(projectCards, 
-        { y: 60, opacity: 0, scale: 0.95 },
+        { y: 20, opacity: 0, scale: 0.95 },
         {
             y: 0,
             opacity: 1,
